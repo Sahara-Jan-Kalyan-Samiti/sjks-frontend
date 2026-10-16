@@ -5,7 +5,11 @@ import { hi } from "./hi";
 import { startDomTranslate, type DomTranslator } from "./domTranslate";
 
 export type Lang = "en" | "hi";
-interface Ctx { lang: Lang; setLang: (l: Lang) => void; t: (en: string) => string }
+interface Ctx {
+  lang: Lang;
+  setLang: (l: Lang) => void;
+  t: (en: string) => string;
+}
 const LangCtx = createContext<Ctx>({ lang: "en", setLang: () => {}, t: (s) => s });
 
 /**
@@ -17,10 +21,22 @@ export function LangProvider({ children }: { children: ReactNode }) {
   // English on the server and for the first render in the browser; a saved Hindi choice is applied right after (keeps hydration exact)
   const [lang, setLangState] = useState<Lang>("en");
   useEffect(() => {
-    try { if (localStorage.getItem("lang") === "hi") setLangState("hi"); } catch { /* storage blocked: stay in English */ }
+    try {
+      if (localStorage.getItem("lang") === "hi") setLangState("hi");
+    } catch {
+      /* storage blocked: stay in English */
+    }
   }, []);
-  const setLang = (l: Lang) => { setLangState(l); try { localStorage.setItem("lang", l); } catch { /* ignore */ } };
-  const langRef = useRef(lang); langRef.current = lang;
+  const setLang = (l: Lang) => {
+    setLangState(l);
+    try {
+      localStorage.setItem("lang", l);
+    } catch {
+      /* ignore */
+    }
+  };
+  const langRef = useRef(lang);
+  langRef.current = lang;
   const dom = useRef<DomTranslator | null>(null);
   const loaded = useRef(false);
   useEffect(() => {
@@ -30,10 +46,13 @@ export function LangProvider({ children }: { children: ReactNode }) {
     if (lang === "hi" && !loaded.current) {
       loaded.current = true;
       Promise.all([import("./hi.site"), import("./hi.messages")])
-        .then(([a, b]) => dom.current?.add({ ...a.hiSite, ...b.hiMessages })).catch(() => { loaded.current = false; });
+        .then(([a, b]) => dom.current?.add({ ...a.hiSite, ...b.hiMessages }))
+        .catch(() => {
+          loaded.current = false;
+        });
     }
   }, [lang]);
-  const t = (en: string) => (lang === "hi" ? hi[en] ?? en : en);
+  const t = (en: string) => (lang === "hi" ? (hi[en] ?? en) : en);
   return <LangCtx.Provider value={{ lang, setLang, t }}>{children}</LangCtx.Provider>;
 }
 export const useLang = () => useContext(LangCtx);

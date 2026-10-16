@@ -14,7 +14,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = (await fetchPublishedPosts())?.find((p) => p.slug === params.slug);
   // when the database cannot be reached the page still opens: the browser loads the post itself
   if (!post) return buildMetadata({ title: "Blog", description: FALLBACK, path: `/blog/${params.slug}` });
-  return buildMetadata({ title: post.title, description: post.excerpt || FALLBACK, path: `/blog/${post.slug}`, image: safeUrl(post.cover_url) ?? undefined, type: "article" });
+  return buildMetadata({
+    title: post.title,
+    description: post.excerpt || FALLBACK,
+    path: `/blog/${post.slug}`,
+    image: safeUrl(post.cover_url) ?? undefined,
+    type: "article"
+  });
 }
 
 export default async function BlogPostPage({ params }: Props) {

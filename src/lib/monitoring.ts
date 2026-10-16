@@ -12,5 +12,9 @@ export function reportError(error: unknown) {
     Sentry.init({ dsn: env.sentryDsn, environment: process.env.NODE_ENV, tracesSampleRate: 0 });
     return Sentry;
   });
-  ready.then((Sentry) => Sentry.captureException(error)).catch(() => { /* reporting must never break the page */ });
+  ready
+    .then((Sentry) => Sentry.captureException(error))
+    .catch(() => {
+      /* reporting must never break the page */
+    });
 }

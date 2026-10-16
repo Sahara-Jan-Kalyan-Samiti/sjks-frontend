@@ -6,8 +6,19 @@ export function useInView<T extends HTMLElement>(threshold = 0.15) {
   useEffect(() => {
     const el = ref.current;
     if (!el || seen) return;
-    if (typeof IntersectionObserver === "undefined") { setSeen(true); return; }
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setSeen(true); io.disconnect(); } }, { threshold });
+    if (typeof IntersectionObserver === "undefined") {
+      setSeen(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setSeen(true);
+          io.disconnect();
+        }
+      },
+      { threshold }
+    );
     io.observe(el);
     return () => io.disconnect();
   }, [seen, threshold]);

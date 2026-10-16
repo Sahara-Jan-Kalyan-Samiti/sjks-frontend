@@ -13,10 +13,18 @@ const ease = (p: number) => p * p * (3 - 2 * p); // gentle at both ends, so the 
 export default function CornerRibbons() {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const box = ref.current, section = box?.parentElement;
+    const box = ref.current,
+      section = box?.parentElement;
     if (!box || !section) return;
-    const draw = (group: string, p: number) => box.querySelectorAll<SVGPathElement>(`[data-ribbon="${group}"]`).forEach((path) => { path.style.strokeDashoffset = String(1 - p); });
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { draw("top", 1); draw("bottom", 1); return; }
+    const draw = (group: string, p: number) =>
+      box.querySelectorAll<SVGPathElement>(`[data-ribbon="${group}"]`).forEach((path) => {
+        path.style.strokeDashoffset = String(1 - p);
+      });
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      draw("top", 1);
+      draw("bottom", 1);
+      return;
+    }
     let frame = 0;
     const update = () => {
       frame = 0;
@@ -26,19 +34,47 @@ export default function CornerRibbons() {
       draw("top", ease(clamp(p / 0.85)));
       draw("bottom", ease(clamp((p - 0.45) / 0.55))); // the bottom corner comes into view later
     };
-    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
-    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); if (frame) cancelAnimationFrame(frame); };
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   // each ribbon: a soft shadow, the white band, and a thin sky-blue line running beside it
   const ribbon = (group: string, d: string, lineShift: string) => (
     <>
-      <path data-ribbon={group} d={d} pathLength={1} strokeDasharray={1} strokeDashoffset={1} fill="none" stroke="#061a36" strokeOpacity=".22" strokeWidth="52" transform="translate(0 8)" />
+      <path
+        data-ribbon={group}
+        d={d}
+        pathLength={1}
+        strokeDasharray={1}
+        strokeDashoffset={1}
+        fill="none"
+        stroke="#061a36"
+        strokeOpacity=".22"
+        strokeWidth="52"
+        transform="translate(0 8)"
+      />
       <path data-ribbon={group} d={d} pathLength={1} strokeDasharray={1} strokeDashoffset={1} fill="none" stroke="#fff" strokeWidth="46" />
-      <path data-ribbon={group} d={d} pathLength={1} strokeDasharray={1} strokeDashoffset={1} fill="none" stroke="#7dd3fc" strokeOpacity=".75" strokeWidth="4" transform={`translate(${lineShift})`} />
+      <path
+        data-ribbon={group}
+        d={d}
+        pathLength={1}
+        strokeDasharray={1}
+        strokeDashoffset={1}
+        fill="none"
+        stroke="#7dd3fc"
+        strokeOpacity=".75"
+        strokeWidth="4"
+        transform={`translate(${lineShift})`}
+      />
     </>
   );
   return (

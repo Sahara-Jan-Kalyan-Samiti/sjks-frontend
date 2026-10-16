@@ -17,7 +17,14 @@ export const metadata: Metadata = {
   description,
   applicationName: site.name,
   icons: { icon: "/favicon.svg" },
-  openGraph: { type: "website", siteName: site.name, locale: "en_IN", title: site.name, description, images: [{ url: DEFAULT_SHARE_IMAGE }] },
+  openGraph: {
+    type: "website",
+    siteName: site.name,
+    locale: "en_IN",
+    title: site.name,
+    description,
+    images: [{ url: DEFAULT_SHARE_IMAGE }]
+  },
   twitter: { card: "summary_large_image", title: site.name, description, images: [DEFAULT_SHARE_IMAGE] },
   robots: { index: true, follow: true }
 };
@@ -33,7 +40,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <AppProviders>
           <SiteShell>{children}</SiteShell>
         </AppProviders>
-        {env.plausibleDomain && <Script defer data-domain={env.plausibleDomain} src="https://plausible.io/js/script.js" strategy="afterInteractive" />}
+        {env.plausibleDomain && (
+          <Script defer data-domain={env.plausibleDomain} src="https://plausible.io/js/script.js" strategy="afterInteractive" />
+        )}
       </body>
     </html>
   );

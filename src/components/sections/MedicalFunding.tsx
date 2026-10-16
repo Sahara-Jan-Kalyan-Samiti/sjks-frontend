@@ -13,15 +13,25 @@ function Group({ title, empty, rows }: { title: string; empty: string; rows: Fun
     <div>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h3 className="font-serif text-xl font-bold sm:text-2xl">{title}</h3>
-        {total > 0 && <p className="text-sm font-semibold text-brand-dark"><span>Total</span> {rupees(total)}</p>}
+        {total > 0 && (
+          <p className="text-sm font-semibold text-brand-dark">
+            <span>Total</span> {rupees(total)}
+          </p>
+        )}
       </div>
-      {rows.length === 0 ? <p className="mt-4 rounded-2xl border border-dashed p-5 text-sm text-ink/60">{empty}</p> : (
+      {rows.length === 0 ? (
+        <p className="mt-4 rounded-2xl border border-dashed p-5 text-sm text-ink/60">{empty}</p>
+      ) : (
         <ul className="mt-4 divide-y divide-ink/10 overflow-hidden rounded-2xl border border-ink/10 bg-white shadow-sm">
           {rows.map((r) => (
             <li key={r.id} className="flex flex-col gap-2 p-5 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
               <div className="min-w-0">
                 <p className="font-semibold text-ink">{r.name}</p>
-                {(r.location || r.period) && <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-ink/45">{[r.location, r.period].filter(Boolean).join(" · ")}</p>}
+                {(r.location || r.period) && (
+                  <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-ink/45">
+                    {[r.location, r.period].filter(Boolean).join(" · ")}
+                  </p>
+                )}
                 {r.purpose && <p className="mt-1.5 text-sm leading-relaxed text-ink/70">{r.purpose}</p>}
               </div>
               {r.amount > 0 && (
@@ -42,10 +52,14 @@ function Group({ title, empty, rows }: { title: string; empty: string; rows: Fun
 export default function MedicalFunding() {
   const c = usePageText();
   const all = useMedicalFundings();
-  const hospitals = all.filter((r) => r.kind === "hospital"), facilities = all.filter((r) => r.kind === "facility");
+  const hospitals = all.filter((r) => r.kind === "hospital"),
+    facilities = all.filter((r) => r.kind === "facility");
   const total = sum(all);
-  const tiles: [string, string][] = [...(total > 0 ? [[rupees(total), "Total funds donated"] as [string, string]] : []),
-    [String(hospitals.length), "Hospitals funded"], [String(facilities.length), "Medical facilities"]];
+  const tiles: [string, string][] = [
+    ...(total > 0 ? [[rupees(total), "Total funds donated"] as [string, string]] : []),
+    [String(hospitals.length), "Hospitals funded"],
+    [String(facilities.length), "Medical facilities"]
+  ];
   return (
     <section id="funding" className="bg-slate-50 py-16">
       <div className="container-site">

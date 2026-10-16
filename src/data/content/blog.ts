@@ -4,8 +4,17 @@
  * (supabase/migrations/20250121000000_blog_posts.sql). Its photos: public/assets/images/gallery/education/.
  */
 export interface BlogPost {
-  id?: number; slug: string; title: string; category: string; author: string; excerpt: string; body: string;
-  cover_url?: string | null; photo_url?: string | null; photo_caption?: string; published_on: string;
+  id?: number;
+  slug: string;
+  title: string;
+  category: string;
+  author: string;
+  excerpt: string;
+  body: string;
+  cover_url?: string | null;
+  photo_url?: string | null;
+  photo_caption?: string;
+  published_on: string;
 }
 
 /** The groups offered in the admin form (another one can be typed in). */
@@ -15,8 +24,11 @@ export const defaultPosts: BlogPost[] = [
   {
     slug: "a-mat-a-slate-and-a-second-chance",
     title: "A Mat, a Slate and a Second Chance: An Evening at a Sahara Learning Centre",
-    category: "Education", author: "Sahara Team", published_on: "2026-10-06",
-    excerpt: "When the school day ends, the learning starts again on a plastic mat in a brick-walled room. A look inside the free evening centres that help children in Sagar keep up, and stay in school.",
+    category: "Education",
+    author: "Sahara Team",
+    published_on: "2026-10-06",
+    excerpt:
+      "When the school day ends, the learning starts again on a plastic mat in a brick-walled room. A look inside the free evening centres that help children in Sagar keep up, and stay in school.",
     cover_url: "/assets/images/gallery/education/children-studying-centre.jpg",
     photo_url: "/assets/images/gallery/education/children-learning-kits.jpg",
     photo_caption: "Slates, picture books and school bags: children at one of our learning sessions.",
@@ -38,11 +50,21 @@ export const defaultPosts: BlogPost[] = [
 export type BlogBlock = { kind: "p" | "h" | "quote"; text: string };
 /** The post text as blocks: an empty line starts a new one; "## " makes a heading and "> " a highlighted quote. */
 export function blogBlocks(body: string): BlogBlock[] {
-  return body.split(/\n\s*\n/).map((s) => s.trim()).filter(Boolean).map((s): BlogBlock =>
-    s.startsWith("## ") ? { kind: "h", text: s.slice(3).trim() } : s.startsWith("> ") ? { kind: "quote", text: s.slice(2).trim() } : { kind: "p", text: s });
+  return body
+    .split(/\n\s*\n/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((s): BlogBlock =>
+      s.startsWith("## ")
+        ? { kind: "h", text: s.slice(3).trim() }
+        : s.startsWith("> ")
+          ? { kind: "quote", text: s.slice(2).trim() }
+          : { kind: "p", text: s }
+    );
 }
 /** Reading time in minutes, at about 200 words a minute. */
 export const readMinutes = (body: string) => Math.max(1, Math.round(body.trim().split(/\s+/).length / 200));
 /** Only a file of this website or an https link is ever shown. */
 export const safeUrl = (u?: string | null) => (u && /^(\/(?!\/)|https:\/\/)/.test(u) ? u : null);
-export const blogDate = (d: string) => new Date(d + "T00:00:00").toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+export const blogDate = (d: string) =>
+  new Date(d + "T00:00:00").toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });

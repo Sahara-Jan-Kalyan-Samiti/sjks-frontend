@@ -14,13 +14,17 @@ const isHydrated = (el: HTMLElement) => Object.keys(el).some((k) => k.startsWith
 function check(retries = 10) {
   let pending = false;
   document.querySelectorAll<HTMLElement>(SELECTOR).forEach((el) => {
-    if (!isHydrated(el)) { pending = true; return; }
+    if (!isHydrated(el)) {
+      pending = true;
+      return;
+    }
     const narrow = el.classList.contains("no-justify");
     // measured without the class, so a box that has become wide enough is justified again
     if (narrow) el.classList.remove("no-justify");
     const cs = getComputedStyle(el);
     if (cs.textAlign !== "justify") return;
-    const width = el.clientWidth, size = parseFloat(cs.fontSize) || 16;
+    const width = el.clientWidth,
+      size = parseFloat(cs.fontSize) || 16;
     if (width > 0 && width / size < MIN_EM) el.classList.add("no-justify");
   });
   // parts of the page that React hydrates later (Suspense) are checked again shortly
@@ -33,7 +37,14 @@ export function watchJustify() {
   started = true;
   let queued = false;
   // a short timer rather than "next frame": frames stop while the tab is in the background, a timer does not
-  const later = () => { if (queued) return; queued = true; window.setTimeout(() => { queued = false; check(); }, 60); };
+  const later = () => {
+    if (queued) return;
+    queued = true;
+    window.setTimeout(() => {
+      queued = false;
+      check();
+    }, 60);
+  };
   // class changes made here are not watched, so the check never triggers itself
   new MutationObserver(later).observe(document.body, { childList: true, subtree: true });
   window.addEventListener("resize", later);

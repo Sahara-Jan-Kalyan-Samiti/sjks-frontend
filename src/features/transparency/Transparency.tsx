@@ -16,8 +16,12 @@ export default function Transparency() {
   const steps = [1, 2, 3].map((n) => [c(`transparency.step.${n}.title`), c(`transparency.step.${n}.text`)]);
   return (
     <>
-      <PageHero images={transparencyImages} eyebrow={t("Transparency & Reports")} title={c("transparency.hero.title")}
-        text={c("transparency.hero.text")} />
+      <PageHero
+        images={transparencyImages}
+        eyebrow={t("Transparency & Reports")}
+        title={c("transparency.hero.title")}
+        text={c("transparency.hero.text")}
+      />
 
       <section id="annual-reports" className="container-site border-b py-14">
         <p className="eyebrow">{t("Annual Reports")}</p>
@@ -32,7 +36,12 @@ export default function Transparency() {
               <h3 className="mt-2 font-serif text-lg font-bold">{d.title}</h3>
               <p className="justified mt-2 flex-1 text-sm text-ink/70">{d.description}</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                <Link href="/transparency/impact-report" className="btn btn-brand !bg-emerald-700 !px-4 !py-2 !shadow-[0_2px_6px_rgb(4_120_87/.3)] hover:!bg-emerald-800">{t("View Impact Report")} <span aria-hidden="true">→</span></Link>
+                <Link
+                  href="/transparency/impact-report"
+                  className="btn btn-brand !bg-emerald-700 !px-4 !py-2 !shadow-[0_2px_6px_rgb(4_120_87/.3)] hover:!bg-emerald-800"
+                >
+                  {t("View Impact Report")} <span aria-hidden="true">→</span>
+                </Link>
               </div>
             </article>
           ))}
@@ -41,15 +50,27 @@ export default function Transparency() {
             <h3 className="mt-2 font-serif text-lg font-bold">{c("transparency.annual.title")}</h3>
             <p className="justified mt-2 flex-1 text-sm text-ink/70">{c("transparency.annual.text")}</p>
             <div className="mt-4 flex flex-wrap gap-2">
-              <Link href="/transparency/annual-reports" className="btn btn-brand !bg-rose-700 !px-4 !py-2 !shadow-[0_2px_6px_rgb(190_18_60/.3)] hover:!bg-rose-800">{t("View Annual Reports")} <span aria-hidden="true">→</span></Link>
+              <Link
+                href="/transparency/annual-reports"
+                className="btn btn-brand !bg-rose-700 !px-4 !py-2 !shadow-[0_2px_6px_rgb(190_18_60/.3)] hover:!bg-rose-800"
+              >
+                {t("View Annual Reports")} <span aria-hidden="true">→</span>
+              </Link>
             </div>
           </article>
           <article className="flex flex-col rounded-2xl border bg-white p-6 shadow-sm md:col-span-2">
             <p className="eyebrow !text-amber-700">Donations · Spending · Impact</p>
             <h3 className="mt-2 font-serif text-lg font-bold">{t("Donor Transparency")}</h3>
-            <p className="justified mt-2 flex-1 text-sm text-ink/70">{t("See exactly how donations were received, spent and what they achieved, with the bills and photos to prove it.")}</p>
+            <p className="justified mt-2 flex-1 text-sm text-ink/70">
+              {t("See exactly how donations were received, spent and what they achieved, with the bills and photos to prove it.")}
+            </p>
             <div className="mt-4 flex flex-wrap gap-2">
-              <Link href="/transparency/donor-transparency" className="btn btn-brand !bg-amber-600 !px-4 !py-2 !shadow-[0_2px_6px_rgb(217_119_6/.3)] hover:!bg-amber-700">{t("View Donor Transparency")} <span aria-hidden="true">→</span></Link>
+              <Link
+                href="/transparency/donor-transparency"
+                className="btn btn-brand !bg-amber-600 !px-4 !py-2 !shadow-[0_2px_6px_rgb(217_119_6/.3)] hover:!bg-amber-700"
+              >
+                {t("View Donor Transparency")} <span aria-hidden="true">→</span>
+              </Link>
             </div>
           </article>
         </div>
@@ -64,12 +85,27 @@ export default function Transparency() {
             <ol className="mt-6 space-y-4">
               {steps.map(([title, text], i) => (
                 <li key={i} className="flex gap-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand font-bold text-white">{i + 1}</span>
-                  <span><strong className="block">{title}</strong><span className="justified block text-sm text-ink/70">{text}</span></span>
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand font-bold text-white">
+                    {i + 1}
+                  </span>
+                  <span>
+                    <strong className="block">{title}</strong>
+                    <span className="justified block text-sm text-ink/70">{text}</span>
+                  </span>
                 </li>
               ))}
             </ol>
-            <p className="justified mt-6 text-sm text-ink/60">Prefer to talk? Call <a className="font-semibold text-brand" href={site.phoneHref}>{site.phone}</a> or write to <a className="font-semibold text-brand" href={`mailto:${site.email}`}>{site.email}</a>. {c("transparency.request.note")}</p>
+            <p className="justified mt-6 text-sm text-ink/60">
+              Prefer to talk? Call{" "}
+              <a className="font-semibold text-brand" href={site.phoneHref}>
+                {site.phone}
+              </a>{" "}
+              or write to{" "}
+              <a className="font-semibold text-brand" href={`mailto:${site.email}`}>
+                {site.email}
+              </a>
+              . {c("transparency.request.note")}
+            </p>
           </div>
           <DocumentRequestForm />
         </div>

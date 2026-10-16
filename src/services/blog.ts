@@ -13,7 +13,12 @@ export async function fetchPublishedPosts(): Promise<BlogPost[] | null> {
   if (!env.supabaseUrl || !env.supabaseKey) return null;
   try {
     const db = createClient(env.supabaseUrl, env.supabaseKey, { auth: { persistSession: false, autoRefreshToken: false } });
-    const { data, error } = await db.from("blog_posts").select(BLOG_COLUMNS).eq("published", true).order("published_on", { ascending: false }).order("id", { ascending: false });
+    const { data, error } = await db
+      .from("blog_posts")
+      .select(BLOG_COLUMNS)
+      .eq("published", true)
+      .order("published_on", { ascending: false })
+      .order("id", { ascending: false });
     return error || !data ? null : (data as BlogPost[]);
   } catch {
     return null;

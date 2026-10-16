@@ -12,11 +12,14 @@ const listeners = new Set<() => void>();
 function load() {
   if (asked || !supabaseConfigured || !supabase) return;
   asked = true;
-  supabase.from("page_content").select("key, value").then(({ data, error }) => {
-    if (error || !data) return; // table missing or database not reachable: the original wording stays
-    saved = Object.fromEntries(data.filter((r) => r.value.trim()).map((r) => [r.key, r.value]));
-    listeners.forEach((fn) => fn());
-  });
+  supabase
+    .from("page_content")
+    .select("key, value")
+    .then(({ data, error }) => {
+      if (error || !data) return; // table missing or database not reachable: the original wording stays
+      saved = Object.fromEntries(data.filter((r) => r.value.trim()).map((r) => [r.key, r.value]));
+      listeners.forEach((fn) => fn());
+    });
 }
 
 /**
@@ -30,7 +33,9 @@ export function useSavedPageText(): Readonly<Record<string, string>> {
     const fn = () => redraw((n) => n + 1);
     listeners.add(fn);
     load();
-    return () => { listeners.delete(fn); };
+    return () => {
+      listeners.delete(fn);
+    };
   }, []);
   return saved;
 }
