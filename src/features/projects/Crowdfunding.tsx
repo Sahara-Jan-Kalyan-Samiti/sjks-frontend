@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Skeleton from "@/components/ui/Skeleton";
 import Link from "next/link";
 import { useLang } from "@/i18n/LangContext";
 import { testimonials } from "@/data/content/content";
@@ -9,7 +10,7 @@ import Reveal from "@/components/ui/Reveal";
 import CountUp from "@/components/ui/CountUp";
 
 // the map holds about 270 KB of geometry: it is loaded in the browser only when the page shows it
-const IndiaNetworkMap = dynamic(() => import("@/components/maps/IndiaNetworkMap"), { ssr: false, loading: () => <div className="h-80" aria-busy="true" /> });
+const IndiaNetworkMap = dynamic(() => import("@/components/maps/IndiaNetworkMap"), { ssr: false, loading: () => <Skeleton className="h-80" /> });
 
 const base = "/assets/images/crowdfunding/";
 const quote = testimonials.find((x) => x.program === "Medical Treatment Assistance");
