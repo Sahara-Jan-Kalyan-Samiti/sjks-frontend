@@ -27,7 +27,7 @@ function Card({ e, past }: { e: EventItem; past?: boolean }) {
     <article className={`rounded-2xl border bg-white shadow-sm ${hasImages ? "overflow-hidden sm:flex" : "flex flex-col gap-4 p-5 sm:gap-5"}`}>
       {hasImages && e.images && (
         <div className="relative order-first h-40 w-full flex-shrink-0 sm:order-none sm:h-auto sm:w-64">
-          <img src={e.images[0]} alt={`${e.title} photo`} loading="lazy" className="h-full w-full object-cover" />
+          <img src={e.images[0]} alt={e.title} loading="lazy" className="h-full w-full object-cover" />
         </div>
       )}
       <div className="flex flex-col gap-4 p-5 sm:gap-5 sm:flex-1">
@@ -44,7 +44,7 @@ function Card({ e, past }: { e: EventItem; past?: boolean }) {
         <div className="min-w-0 flex-1">
           <p className="justified whitespace-pre-line text-sm text-ink/80">{e.text}</p>
           {hasImages && !isMobile && e.images && e.images.length > 1 && (
-            <div className="mt-3 flex flex-wrap gap-2">{e.images.slice(1).map((src) => <img key={src} src={src} alt={`${e.title} photo`} loading="lazy" className="h-24 w-[calc(50%-0.25rem)] rounded-lg object-cover sm:h-28 sm:w-32" />)}</div>
+            <div className="mt-3 flex flex-wrap gap-2">{e.images.slice(1).map((src) => <img key={src} src={src} alt={e.title} loading="lazy" className="h-24 w-[calc(50%-0.25rem)] rounded-lg object-cover sm:h-28 sm:w-32" />)}</div>
           )}
           {!past && (
             <div className="mt-3 flex flex-wrap gap-3">

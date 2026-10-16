@@ -19,6 +19,8 @@ export const env = {
   liveDataUrl: process.env.NEXT_PUBLIC_LIVE_DATA_URL || "/data/live.json",
   /** Privacy-friendly analytics (Plausible), for example "saharangosag.com". */
   plausibleDomain: process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ?? "",
+  /** Error reporting (Sentry) in the browser. Leave empty to switch it off. */
+  sentryDsn: process.env.NEXT_PUBLIC_SENTRY_DSN ?? "",
   /** True when running `next dev`. */
   isDev: process.env.NODE_ENV !== "production"
 } as const;
