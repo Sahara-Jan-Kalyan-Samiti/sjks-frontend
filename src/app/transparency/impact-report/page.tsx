@@ -2,4 +2,4 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata("/transparency/impact-report");
 
-export { default } from "@/views/transparency/ImpactReport";
+export { default } from "@/features/transparency/ImpactReport";

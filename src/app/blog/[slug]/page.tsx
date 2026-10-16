@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { safeUrl } from "@/data/content/blog";
 import { fetchPublishedPosts } from "@/services/blog";
 import { buildMetadata } from "@/lib/seo";
-import BlogDetail from "@/views/blog/BlogDetail";
+import BlogDetail from "@/features/blog/BlogDetail";
 
 type Props = { params: { slug: string } };
 const FALLBACK = "Stories, voices and lessons from the communities Sahara Jan Kalyan Samiti works with.";

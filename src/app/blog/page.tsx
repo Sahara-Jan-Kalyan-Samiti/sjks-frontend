@@ -1,6 +1,6 @@
 import { fetchPublishedPosts } from "@/services/blog";
 import { pageMetadata } from "@/lib/seo";
-import Blog from "@/views/blog/Blog";
+import Blog from "@/features/blog/Blog";
 
 export const metadata = pageMetadata("/blog");
 /** New posts from the admin panel show within a minute without a new build. */

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { posts } from "@/data/content/news";
 import { buildMetadata } from "@/lib/seo";
-import NewsDetail from "@/views/news/NewsDetail";
+import NewsDetail from "@/features/news/NewsDetail";
 
 type Props = { params: { slug: string } };
 const find = (slug: string) => posts.find((p) => p.slug === slug);

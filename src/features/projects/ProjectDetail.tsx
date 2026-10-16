@@ -6,7 +6,7 @@ import { portfolio } from "@/data/content/portfolio";
 import { usePageText } from "@/hooks/usePageText";
 import Img from "@/components/ui/Img";
 import PageHero from "@/components/layout/PageHero";
-import NotFound from "@/views/NotFound";
+import NotFound from "@/features/NotFound";
 import DonateButton from "@/components/ui/DonateButton";
 import { Steps, Faq } from "@/components/sections/InfoBlocks";
 import { focusAreas } from "@/data/content/projectFocus";

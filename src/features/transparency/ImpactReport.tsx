@@ -4,7 +4,7 @@ import { documents } from "@/data/content/documents";
 import { useLang } from "@/i18n/LangContext";
 import PageHero from "@/components/layout/PageHero";
 import Reveal from "@/components/ui/Reveal";
-import { ImpactDashboard, KeyFigures } from "@/components/home/ImpactShowcase";
+import { ImpactDashboard, KeyFigures } from "@/features/home/ImpactShowcase";
 
 /** The full report (PDF) that "View more" opens: the first "reports" entry in src/data/documents.ts. */
 const report = documents.find((d) => d.section === "reports");

@@ -1,5 +1,5 @@
 import { pageMetadata } from "@/lib/seo";
-import Legal from "@/views/legal/Legal";
+import Legal from "@/features/legal/Legal";
 
 export const metadata = pageMetadata("/dpdp");
 

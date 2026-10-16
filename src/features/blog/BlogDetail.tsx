@@ -8,7 +8,7 @@ import { useLang } from "@/i18n/LangContext";
 import { blogBlocks, blogDate, readMinutes, safeUrl, type BlogPost } from "@/data/content/blog";
 import PageHero from "@/components/layout/PageHero";
 import DonateButton from "@/components/ui/DonateButton";
-import NotFound from "@/views/NotFound";
+import NotFound from "@/features/NotFound";
 import { BlogCard } from "./Blog";
 
 /** Thin bar under the top edge of the window that fills as the post is read. */

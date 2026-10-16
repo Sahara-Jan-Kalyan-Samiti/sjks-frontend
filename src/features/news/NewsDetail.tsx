@@ -7,7 +7,7 @@ import { useLang } from "@/i18n/LangContext";
 import { useShareUrl } from "@/hooks/useShareUrl";
 import Img from "@/components/ui/Img";
 import PageHero from "@/components/layout/PageHero";
-import NotFound from "@/views/NotFound";
+import NotFound from "@/features/NotFound";
 import { fmtDate } from "@/utils/date";
 import DonateButton from "@/components/ui/DonateButton";
 

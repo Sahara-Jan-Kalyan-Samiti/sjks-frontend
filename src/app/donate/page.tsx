@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { pageMetadata } from "@/lib/seo";
-import Donate from "@/views/support/Donate";
+import Donate from "@/features/support/Donate";
 
 export const metadata = pageMetadata("/donate");
 

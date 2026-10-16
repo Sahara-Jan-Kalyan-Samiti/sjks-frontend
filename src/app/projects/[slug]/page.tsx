@@ -3,7 +3,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { projects } from "@/data/content/content";
 import { pageTextDefaults } from "@/data/content/pageContent";
 import { buildMetadata } from "@/lib/seo";
-import ProjectDetail from "@/views/projects/ProjectDetail";
+import ProjectDetail from "@/features/projects/ProjectDetail";
 
 type Props = { params: { slug: string } };
 const find = (slug: string) => projects.find((p) => p.slug === slug);

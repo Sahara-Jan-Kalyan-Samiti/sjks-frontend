@@ -116,12 +116,12 @@ src/
   app/                      Routes. page.tsx files are thin: they set the SEO metadata and render a view
     layout.tsx              Root layout: fonts, site-wide metadata, structured data, header and footer
     sitemap.ts · robots.ts  /sitemap.xml and /robots.txt
-  views/                    The screens, one folder per area (home, about, projects, media, news, events,
+  features/                 The screens, one folder per area (home, about, projects, media, news, events,
                             blog, transparency, membership, support, legal) + NotFound.tsx
   providers/                AppProviders (language, text justification)
   styles/                   index.css (global styles) and fonts.ts (self-hosted fonts)
   config/                   site.ts (organisation identity), navigation.ts (menu), seo.ts (title and description per page)
-  components/               layout/ ui/ forms/ home/ sections/ maps/
+  components/               layout/ ui/ forms/ sections/ maps/ (shared pieces)
   data/content/             Built-in content: news, blog, awards, portfolio, legal, page texts
   data/geo/                 Map geometry (large; loaded only when a map is shown)
   hooks/                    useLiveData, usePageText, useBlog, useClientValue, ...
@@ -168,11 +168,11 @@ Razorpay ── webhook ──► sjks-backend
 
 ## Working on the site
 
-**Change a page's text or a menu item.** Page screens are in `src/views`. Search and share text of each page is in `src/config/seo.ts`. The menu is `src/config/navigation.ts`. Organisation details (phone, address, 80G and 12A numbers, social links) are in `src/config/site.ts`.
+**Change a page's text or a menu item.** Page screens are in `src/features`. Search and share text of each page is in `src/config/seo.ts`. The menu is `src/config/navigation.ts`. Organisation details (phone, address, 80G and 12A numbers, social links) are in `src/config/site.ts`.
 
 **Add a news story.** Open `src/data/content/news.ts`, copy an entry and edit it, then put the image in `public/assets/images/news/`. Newest first. Only publish things that really happened.
 
-**Add a page.** Create the screen in `src/views/<area>/`, add `src/app/<route>/page.tsx` (copy a simple one such as `about/awards`), add its title and description to `src/config/seo.ts`, and add it to `src/config/navigation.ts` if it needs a menu entry.
+**Add a page.** Create the screen in `src/features/<area>/`, add `src/app/<route>/page.tsx` (copy a simple one such as `about/awards`), add its title and description to `src/config/seo.ts`, and add it to `src/config/navigation.ts` if it needs a menu entry.
 
 **Add Hindi text.** Wording written with `t("English text")` is looked up in `src/i18n/hi.ts`. Other on-screen text is translated from the dictionaries in `src/i18n`. A missing entry simply stays in English.
 
