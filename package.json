@@ -19,6 +19,7 @@
     "export:admin": "tsx --tsconfig tsconfig.json scripts/export-admin-data.ts"
   },
   "dependencies": {
+    "@sentry/browser": "^8.55.0",
     "@supabase/supabase-js": "^2.117.2",
     "next": "^14.2.35",
     "react": "18.3.1",
@@ -32,6 +33,7 @@
     "@types/react-dom": "18.3.0",
     "autoprefixer": "10.4.20",
     "eslint": "^9.39.5",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react-hooks": "^5.2.0",
     "globals": "^17.13.0",
     "postcss": "8.4.45",
