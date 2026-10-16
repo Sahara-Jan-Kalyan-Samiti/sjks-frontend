@@ -12,17 +12,19 @@ import Img from "@/components/ui/Img";
 import { homeHeroSlides, homeHeroOpening } from "@/data/content/slideshows";
 import BackgroundSlideshow from "@/components/ui/BackgroundSlideshow";
 import RotatingWords from "@/components/ui/RotatingWords";
-import ProjectSlider from "@/features/home/ProjectSlider";
 import Wave from "@/components/ui/Wave";
-import ImpactCalculator from "@/features/home/ImpactCalculator";
 import CornerRibbons from "@/components/ui/CornerRibbons";
 import Reveal from "@/components/ui/Reveal";
 import { ImpactDashboard, KeyFigures } from "@/features/home/ImpactShowcase";
-import Testimonials from "@/features/home/Testimonials";
 import CampaignProgress from "@/features/home/CampaignProgress";
+import Skeleton, { SectionSkeleton } from "@/components/ui/Skeleton";
 // the map holds about 270 KB of geometry: it is loaded in the browser only when the page shows it
-const IndiaNetworkMap = dynamic(() => import("@/components/maps/IndiaNetworkMap"), { ssr: false, loading: () => <div className="h-80" aria-busy="true" /> });
-import SupportersStrip from "@/features/home/SupportersStrip";
+const IndiaNetworkMap = dynamic(() => import("@/components/maps/IndiaNetworkMap"), { ssr: false, loading: () => <Skeleton className="h-80" /> });
+// sections further down the page load in their own files; they are still rendered on the server, so search engines see them
+const ProjectSlider = dynamic(() => import("@/features/home/ProjectSlider"), { loading: () => <Skeleton className="h-80" /> });
+const ImpactCalculator = dynamic(() => import("@/features/home/ImpactCalculator"), { loading: () => <Skeleton className="h-96" /> });
+const Testimonials = dynamic(() => import("@/features/home/Testimonials"), { loading: () => <SectionSkeleton /> });
+const SupportersStrip = dynamic(() => import("@/features/home/SupportersStrip"), { loading: () => <Skeleton className="h-24" /> });
 import { fmtDate } from "@/utils/date";
 import DonateButton from "@/components/ui/DonateButton";
 import { useIsMobile } from "@/hooks/useIsMobile";
