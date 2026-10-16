@@ -35,7 +35,8 @@ The site is bilingual (English and Hindi) and lets visitors learn about the prog
 | Routing | Next.js file-based routes in `src/app`; each page has its own title, description, share preview, sitemap entry |
 | Data | Supabase (Postgres, Storage) through `@supabase/supabase-js` |
 | Languages | English and Hindi, switched on screen (`src/i18n`) |
-| Quality | ESLint, Prettier, Vitest, GitHub Actions |
+| Quality | ESLint (with accessibility rules), Prettier, Vitest, GitHub Actions |
+| Monitoring | Plausible analytics and Sentry error reporting, both optional |
 | Hosting | Google Cloud Run (container built with Cloud Build) |
 
 Requires **Node.js 20 or newer** (see `.nvmrc`).
@@ -58,6 +59,14 @@ Other behaviour worth knowing:
 - **Forms** (contact, volunteer, document request, newsletter) are saved through the backend or the database and fall back to e-mail if neither is reachable.
 - **Editable text and media** (page texts, gallery, blog, awards, team, reports) come from Supabase and are managed in `sjks-admin`. Built-in defaults live in `src/data/content`.
 - **Member ID card** is drawn in the browser and can be downloaded as a JPG or PDF.
+
+### Built-in quality features
+
+- **Error and loading states:** `not-found.tsx` (404 with links to popular pages), `error.tsx` (a page failed, with a "Try again" button), `global-error.tsx` (the whole layout failed) and `loading.tsx` (skeleton placeholders).
+- **Lazy loading:** photos use `loading="lazy"`. Heavy or below-the-fold sections (the India map, project slider, impact calculator, testimonials, volunteer wall, issued cards, work map) are loaded in their own files with `next/dynamic` and show a skeleton while they load. They are still rendered on the server, so search engines see them.
+- **Responsive layout:** mobile-first Tailwind breakpoints (`sm`, `md`, `lg`) throughout.
+- **Accessibility:** `eslint-plugin-jsx-a11y` runs with `npm run lint`; a skip-to-content link, visible keyboard focus, labelled dialogs that close with Escape, and decorative images with empty `alt`.
+- **Health check:** `GET /api/health` returns `{"status":"ok"}` for uptime monitors.
 
 ## Getting started
 
@@ -100,8 +109,11 @@ Copy `.env.example` to `.env.local`. **Every value here is public**: it is compi
 | `NEXT_PUBLIC_WEB3FORMS_KEY`, `NEXT_PUBLIC_FORM_ENDPOINT` | no | Fallback form delivery by e-mail |
 | `NEXT_PUBLIC_LIVE_DATA_URL` | no | Remote copy of `public/data/live.json` |
 | `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | no | Privacy-friendly analytics |
+| `NEXT_PUBLIC_SENTRY_DSN` | no | Sends browser errors to Sentry. Empty means off. The Sentry code is only downloaded when an error happens |
 
 The real `.env.local` is ignored by git. Only `.env.example` is committed.
+
+`NEXT_PUBLIC_` values are compiled in at build time. The Dockerfile and `cloudbuild.yaml` currently pass the Supabase, site, API and admin values; to use Plausible or Sentry on the deployed site, also add them as build arguments there.
 
 ## Project structure
 
@@ -111,13 +123,16 @@ tailwind.config.ts          Brand colours, fonts, page width
 eslint.config.js · .prettierrc · .editorconfig   Code quality rules
 Dockerfile · cloudbuild.yaml   Container image and Cloud Run deployment
 scripts/                    export-admin-data.ts
-public/                     Static files served as they are (images, documents, data/live.json)
+public/                     Static files served as they are: assets/images, documents (annual reports), data/live.json
 src/
-  app/                      Routes. page.tsx files are thin: they set the SEO metadata and render a view
+  app/                      Routes. page.tsx files are thin: they set the SEO metadata and render a screen from features/
     layout.tsx              Root layout: fonts, site-wide metadata, structured data, header and footer
+    not-found.tsx · error.tsx · global-error.tsx · loading.tsx   404, error and loading states
+    api/health/route.ts     Health check for uptime monitors
     sitemap.ts · robots.ts  /sitemap.xml and /robots.txt
   features/                 The screens, one folder per area (home, about, projects, media, news, events,
-                            blog, transparency, membership, support, legal) + NotFound.tsx
+                            blog, transparency, membership, support, legal) + NotFound.tsx.
+                            Pieces used by only one area (for example the home sliders) live in its folder
   providers/                AppProviders (language, text justification)
   styles/                   index.css (global styles) and fonts.ts (self-hosted fonts)
   config/                   site.ts (organisation identity), navigation.ts (menu), seo.ts (title and description per page)
@@ -126,7 +141,7 @@ src/
   data/geo/                 Map geometry (large; loaded only when a map is shown)
   hooks/                    useLiveData, usePageText, useBlog, useClientValue, ...
   services/                 supabase.ts (database client), blog.ts (server-side blog fetch), forms.ts
-  lib/                      env.ts (typed public settings), seo.ts (metadata and structured data builders)
+  lib/                      env.ts (typed public settings), seo.ts (metadata and structured data builders), monitoring.ts (Sentry)
   utils/                    validate, date, justify, receipt, pdf, memberCard (+ tests)
   i18n/                     LangContext and the Hindi dictionaries
 ```
@@ -170,9 +185,11 @@ Razorpay ── webhook ──► sjks-backend
 
 **Change a page's text or a menu item.** Page screens are in `src/features`. Search and share text of each page is in `src/config/seo.ts`. The menu is `src/config/navigation.ts`. Organisation details (phone, address, 80G and 12A numbers, social links) are in `src/config/site.ts`.
 
-**Add a news story.** Open `src/data/content/news.ts`, copy an entry and edit it, then put the image in `public/assets/images/news/`. Newest first. Only publish things that really happened.
+**Add a news story.** Open `src/data/content/news.ts`, copy an entry and edit it, then put the image in `public/assets/images/news/`. Images all live under `public/assets/images/` with kebab-case file names. The old `/images/...` addresses still work through a rewrite in `next.config.mjs`, because some database rows store them. Newest first. Only publish things that really happened.
 
 **Add a page.** Create the screen in `src/features/<area>/`, add `src/app/<route>/page.tsx` (copy a simple one such as `about/awards`), add its title and description to `src/config/seo.ts`, and add it to `src/config/navigation.ts` if it needs a menu entry.
+
+**Add a heavy section.** Import it with `next/dynamic` and give it a `<Skeleton className="h-80" />` as `loading` (see `src/features/home/Home.tsx`), so it loads on demand without a layout jump.
 
 **Add Hindi text.** Wording written with `t("English text")` is looked up in `src/i18n/hi.ts`. Other on-screen text is translated from the dictionaries in `src/i18n`. A missing entry simply stays in English.
 
@@ -191,6 +208,8 @@ npm run typecheck && npm run lint && npm test && npm run build
 ```
 
 The same checks run on every pull request and every push (see `.github/workflows/deploy.yml`). Please make sure they pass before you open a pull request.
+
+Tests live next to the code they cover (`*.test.ts`) and run with Vitest. Lint includes accessibility rules; where a rule is turned off for a file (photo viewers, carousels) `eslint.config.js` explains why.
 
 ## Deployment
 

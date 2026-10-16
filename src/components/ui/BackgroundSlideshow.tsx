@@ -28,18 +28,31 @@ interface Props {
 }
 
 /** Loads one image; resolves to its path, or null if the file is missing. */
-const load = (src: string) => new Promise<string | null>((resolve) => {
-  const img = new Image();
-  img.onload = () => resolve(src);
-  img.onerror = () => resolve(null);
-  img.src = src;
-});
+const load = (src: string) =>
+  new Promise<string | null>((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(src);
+    img.onerror = () => resolve(null);
+    img.src = src;
+  });
 
 /**
  * Background slideshow with a smooth crossfade (or a sideways shift). Fills its positioned parent and never changes its size,
  * so text on top stays still. Missing files are skipped; motion stops for visitors who prefer reduced motion.
  */
-export default function BackgroundSlideshow({ images, interval = 5000, initialInterval, startDelay = 0, duration = 1200, fallback, className = "", imgClassName = "", imgClassNames = {}, effect = "fade", overlayClassName }: Props) {
+export default function BackgroundSlideshow({
+  images,
+  interval = 5000,
+  initialInterval,
+  startDelay = 0,
+  duration = 1200,
+  fallback,
+  className = "",
+  imgClassName = "",
+  imgClassNames = {},
+  effect = "fade",
+  overlayClassName
+}: Props) {
   const [slides, setSlides] = useState<string[]>([]);
   // index = slide fading in / on screen (-1 before the first one appears); prev = slide still showing underneath it
   const [{ index, prev }, setPos] = useState({ index: -1, prev: -1 });
@@ -54,7 +67,9 @@ export default function BackgroundSlideshow({ images, interval = 5000, initialIn
     Promise.all(images.map(load)).then((found) => {
       if (alive) setSlides(found.filter((s): s is string => !!s));
     });
-    return () => { alive = false; };
+    return () => {
+      alive = false;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
@@ -63,9 +78,16 @@ export default function BackgroundSlideshow({ images, interval = 5000, initialIn
     if (!slides.length) return;
     let raf = 0;
     // "shift": nothing is underneath except the fallback, which slides out by itself
-    const show = () => { raf = requestAnimationFrame(() => requestAnimationFrame(() => setPos({ index: 0, prev: effect === "shift" ? -1 : slides.length - 1 }))); };
+    const show = () => {
+      raf = requestAnimationFrame(() =>
+        requestAnimationFrame(() => setPos({ index: 0, prev: effect === "shift" ? -1 : slides.length - 1 }))
+      );
+    };
     const timer = window.setTimeout(show, Math.max(0, startDelay - (performance.now() - mountedAt.current)));
-    return () => { window.clearTimeout(timer); cancelAnimationFrame(raf); };
+    return () => {
+      window.clearTimeout(timer);
+      cancelAnimationFrame(raf);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slides]);
 
@@ -96,11 +118,26 @@ export default function BackgroundSlideshow({ images, interval = 5000, initialIn
   }, [prev, index, duration]);
 
   return (
-    <div aria-hidden="true" className={`bg-slideshow ${effect === "shift" ? "is-shift" : ""} ${className}`} style={{ ["--slide-fade" as string]: `${duration}ms` }}>
-      {fallback && <img src={fallback} alt="" className={`bg-slide ${effect === "shift" && index >= 0 ? "is-prev" : "is-base"} ${imgClassName} ${imgClassNames[fallback] ?? ""}`} />}
+    <div
+      aria-hidden="true"
+      className={`bg-slideshow ${effect === "shift" ? "is-shift" : ""} ${className}`}
+      style={{ ["--slide-fade" as string]: `${duration}ms` }}
+    >
+      {fallback && (
+        <img
+          src={fallback}
+          alt=""
+          className={`bg-slide ${effect === "shift" && index >= 0 ? "is-prev" : "is-base"} ${imgClassName} ${imgClassNames[fallback] ?? ""}`}
+        />
+      )}
       {slides.map((src, i) => (
-        <img key={src} src={src} alt="" decoding="async"
-          className={`bg-slide ${imgClassName} ${imgClassNames[src] ?? ""} ${i === index ? "is-active" : i === prev ? "is-prev" : ""}`} />
+        <img
+          key={src}
+          src={src}
+          alt=""
+          decoding="async"
+          className={`bg-slide ${imgClassName} ${imgClassNames[src] ?? ""} ${i === index ? "is-active" : i === prev ? "is-prev" : ""}`}
+        />
       ))}
       {overlayClassName && <div className={`bg-slide-overlay ${overlayClassName}`} />}
     </div>

@@ -13,7 +13,18 @@ import { Steps, Faq } from "@/components/sections/InfoBlocks";
 
 const ics = (e: EventItem) => {
   const d = e.date.replace(/-/g, "");
-  const body = ["BEGIN:VCALENDAR", "VERSION:2.0", "BEGIN:VEVENT", `UID:${e.id}@${site.shortName}`, `DTSTART;VALUE=DATE:${d}`, `SUMMARY:${e.title}`, `LOCATION:${e.place}`, `DESCRIPTION:${e.text}`, "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+  const body = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "BEGIN:VEVENT",
+    `UID:${e.id}@${site.shortName}`,
+    `DTSTART;VALUE=DATE:${d}`,
+    `SUMMARY:${e.title}`,
+    `LOCATION:${e.place}`,
+    `DESCRIPTION:${e.text}`,
+    "END:VEVENT",
+    "END:VCALENDAR"
+  ].join("\r\n");
   return "data:text/calendar;charset=utf-8," + encodeURIComponent(body);
 };
 
@@ -24,7 +35,9 @@ function Card({ e, past }: { e: EventItem; past?: boolean }) {
   const isMobile = useIsMobile();
   const hasImages = Boolean(e.images?.length);
   return (
-    <article className={`rounded-2xl border bg-white shadow-sm ${hasImages ? "overflow-hidden sm:flex" : "flex flex-col gap-4 p-5 sm:gap-5"}`}>
+    <article
+      className={`rounded-2xl border bg-white shadow-sm ${hasImages ? "overflow-hidden sm:flex" : "flex flex-col gap-4 p-5 sm:gap-5"}`}
+    >
       {hasImages && e.images && (
         <div className="relative order-first h-40 w-full flex-shrink-0 sm:order-none sm:h-auto sm:w-64">
           <img src={e.images[0]} alt={e.title} loading="lazy" className="h-full w-full object-cover" />
@@ -34,26 +47,56 @@ function Card({ e, past }: { e: EventItem; past?: boolean }) {
         <div className="flex gap-4 sm:flex-col">
           <div className="flex shrink-0 items-baseline gap-2 self-start rounded-xl bg-brand px-4 py-2 text-white sm:h-20 sm:w-20 sm:flex-col sm:items-center sm:justify-center sm:gap-0 sm:self-auto sm:p-0">
             <span className="text-2xl font-bold leading-none">{d.getDate()}</span>
-            <span className="text-xs uppercase">{d.toLocaleDateString("en-IN", { month: "short" })} {d.getFullYear()}</span>
+            <span className="text-xs uppercase">
+              {d.toLocaleDateString("en-IN", { month: "short" })} {d.getFullYear()}
+            </span>
           </div>
           <div className="min-w-0 flex-1">
             <h3 className="font-serif text-lg font-bold">{e.title}</h3>
-            <p className="mt-1 text-sm text-ink/60">{fmtDate(e.date)}{e.time ? ` · ${e.time}` : ""} · {e.place}</p>
+            <p className="mt-1 text-sm text-ink/60">
+              {fmtDate(e.date)}
+              {e.time ? ` · ${e.time}` : ""} · {e.place}
+            </p>
           </div>
         </div>
         <div className="min-w-0 flex-1">
           <p className="justified whitespace-pre-line text-sm text-ink/80">{e.text}</p>
           {hasImages && !isMobile && e.images && e.images.length > 1 && (
-            <div className="mt-3 flex flex-wrap gap-2">{e.images.slice(1).map((src) => <img key={src} src={src} alt={e.title} loading="lazy" className="h-24 w-[calc(50%-0.25rem)] rounded-lg object-cover sm:h-28 sm:w-32" />)}</div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {e.images.slice(1).map((src) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt={e.title}
+                  loading="lazy"
+                  className="h-24 w-[calc(50%-0.25rem)] rounded-lg object-cover sm:h-28 sm:w-32"
+                />
+              ))}
+            </div>
           )}
           {!past && (
             <div className="mt-3 flex flex-wrap gap-3">
-              <button type="button" className="btn btn-brand !px-4 !py-2" onClick={() => setOpen(!open)} aria-expanded={open}>{t("Register")}</button>
-              <a className="btn border-2 border-brand !px-4 !py-2 text-brand" href={ics(e)} download={`${e.id}.ics`}>{t("Add to calendar")}</a>
+              <button type="button" className="btn btn-brand !px-4 !py-2" onClick={() => setOpen(!open)} aria-expanded={open}>
+                {t("Register")}
+              </button>
+              <a className="btn border-2 border-brand !px-4 !py-2 text-brand" href={ics(e)} download={`${e.id}.ics`}>
+                {t("Add to calendar")}
+              </a>
             </div>
           )}
-          {open && <SmartForm kind={`Event registration: ${e.title}`} hidden={{ event: e.title, date: e.date }} submitLabel="Register" className="mt-4"
-            fields={[{ name: "name", label: "Full name", required: true, placeholder: "Your full name" }, { name: "phone", label: "Phone", type: "tel", required: true, placeholder: "98765 43210" }, { name: "email", label: "Email", type: "email", placeholder: "you@example.com (optional)" }]} />}
+          {open && (
+            <SmartForm
+              kind={`Event registration: ${e.title}`}
+              hidden={{ event: e.title, date: e.date }}
+              submitLabel="Register"
+              className="mt-4"
+              fields={[
+                { name: "name", label: "Full name", required: true, placeholder: "Your full name" },
+                { name: "phone", label: "Phone", type: "tel", required: true, placeholder: "98765 43210" },
+                { name: "email", label: "Email", type: "email", placeholder: "you@example.com (optional)" }
+              ]}
+            />
+          )}
         </div>
       </div>
     </article>
@@ -74,14 +117,51 @@ export default function Events() {
       <section className="container-site py-16">
         <h2 className="h2">{c("events.upcoming.title")}</h2>
         <div className="mt-6 space-y-4">
-          {upcoming.map((e) => <Card key={e.id} e={e} />)}
-          {loaded && upcoming.length === 0 && <p className="justified rounded-2xl bg-brand-light p-6 text-ink/80">{c("events.upcoming.empty")}</p>}
+          {upcoming.map((e) => (
+            <Card key={e.id} e={e} />
+          ))}
+          {loaded && upcoming.length === 0 && (
+            <p className="justified rounded-2xl bg-brand-light p-6 text-ink/80">{c("events.upcoming.empty")}</p>
+          )}
         </div>
-        {past.length > 0 && (<><h2 className="h2 mt-14">{c("events.past.title")}</h2><div className="mt-6 space-y-4 opacity-80">{past.map((e) => <Card key={e.id} e={e} past />)}</div></>)}
+        {past.length > 0 && (
+          <>
+            <h2 className="h2 mt-14">{c("events.past.title")}</h2>
+            <div className="mt-6 space-y-4 opacity-80">
+              {past.map((e) => (
+                <Card key={e.id} e={e} past />
+              ))}
+            </div>
+          </>
+        )}
       </section>
-      <Steps eyebrow="What to expect" title="Our events, in a few words"
-        steps={[["Health camps", "Free check-ups, awareness talks and referrals for families in nearby villages."], ["Learning days", "Activities, books and learning kits for children at our centres."], ["Plantation drives", "Community tree planting with follow-up care for the saplings."], ["Relief and awareness", "Distribution drives and sessions on hygiene, nutrition and rights."]]} />
-      <Faq title="Joining an event" items={[["How do I register?", "Open an upcoming event and press Register. Share your name and phone number and our team will confirm."], ["Is there a fee?", "Our community events are free to attend. Any exception is stated on the event itself."], ["Can I volunteer at an event?", "Yes. Write to us from the Get Involved page and mention the event."], ["Where are events held?", "Most are held in and around Sagar district, Madhya Pradesh. The place is shown on every event."],["Who can I ask about an event?", "Write to info@saharangosag.com or call +91 9630494707, Monday to Saturday, 9:00 AM - 6:00 PM, and our team will help."],["Will I hear about new events?", "New events are posted on this website and on our social channels, and you can subscribe to the field updates newsletter in the footer."]]} />
+      <Steps
+        eyebrow="What to expect"
+        title="Our events, in a few words"
+        steps={[
+          ["Health camps", "Free check-ups, awareness talks and referrals for families in nearby villages."],
+          ["Learning days", "Activities, books and learning kits for children at our centres."],
+          ["Plantation drives", "Community tree planting with follow-up care for the saplings."],
+          ["Relief and awareness", "Distribution drives and sessions on hygiene, nutrition and rights."]
+        ]}
+      />
+      <Faq
+        title="Joining an event"
+        items={[
+          ["How do I register?", "Open an upcoming event and press Register. Share your name and phone number and our team will confirm."],
+          ["Is there a fee?", "Our community events are free to attend. Any exception is stated on the event itself."],
+          ["Can I volunteer at an event?", "Yes. Write to us from the Get Involved page and mention the event."],
+          ["Where are events held?", "Most are held in and around Sagar district, Madhya Pradesh. The place is shown on every event."],
+          [
+            "Who can I ask about an event?",
+            "Write to info@saharangosag.com or call +91 9630494707, Monday to Saturday, 9:00 AM - 6:00 PM, and our team will help."
+          ],
+          [
+            "Will I hear about new events?",
+            "New events are posted on this website and on our social channels, and you can subscribe to the field updates newsletter in the footer."
+          ]
+        ]}
+      />
     </>
   );
 }

@@ -14,13 +14,20 @@ export default function Header() {
   const [sub, setSub] = useState<string | null>(null);
   const pathname = usePathname();
   const { t } = useLang();
-  useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
   // the full-page menu always opens with its sections closed, and the page behind it must not scroll
   useEffect(() => {
-    if (!open) { setSub(null); return; }
+    if (!open) {
+      setSub(null);
+      return;
+    }
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = prev; };
+    return () => {
+      document.body.style.overflow = prev;
+    };
   }, [open]);
 
   return (
@@ -29,23 +36,37 @@ export default function Header() {
         {/* full-width white bar behind everything: logo badge on the left, links in the middle, Donate on the right */}
         <div className="flex h-16 items-center justify-between sm:h-[72px]">
           <Link href="/" aria-label={`${site.name} home`} className="flex h-12 shrink-0 items-center sm:h-14 xl:h-[60px]">
-            <img src="/assets/images/logo.png" alt={`${site.name} logo`} className="h-11 w-auto max-w-[190px] object-contain sm:h-12 sm:max-w-[220px] xl:h-14 xl:max-w-[220px] 2xl:max-w-[260px]" />
+            <img
+              src="/assets/images/logo.png"
+              alt={`${site.name} logo`}
+              className="h-11 w-auto max-w-[190px] object-contain sm:h-12 sm:max-w-[220px] xl:h-14 xl:max-w-[220px] 2xl:max-w-[260px]"
+            />
           </Link>
 
           <nav aria-label="Main" className="hidden min-w-0 flex-1 items-center justify-between gap-3 pl-3 xl:flex 2xl:pl-8">
             <div className="flex flex-1 items-center justify-center gap-0.5 2xl:gap-1.5">
               {nav.map((item) => (
                 <div key={item.label} className="group relative">
-                  <Link href={item.href} className={
-                    `block whitespace-nowrap rounded-full px-2.5 py-2 text-[14px] font-medium transition-colors 2xl:px-4 2xl:text-[15px] ${isActivePath(pathname, item.href) || item.children?.some((c) => c.href === pathname) ? "bg-brand text-white" : "text-ink hover:bg-brand-light hover:text-brand-dark"}`}>
-                    {t(item.label)}{item.children && <span aria-hidden="true"> ▾</span>}
+                  <Link
+                    href={item.href}
+                    className={`block whitespace-nowrap rounded-full px-2.5 py-2 text-[14px] font-medium transition-colors 2xl:px-4 2xl:text-[15px] ${isActivePath(pathname, item.href) || item.children?.some((c) => c.href === pathname) ? "bg-brand text-white" : "text-ink hover:bg-brand-light hover:text-brand-dark"}`}
+                  >
+                    {t(item.label)}
+                    {item.children && <span aria-hidden="true"> ▾</span>}
                   </Link>
                   {/* open on hover, and for keyboard users on focus; a mouse click must not leave it open after the pointer has moved away */}
                   {item.children && (
                     <div className="invisible absolute left-1/2 top-full min-w-[230px] -translate-x-1/2 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-has-[:focus-visible]:visible group-has-[:focus-visible]:opacity-100">
                       <div className="rounded-2xl border bg-white py-3 shadow-xl">
                         {item.children.map((c) => (
-                          <Link key={c.href} href={c.href} onClick={() => setSub(null)} className="block px-5 py-2 text-center text-sm text-ink transition hover:bg-brand-light hover:text-brand-dark">{t(c.label)}</Link>
+                          <Link
+                            key={c.href}
+                            href={c.href}
+                            onClick={() => setSub(null)}
+                            className="block px-5 py-2 text-center text-sm text-ink transition hover:bg-brand-light hover:text-brand-dark"
+                          >
+                            {t(c.label)}
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -53,13 +74,23 @@ export default function Header() {
                 </div>
               ))}
             </div>
-            <DonateButton to="/donate" size="sm" className="shrink-0">{t("Donate")}</DonateButton>
+            <DonateButton to="/donate" size="sm" className="shrink-0">
+              {t("Donate")}
+            </DonateButton>
           </nav>
 
           {/* phones / tablets: Donate sits right next to the menu button */}
           <div className="flex shrink-0 items-center gap-1 xl:hidden">
-            <DonateButton to="/donate" size="sm" className="shrink-0">{t("Donate")}</DonateButton>
-            <button className="flex h-11 w-11 items-center justify-center rounded-full text-ink" aria-label="Toggle menu" aria-expanded={open} aria-controls="mobile-nav" onClick={() => setOpen(!open)}>
+            <DonateButton to="/donate" size="sm" className="shrink-0">
+              {t("Donate")}
+            </DonateButton>
+            <button
+              className="flex h-11 w-11 items-center justify-center rounded-full text-ink"
+              aria-label="Toggle menu"
+              aria-expanded={open}
+              aria-controls="mobile-nav"
+              onClick={() => setOpen(!open)}
+            >
               <span className="block text-2xl leading-none">{open ? "✕" : "☰"}</span>
             </button>
           </div>
@@ -70,9 +101,17 @@ export default function Header() {
           <nav id="mobile-nav" aria-label="Mobile" className="fixed inset-0 z-50 flex flex-col bg-white text-ink xl:hidden">
             <div className="flex h-16 shrink-0 items-center justify-between border-b px-3 sm:h-[72px] sm:px-6">
               <Link href="/" onClick={() => setOpen(false)} aria-label={`${site.name} home`} className="flex h-12 items-center sm:h-14">
-                <img src="/assets/images/logo.png" alt={`${site.name} logo`} className="h-11 w-auto max-w-[190px] object-contain sm:h-12 sm:max-w-[220px] xl:h-14 xl:max-w-[220px] 2xl:max-w-[260px]" />
+                <img
+                  src="/assets/images/logo.png"
+                  alt={`${site.name} logo`}
+                  className="h-11 w-auto max-w-[190px] object-contain sm:h-12 sm:max-w-[220px] xl:h-14 xl:max-w-[220px] 2xl:max-w-[260px]"
+                />
               </Link>
-              <button className="flex h-11 w-11 items-center justify-center rounded-full text-ink" aria-label="Close menu" onClick={() => setOpen(false)}>
+              <button
+                className="flex h-11 w-11 items-center justify-center rounded-full text-ink"
+                aria-label="Close menu"
+                onClick={() => setOpen(false)}
+              >
                 <span className="block text-2xl leading-none">✕</span>
               </button>
             </div>
@@ -81,24 +120,49 @@ export default function Header() {
               {nav.map((item) => (
                 <div key={item.label} className="border-b border-ink/10">
                   <div className="flex min-h-[3.5rem] items-center justify-between gap-3">
-                    <Link href={item.href} onClick={() => setOpen(false)} className="flex-1 py-3 text-lg font-semibold">{t(item.label)}</Link>
+                    <Link href={item.href} onClick={() => setOpen(false)} className="flex-1 py-3 text-lg font-semibold">
+                      {t(item.label)}
+                    </Link>
                     {item.children && (
-                      <button className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand-dark" aria-label={`${sub === item.label ? "Hide" : "Show"} ${item.label} options`} aria-expanded={sub === item.label}
-                        onClick={() => setSub(sub === item.label ? null : item.label)}>
-                        <svg aria-hidden="true" viewBox="0 0 24 24" className={`h-5 w-5 transition-transform duration-200 ${sub === item.label ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+                      <button
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand-dark"
+                        aria-label={`${sub === item.label ? "Hide" : "Show"} ${item.label} options`}
+                        aria-expanded={sub === item.label}
+                        onClick={() => setSub(sub === item.label ? null : item.label)}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          viewBox="0 0 24 24"
+                          className={`h-5 w-5 transition-transform duration-200 ${sub === item.label ? "rotate-180" : ""}`}
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="m6 9 6 6 6-6" />
+                        </svg>
                       </button>
                     )}
                   </div>
                   {item.children && sub === item.label && (
                     <div className="mb-3 rounded-2xl bg-brand-light py-2">
-                      {item.children.map((c) => <Link key={c.href} href={c.href} onClick={() => setOpen(false)} className="block px-5 py-3 text-[15px] font-medium">{t(c.label)}</Link>)}
+                      {item.children.map((c) => (
+                        <Link key={c.href} href={c.href} onClick={() => setOpen(false)} className="block px-5 py-3 text-[15px] font-medium">
+                          {t(c.label)}
+                        </Link>
+                      ))}
                     </div>
                   )}
                 </div>
               ))}
             </div>
 
-            <div className="shrink-0 border-t px-4 py-3"><DonateButton to="/donate" full>{t("Donate")}</DonateButton></div>
+            <div className="shrink-0 border-t px-4 py-3">
+              <DonateButton to="/donate" full>
+                {t("Donate")}
+              </DonateButton>
+            </div>
           </nav>
         )}
       </div>

@@ -39,7 +39,8 @@ export const site = {
     linkedin: "https://www.linkedin.com/in/sahara-jan-kalyan-samiti-ngos-6a650025b/",
     x: "https://x.com/saharasagn9997",
     /** Google Business profile (opens the Google search panel for the Samiti). */
-    google: "https://www.google.com/search?gs_ssp=eJzj4tVP1zc0zDEsNEgxLEkzYLRSNagwtjS3SDFPTDQ1TLIwM0w0tTKoMDQ3tjBOtUhNSzWyTDQ0N_KSKE7MSCxKVMhKzFPITsypBFLFibmZJZkAgNYX5g&q=sahara+jan+kalyan+samiti&ie=UTF-8#ebo=0"
+    google:
+      "https://www.google.com/search?gs_ssp=eJzj4tVP1zc0zDEsNEgxLEkzYLRSNagwtjS3SDFPTDQ1TLIwM0w0tTKoMDQ3tjBOtUhNSzWyTDQ0N_KSKE7MSCxKVMhKzFPITsypBFLFibmZJZkAgNYX5g&q=sahara+jan+kalyan+samiti&ie=UTF-8#ebo=0"
   },
   /** Google Business Profile / Maps listing. Replace with the Samiti's own profile link (Google Maps > Share > Copy link) when available. */
   googleBusiness: googleBusinessUrl,
@@ -48,19 +49,82 @@ export const site = {
   logo: "/assets/images/logo.png"
 };
 
-export interface LegalId { title: string; value: string; note: string; authority: string; validity?: string }
+export interface LegalId {
+  title: string;
+  value: string;
+  note: string;
+  authority: string;
+  validity?: string;
+}
 export const legalIds: LegalId[] = [
-  { title: "Society Registration Certificate", value: "4666/19-10-04", note: "Registered on 19 October 2004 under the M.P. Societies Registration Act, 1973 (Sec. 44).", authority: "Registrar of Societies, Madhya Pradesh" },
-  { title: "PAN (Permanent Account Number)", value: "AAHTS0799M", note: "Permanent Account Number of the Samiti.", authority: "Income Tax Department, Govt of India" },
-  { title: "TAN (Tax Deduction Account Number)", value: "JBPS07748G", note: "Tax Deduction and Collection Account Number of the Samiti.", authority: "Income Tax Department, Govt of India" },
-  { title: "12A Tax Exemption Registration", value: "AAHTS0799M25BP01", note: "Income-tax exemption registration under Section 12A of the Income Tax Act, 1961.", authority: "Income Tax Department (Exemptions)", validity: "AY 2027-28 to AY 2031-32" },
-  { title: "80G Tax Exemption Approval", value: "AAHTS0799M25BP02", note: "Donations are eligible for deduction under Section 80G of the Income Tax Act, 1961, subject to applicable rules.", authority: "Income Tax Department (Exemptions)", validity: "AY 2027-28 to AY 2031-32" },
-  { title: "NITI Aayog Darpan Portal ID", value: "MP/2011/0039962", note: "Registered on the NGO Darpan portal.", authority: "NITI Aayog, Government of India" },
-  { title: "FCRA Registration", value: "063460029R", note: "FCRA renewal letter dated 07-09-2022, valid for five years from 01-10-2022, subject to applicable compliance. Eligible to receive foreign contributions.", authority: "Ministry of Home Affairs, Government of India" },
-  { title: "CSR Registration (CSR-1)", value: "CSR00011686", note: "CSR-1 registration. Eligible for corporate CSR projects under the Companies Act, 2013.", authority: "Ministry of Corporate Affairs, Government of India" },
-  { title: "EPF / PF Registration", value: "MP/SAG/0020343", note: "EPF registration record.", authority: "Employees' Provident Fund Organisation" },
-  { title: "Unique Entity ID (UEI)", value: "NYV1UNKR36F5", note: "Registered on SAM.gov, enabling collaboration with US-based organisations and foundations.", authority: "SAM.gov, United States" },
-  { title: "NCAGE Code", value: "7991Y", note: "NATO Commercial and Government Entity code.", authority: "National Codification Bureau (NCB India)" }
+  {
+    title: "Society Registration Certificate",
+    value: "4666/19-10-04",
+    note: "Registered on 19 October 2004 under the M.P. Societies Registration Act, 1973 (Sec. 44).",
+    authority: "Registrar of Societies, Madhya Pradesh"
+  },
+  {
+    title: "PAN (Permanent Account Number)",
+    value: "AAHTS0799M",
+    note: "Permanent Account Number of the Samiti.",
+    authority: "Income Tax Department, Govt of India"
+  },
+  {
+    title: "TAN (Tax Deduction Account Number)",
+    value: "JBPS07748G",
+    note: "Tax Deduction and Collection Account Number of the Samiti.",
+    authority: "Income Tax Department, Govt of India"
+  },
+  {
+    title: "12A Tax Exemption Registration",
+    value: "AAHTS0799M25BP01",
+    note: "Income-tax exemption registration under Section 12A of the Income Tax Act, 1961.",
+    authority: "Income Tax Department (Exemptions)",
+    validity: "AY 2027-28 to AY 2031-32"
+  },
+  {
+    title: "80G Tax Exemption Approval",
+    value: "AAHTS0799M25BP02",
+    note: "Donations are eligible for deduction under Section 80G of the Income Tax Act, 1961, subject to applicable rules.",
+    authority: "Income Tax Department (Exemptions)",
+    validity: "AY 2027-28 to AY 2031-32"
+  },
+  {
+    title: "NITI Aayog Darpan Portal ID",
+    value: "MP/2011/0039962",
+    note: "Registered on the NGO Darpan portal.",
+    authority: "NITI Aayog, Government of India"
+  },
+  {
+    title: "FCRA Registration",
+    value: "063460029R",
+    note: "FCRA renewal letter dated 07-09-2022, valid for five years from 01-10-2022, subject to applicable compliance. Eligible to receive foreign contributions.",
+    authority: "Ministry of Home Affairs, Government of India"
+  },
+  {
+    title: "CSR Registration (CSR-1)",
+    value: "CSR00011686",
+    note: "CSR-1 registration. Eligible for corporate CSR projects under the Companies Act, 2013.",
+    authority: "Ministry of Corporate Affairs, Government of India"
+  },
+  {
+    title: "EPF / PF Registration",
+    value: "MP/SAG/0020343",
+    note: "EPF registration record.",
+    authority: "Employees' Provident Fund Organisation"
+  },
+  {
+    title: "Unique Entity ID (UEI)",
+    value: "NYV1UNKR36F5",
+    note: "Registered on SAM.gov, enabling collaboration with US-based organisations and foundations.",
+    authority: "SAM.gov, United States"
+  },
+  {
+    title: "NCAGE Code",
+    value: "7991Y",
+    note: "NATO Commercial and Government Entity code.",
+    authority: "National Codification Bureau (NCB India)"
+  }
 ];
 const idOf = (prefix: string) => legalIds.find((l) => l.title.startsWith(prefix))!;
 export const societyReg = idOf("Society").value;

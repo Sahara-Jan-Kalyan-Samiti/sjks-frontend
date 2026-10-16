@@ -6,9 +6,30 @@ import { useSavedPageText } from "./usePageText";
 import { supabase, supabaseConfigured } from "@/services/supabase";
 import { env } from "@/lib/env";
 
-export interface Campaign { id: string; title: string; text: string; goal: number; raised: number; cause?: string; sample?: boolean }
-export interface EventItem { id: string; title: string; date: string; time?: string; place: string; text: string; images?: string[]; sample?: boolean }
-interface Live { stats: Stat[]; campaigns: Campaign[]; events: EventItem[] }
+export interface Campaign {
+  id: string;
+  title: string;
+  text: string;
+  goal: number;
+  raised: number;
+  cause?: string;
+  sample?: boolean;
+}
+export interface EventItem {
+  id: string;
+  title: string;
+  date: string;
+  time?: string;
+  place: string;
+  text: string;
+  images?: string[];
+  sample?: boolean;
+}
+interface Live {
+  stats: Stat[];
+  campaigns: Campaign[];
+  events: EventItem[];
+}
 
 /** Base URL of the admin server. Empty = same address as the site (dev proxy / single-server deploy). */
 export const API_BASE = env.apiUrl;
@@ -16,7 +37,10 @@ const URL_ = env.liveDataUrl;
 let cache: Live | null = null;
 
 /** Today as YYYY-MM-DD in the visitor's own time zone (not UTC), so an event dated today stays "upcoming" all day. */
-export const todayLocal = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; };
+export const todayLocal = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
 
 /** Sample entries are shown while developing but hidden on the published site. */
 const visible = <T extends { sample?: boolean }>(list: T[] = []) => (env.isDev ? list : list.filter((x) => !x.sample));
@@ -29,19 +53,39 @@ async function fetchAdminEvents(): Promise<EventItem[]> {
       const list = (await r.json()) as EventItem[];
       if (Array.isArray(list) && list.length) return list;
     }
-  } catch { /* server not running: fall through to Supabase */ }
+  } catch {
+    /* server not running: fall through to Supabase */
+  }
   if (!supabaseConfigured || !supabase) return [];
   try {
-    const { data, error } = await supabase.from("events").select("id, title, event_date, event_time, place, description, event_images(storage_path, position)").eq("published", true).order("event_date");
+    const { data, error } = await supabase
+      .from("events")
+      .select("id, title, event_date, event_time, place, description, event_images(storage_path, position)")
+      .eq("published", true)
+      .order("event_date");
     if (error || !data) return [];
     return data.map((e) => ({
-      id: String(e.id), title: e.title, date: e.event_date, time: e.event_time || undefined, place: e.place || "", text: e.description || "",
-      images: (e.event_images || []).sort((a, b) => a.position - b.position).map((img) => supabase!.storage.from("event-images").getPublicUrl(img.storage_path).data.publicUrl)
+      id: String(e.id),
+      title: e.title,
+      date: e.event_date,
+      time: e.event_time || undefined,
+      place: e.place || "",
+      text: e.description || "",
+      images: (e.event_images || [])
+        .sort((a, b) => a.position - b.position)
+        .map((img) => supabase!.storage.from("event-images").getPublicUrl(img.storage_path).data.publicUrl)
     }));
-  } catch { return []; }
+  } catch {
+    return [];
+  }
 }
 async function fetchFile(): Promise<Partial<Live>> {
-  try { const r = await fetch(URL_, { cache: "no-store" }); return r.ok ? await r.json() : {}; } catch { return {}; }
+  try {
+    const r = await fetch(URL_, { cache: "no-store" });
+    return r.ok ? await r.json() : {};
+  } catch {
+    return {};
+  }
 }
 /** The two sources are independent: if live.json fails, admin events still show (and the other way round). */
 async function loadAll(): Promise<Live> {
@@ -57,11 +101,17 @@ async function loadAll(): Promise<Live> {
 function useRefresh(fn: () => void) {
   useEffect(() => {
     fn();
-    const onShow = () => { if (document.visibilityState === "visible") fn(); };
+    const onShow = () => {
+      if (document.visibilityState === "visible") fn();
+    };
     document.addEventListener("visibilitychange", onShow);
     window.addEventListener("focus", onShow);
     const timer = window.setInterval(onShow, 60_000);
-    return () => { document.removeEventListener("visibilitychange", onShow); window.removeEventListener("focus", onShow); window.clearInterval(timer); };
+    return () => {
+      document.removeEventListener("visibilitychange", onShow);
+      window.removeEventListener("focus", onShow);
+      window.clearInterval(timer);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
@@ -76,9 +126,18 @@ export function useLiveData(): Live & { loaded: boolean } {
   const [loaded, setLoaded] = useState(!!cache);
   const saved = useSavedPageText();
   useRefresh(() => {
-    loadAll().then((next) => { cache = next; setData(next); setLoaded(true); }).catch(() => setLoaded(true));
+    loadAll()
+      .then((next) => {
+        cache = next;
+        setData(next);
+        setLoaded(true);
+      })
+      .catch(() => setLoaded(true));
   });
-  const stats = data.stats.map((s, i) => { const typed = saved[`home.impact.${i + 1}.value`]; return typed ? statFromText(typed, s) : s; });
+  const stats = data.stats.map((s, i) => {
+    const typed = saved[`home.impact.${i + 1}.value`];
+    return typed ? statFromText(typed, s) : s;
+  });
   return { ...data, stats, loaded };
 }
 
@@ -86,17 +145,29 @@ export function useLiveData(): Live & { loaded: boolean } {
 async function fetchMedicalFundings(): Promise<MedicalFunding[] | null> {
   if (!supabaseConfigured || !supabase) return null;
   try {
-    const { data, error } = await supabase.from("medical_fundings").select("id, kind, name, location, purpose, amount, period").eq("published", true)
-      .order("amount", { ascending: false }).order("name");
+    const { data, error } = await supabase
+      .from("medical_fundings")
+      .select("id, kind, name, location, purpose, amount, period")
+      .eq("published", true)
+      .order("amount", { ascending: false })
+      .order("name");
     if (error || !data) return null;
     return data.map((r) => ({ ...r, id: String(r.id), amount: Number(r.amount) || 0 }));
-  } catch { return null; }
+  } catch {
+    return null;
+  }
 }
 /** The published funding list. Until the database answers (or if it cannot be read) the list in src/data/medicalFunding.ts is shown. */
 export function useMedicalFundings(): MedicalFunding[] {
   const [list, setList] = useState<MedicalFunding[]>(defaultMedicalFundings);
   useRefresh(() => {
-    fetchMedicalFundings().then((rows) => { if (rows) setList(rows); }).catch(() => { /* keep what is shown */ });
+    fetchMedicalFundings()
+      .then((rows) => {
+        if (rows) setList(rows);
+      })
+      .catch(() => {
+        /* keep what is shown */
+      });
   });
   return list;
 }
@@ -105,21 +176,44 @@ export function useMedicalFundings(): MedicalFunding[] {
 async function fetchMemberOrganizations(): Promise<MemberOrganization[] | null> {
   if (!supabaseConfigured || !supabase) return null;
   try {
-    const { data, error } = await supabase.from("member_organizations").select("id, name, location, description").eq("published", true).eq("status", "approved").order("sort_order").order("id");
+    const { data, error } = await supabase
+      .from("member_organizations")
+      .select("id, name, location, description")
+      .eq("published", true)
+      .eq("status", "approved")
+      .order("sort_order")
+      .order("id");
     if (error || !data) return null;
     return data.map((r) => ({ ...r, id: String(r.id) }));
-  } catch { return null; }
+  } catch {
+    return null;
+  }
 }
 /** The published member organisations. Until the database answers (or if it cannot be read) the list in src/data/memberOrganizations.ts is shown. */
 export function useMemberOrganizations(): MemberOrganization[] {
   const [list, setList] = useState<MemberOrganization[]>(defaultMemberOrganizations);
   useRefresh(() => {
-    fetchMemberOrganizations().then((rows) => { if (rows) setList(rows); }).catch(() => { /* keep what is shown */ });
+    fetchMemberOrganizations()
+      .then((rows) => {
+        if (rows) setList(rows);
+      })
+      .catch(() => {
+        /* keep what is shown */
+      });
   });
   return list;
 }
 
-export interface AdminProject { id: string; name: string; area?: string; location?: string; description?: string; status: string; beneficiaries: number; /** photo uploaded in the admin panel */ image_url?: string }
+export interface AdminProject {
+  id: string;
+  name: string;
+  area?: string;
+  location?: string;
+  description?: string;
+  status: string;
+  beneficiaries: number;
+  /** photo uploaded in the admin panel */ image_url?: string;
+}
 /** Projects added in the admin panel and marked "show on website". Tries the site's own server first, then Supabase. */
 async function fetchAdminProjects(): Promise<AdminProject[]> {
   try {
@@ -128,19 +222,34 @@ async function fetchAdminProjects(): Promise<AdminProject[]> {
       const list = await r.json();
       if (Array.isArray(list) && list.length) return list;
     }
-  } catch { /* server not running: fall through to Supabase */ }
+  } catch {
+    /* server not running: fall through to Supabase */
+  }
   if (!supabaseConfigured || !supabase) return [];
   try {
     const { data, error } = await supabase.from("projects").select("*").eq("published", true).order("created_at", { ascending: false });
     if (error || !data) return [];
-    return data.map((p) => ({ ...p, id: String(p.id), area: p.area || undefined, location: p.location || undefined, description: p.description || undefined, image_url: p.image_url || undefined }));
-  } catch { return []; }
+    return data.map((p) => ({
+      ...p,
+      id: String(p.id),
+      area: p.area || undefined,
+      location: p.location || undefined,
+      description: p.description || undefined,
+      image_url: p.image_url || undefined
+    }));
+  } catch {
+    return [];
+  }
 }
 /** Projects added in the admin panel and marked "show on website". Empty list if neither source is reachable. */
 export function useAdminProjects(): AdminProject[] {
   const [list, setList] = useState<AdminProject[]>([]);
   useRefresh(() => {
-    fetchAdminProjects().then(setList).catch(() => { /* keep what is shown */ });
+    fetchAdminProjects()
+      .then(setList)
+      .catch(() => {
+        /* keep what is shown */
+      });
   });
   return list;
 }

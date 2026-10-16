@@ -7,19 +7,36 @@
 export const isDemo = false;
 
 export interface Programme {
-  name: string; period: string; place: string; summary: string;
+  name: string;
+  period: string;
+  place: string;
+  summary: string;
   /** money received for this programme, in rupees */
   received: number;
 }
-export interface Spend { label: string; detail: string; amount: number }
-export interface Outcome { value: number; label: string; detail: string }
-export interface Proof { title: string; kind: string; detail: string; /** a file in /public, when there is one; without it the item is listed as "available on request" */ file?: string }
+export interface Spend {
+  label: string;
+  detail: string;
+  amount: number;
+}
+export interface Outcome {
+  value: number;
+  label: string;
+  detail: string;
+}
+export interface Proof {
+  title: string;
+  kind: string;
+  detail: string;
+  /** a file in /public, when there is one; without it the item is listed as "available on request" */ file?: string;
+}
 
 export const programme: Programme = {
   name: "Poshan Ka Utsav (Nutrition Festival)",
   period: "12 - 14 March",
   place: "Sahara learning centres, Sagar district, Madhya Pradesh",
-  summary: "A three-day nutrition festival for children of the Samiti's learning centres: a hot nutritious meal every day, a take-home nutrition kit, school materials, and a health and nutrition awareness session for mothers.",
+  summary:
+    "A three-day nutrition festival for children of the Samiti's learning centres: a hot nutritious meal every day, a take-home nutrition kit, school materials, and a health and nutrition awareness session for mothers.",
   received: 50000
 };
 
@@ -28,7 +45,11 @@ export const spending: Spend[] = [
   { label: "Nutritious meals & snacks", detail: "Three days of hot meals, fruit and milk for 100 children", amount: 16000 },
   { label: "Take-home nutrition kits", detail: "Dry rations, jaggery, groundnuts and fortified flour, one kit per child", amount: 9000 },
   { label: "Educational materials", detail: "Notebooks, pencils, slates and school bags", amount: 6000 },
-  { label: "Health check & awareness session", detail: "Height / weight check-up, anaemia screening and a session for mothers", amount: 2500 },
+  {
+    label: "Health check & awareness session",
+    detail: "Height / weight check-up, anaemia screening and a session for mothers",
+    amount: 2500
+  },
   { label: "Venue, transport & logistics", detail: "Tent and seating, carrying supplies to the centres", amount: 1500 }
 ];
 
@@ -57,7 +78,10 @@ export const activityDates: { date: string; title: string; detail: string }[] = 
 export const photos: { file: string; alt: string }[] = [
   { file: "/assets/images/home/hero-slide-02.jpg", alt: "Children enjoying a hot meal served at a Sahara centre" },
   { file: "/assets/images/projects/projects-01.jpg", alt: "Children with slates and school bags at a village learning centre" },
-  { file: "/assets/images/gallery/health-nutrition/child-nutrition-kit-handover.jpg", alt: "A nutrition kit handed to a mother at the education and nutrition programme" }
+  {
+    file: "/assets/images/gallery/health-nutrition/child-nutrition-kit-handover.jpg",
+    alt: "A nutrition kit handed to a mother at the education and nutrition programme"
+  }
 ];
 
 export const spent = spending.reduce((n, s) => n + s.amount, 0);
@@ -66,10 +90,27 @@ export const rupees = (n: number) => `₹${n.toLocaleString("en-IN")}`;
 
 /** One programme as the page shows it. Comes from the admin panel (tables donor_programmes / donor_items). */
 export interface DonorData {
-  id: number | string; name: string; period: string; place: string; summary: string; received: number;
-  spending: Spend[]; outcomes: Outcome[]; proofs: Proof[]; photos: { file: string; alt: string }[]; dates: { date: string; title: string; detail: string }[];
+  id: number | string;
+  name: string;
+  period: string;
+  place: string;
+  summary: string;
+  received: number;
+  spending: Spend[];
+  outcomes: Outcome[];
+  proofs: Proof[];
+  photos: { file: string; alt: string }[];
+  dates: { date: string; title: string; detail: string }[];
 }
 /** What the page shows while the database cannot be reached: the example above. */
-export const fallbackProgrammes: DonorData[] = [{
-  id: "example", ...programme, spending, outcomes, proofs, photos, dates: activityDates
-}];
+export const fallbackProgrammes: DonorData[] = [
+  {
+    id: "example",
+    ...programme,
+    spending,
+    outcomes,
+    proofs,
+    photos,
+    dates: activityDates
+  }
+];

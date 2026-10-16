@@ -12,7 +12,13 @@ export const generateStaticParams = () => posts.map((p) => ({ slug: p.slug }));
 export function generateMetadata({ params }: Props): Metadata {
   const post = find(params.slug);
   if (!post) return { title: "Page not found", robots: { index: false } };
-  return buildMetadata({ title: post.title, description: post.excerpt, path: `/news/${post.slug}`, image: `/assets/images/${post.image}`, type: "article" });
+  return buildMetadata({
+    title: post.title,
+    description: post.excerpt,
+    path: `/news/${post.slug}`,
+    image: `/assets/images/${post.image}`,
+    type: "article"
+  });
 }
 
 export default function NewsPostPage({ params }: Props) {

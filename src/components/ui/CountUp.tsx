@@ -11,8 +11,12 @@ export default function CountUp({ stat }: { stat: Stat }) {
   const target = stat.value ?? 0;
   useEffect(() => {
     if (!seen || stat.value === undefined || stat.plain) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { setN(target); return; }
-    const start = performance.now(), dur = 1600;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setN(target);
+      return;
+    }
+    const start = performance.now(),
+      dur = 1600;
     let raf = 0;
     const tick = (t: number) => {
       const p = Math.min((t - start) / dur, 1);
@@ -24,6 +28,17 @@ export default function CountUp({ stat }: { stat: Stat }) {
   }, [seen, target, stat.value, stat.plain]);
 
   if (stat.value === undefined) return <span ref={ref}>{stat.text}</span>;
-  if (stat.plain) return <span ref={ref}>{stat.value}{stat.suffix}</span>;
-  return <span ref={ref}>{(seen ? n : 0).toLocaleString("en-IN")}{stat.suffix}</span>;
+  if (stat.plain)
+    return (
+      <span ref={ref}>
+        {stat.value}
+        {stat.suffix}
+      </span>
+    );
+  return (
+    <span ref={ref}>
+      {(seen ? n : 0).toLocaleString("en-IN")}
+      {stat.suffix}
+    </span>
+  );
 }

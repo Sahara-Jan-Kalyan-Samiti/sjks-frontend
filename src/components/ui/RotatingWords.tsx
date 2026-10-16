@@ -9,7 +9,15 @@ import { useEffect, useState } from "react";
  * reserves the width of the longest word, so nothing around it moves.
  * Do not put this inside an element that uses background-clip:text (Safari would draw every word at once).
  */
-export default function RotatingWords({ words, interval = 3000, className = "" }: { words: string[]; interval?: number; className?: string }) {
+export default function RotatingWords({
+  words,
+  interval = 3000,
+  className = ""
+}: {
+  words: string[];
+  interval?: number;
+  className?: string;
+}) {
   const [{ index, prev }, setPos] = useState({ index: 0, prev: -1 });
   useEffect(() => {
     if (words.length < 2) return;
@@ -23,7 +31,9 @@ export default function RotatingWords({ words, interval = 3000, className = "" }
       <span className="sr-only">{words[0]}</span>
       <span aria-hidden="true" className="rotating-words">
         {words.map((w, i) => (
-          <span key={w} className={`rotating-word ${className} ${i === index ? "is-active" : i === prev ? "is-leaving" : ""}`}>{w}</span>
+          <span key={w} className={`rotating-word ${className} ${i === index ? "is-active" : i === prev ? "is-leaving" : ""}`}>
+            {w}
+          </span>
         ))}
       </span>
     </>

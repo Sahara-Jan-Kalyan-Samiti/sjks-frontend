@@ -8,8 +8,32 @@
  */
 type Dict = Record<string, string>;
 
-const MONTHS: Dict = { January: "जनवरी", February: "फ़रवरी", March: "मार्च", April: "अप्रैल", May: "मई", June: "जून", July: "जुलाई", August: "अगस्त", September: "सितंबर", October: "अक्टूबर", November: "नवंबर", December: "दिसंबर",
-  Jan: "जन.", Feb: "फ़र.", Mar: "मार्च", Apr: "अप्रैल", Jun: "जून", Jul: "जुलाई", Aug: "अग.", Sep: "सितं.", Sept: "सितं.", Oct: "अक्टू.", Nov: "नवं.", Dec: "दिसं." };
+const MONTHS: Dict = {
+  January: "जनवरी",
+  February: "फ़रवरी",
+  March: "मार्च",
+  April: "अप्रैल",
+  May: "मई",
+  June: "जून",
+  July: "जुलाई",
+  August: "अगस्त",
+  September: "सितंबर",
+  October: "अक्टूबर",
+  November: "नवंबर",
+  December: "दिसंबर",
+  Jan: "जन.",
+  Feb: "फ़र.",
+  Mar: "मार्च",
+  Apr: "अप्रैल",
+  Jun: "जून",
+  Jul: "जुलाई",
+  Aug: "अग.",
+  Sep: "सितं.",
+  Sept: "सितं.",
+  Oct: "अक्टू.",
+  Nov: "नवं.",
+  Dec: "दिसं."
+};
 const monthNames = Object.keys(MONTHS).join("|");
 
 /** Wording that follows a pattern (dates, numbered titles) instead of being one fixed sentence. */
@@ -37,14 +61,26 @@ export interface DomTranslator {
 export function startDomTranslate(isHindi: () => boolean, ...dicts: Dict[]): DomTranslator {
   const dict: Dict = Object.assign({}, ...dicts);
   // what each text node / attribute said in English, and the Hindi we put there (to notice when the page itself changes it)
-  const textWas = new WeakMap<Text, string>(), textSet = new WeakMap<Text, string>();
-  const attrWas = new WeakMap<Element, Dict>(), attrSet = new WeakMap<Element, Dict>();
+  const textWas = new WeakMap<Text, string>(),
+    textSet = new WeakMap<Text, string>();
+  const attrWas = new WeakMap<Element, Dict>(),
+    attrSet = new WeakMap<Element, Dict>();
 
   const extra: [RegExp, string][] = [];
   const lookup = (s: string): string | null => {
     if (dict[s] !== undefined) return dict[s];
-    for (const [re, fn] of patterns) { const m = s.match(re); if (m) return fn(m); }
-    for (const [re, hi] of extra) { const m = s.match(re); if (m) return hi.replace(/\{(\d+)\}/g, (_, n) => { const part = m[Number(n)] ?? ""; return dict[part.trim()] ?? part; }); }
+    for (const [re, fn] of patterns) {
+      const m = s.match(re);
+      if (m) return fn(m);
+    }
+    for (const [re, hi] of extra) {
+      const m = s.match(re);
+      if (m)
+        return hi.replace(/\{(\d+)\}/g, (_, n) => {
+          const part = m[Number(n)] ?? "";
+          return dict[part.trim()] ?? part;
+        });
+    }
     return null;
   };
   /** Hindi for one piece of text, or null. "A · B" is translated part by part when the whole has no entry. */
@@ -53,7 +89,8 @@ export function startDomTranslate(isHindi: () => boolean, ...dicts: Dict[]): Dom
     if (!s || !hasLatin.test(s)) return null;
     let hi = lookup(s);
     if (hi === null && s.includes(" · ")) {
-      const parts = s.split(" · "), done = parts.map((p) => lookup(p.trim()));
+      const parts = s.split(" · "),
+        done = parts.map((p) => lookup(p.trim()));
       if (done.some((d) => d !== null)) hi = parts.map((p, i) => done[i] ?? p).join(" · ");
     }
     if (hi === null) return null;
@@ -63,7 +100,10 @@ export function startDomTranslate(isHindi: () => boolean, ...dicts: Dict[]): Dom
 
   const doText = (node: Text, on: boolean) => {
     const now = node.nodeValue ?? "";
-    if (textSet.get(node) !== now) { textWas.delete(node); textSet.delete(node); } // new node, or the page wrote new text into it
+    if (textSet.get(node) !== now) {
+      textWas.delete(node);
+      textSet.delete(node);
+    } // new node, or the page wrote new text into it
     if (on) {
       if (textSet.has(node)) return;
       const hi = translate(now);
@@ -71,28 +111,48 @@ export function startDomTranslate(isHindi: () => boolean, ...dicts: Dict[]): Dom
       // a choice in a drop-down keeps sending its English wording, whatever language it is shown in
       const opt = node.parentElement;
       if (opt instanceof HTMLOptionElement && !opt.hasAttribute("value")) opt.setAttribute("value", opt.text.trim());
-      textWas.set(node, now); textSet.set(node, hi); node.nodeValue = hi;
+      textWas.set(node, now);
+      textSet.set(node, hi);
+      node.nodeValue = hi;
     } else if (textWas.has(node)) {
       const en = textWas.get(node)!;
-      textWas.delete(node); textSet.delete(node); node.nodeValue = en;
+      textWas.delete(node);
+      textSet.delete(node);
+      node.nodeValue = en;
     }
   };
   const doAttrs = (el: Element, on: boolean) => {
     for (const a of ATTRS) {
       const now = el.getAttribute(a);
       if (now === null) continue;
-      const was = attrWas.get(el) ?? {}, set = attrSet.get(el) ?? {};
-      if (set[a] !== now) { delete was[a]; delete set[a]; }
+      const was = attrWas.get(el) ?? {},
+        set = attrSet.get(el) ?? {};
+      if (set[a] !== now) {
+        delete was[a];
+        delete set[a];
+      }
       if (on && set[a] === undefined) {
         const hi = translate(now);
-        if (hi !== null && hi !== now) { was[a] = now; set[a] = hi; attrWas.set(el, was); attrSet.set(el, set); el.setAttribute(a, hi); }
+        if (hi !== null && hi !== now) {
+          was[a] = now;
+          set[a] = hi;
+          attrWas.set(el, was);
+          attrSet.set(el, set);
+          el.setAttribute(a, hi);
+        }
       } else if (!on && was[a] !== undefined) {
-        const en = was[a]; delete was[a]; delete set[a]; el.setAttribute(a, en);
+        const en = was[a];
+        delete was[a];
+        delete set[a];
+        el.setAttribute(a, en);
       }
     }
   };
   const walk = (root: Node, on: boolean) => {
-    if (root.nodeType === Node.TEXT_NODE) { if (!(root.parentElement?.closest(SKIP + ", textarea"))) doText(root as Text, on); return; }
+    if (root.nodeType === Node.TEXT_NODE) {
+      if (!root.parentElement?.closest(SKIP + ", textarea")) doText(root as Text, on);
+      return;
+    }
     if (root.nodeType !== Node.ELEMENT_NODE) return;
     const el = root as Element;
     if (el.closest(SKIP)) return;
@@ -102,7 +162,10 @@ export function startDomTranslate(isHindi: () => boolean, ...dicts: Dict[]): Dom
       acceptNode: (n) => {
         if (n.nodeType !== Node.ELEMENT_NODE) return NodeFilter.FILTER_ACCEPT;
         if ((n as Element).matches(SKIP)) return NodeFilter.FILTER_REJECT;
-        if (n instanceof HTMLTextAreaElement) { doAttrs(n, on); return NodeFilter.FILTER_REJECT; }
+        if (n instanceof HTMLTextAreaElement) {
+          doAttrs(n, on);
+          return NodeFilter.FILTER_REJECT;
+        }
         return NodeFilter.FILTER_ACCEPT;
       }
     });
@@ -118,8 +181,9 @@ export function startDomTranslate(isHindi: () => boolean, ...dicts: Dict[]): Dom
     if (!on) return;
     for (const m of list) {
       if (m.type === "characterData") walk(m.target, on);
-      else if (m.type === "attributes") { if (!(m.target as Element).closest(SKIP)) doAttrs(m.target as Element, on); }
-      else m.addedNodes.forEach((n) => walk(n, on));
+      else if (m.type === "attributes") {
+        if (!(m.target as Element).closest(SKIP)) doAttrs(m.target as Element, on);
+      } else m.addedNodes.forEach((n) => walk(n, on));
     }
   }).observe(document.documentElement, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
 
@@ -127,7 +191,19 @@ export function startDomTranslate(isHindi: () => boolean, ...dicts: Dict[]): Dom
   refresh();
   return {
     refresh,
-    add: (more) => { Object.assign(dict, more); refresh(); },
-    addPatterns: (list) => { list.forEach(([src, hi]) => { try { extra.push([new RegExp(src), hi]); } catch { /* skip a pattern that is not valid */ } }); refresh(); }
+    add: (more) => {
+      Object.assign(dict, more);
+      refresh();
+    },
+    addPatterns: (list) => {
+      list.forEach(([src, hi]) => {
+        try {
+          extra.push([new RegExp(src), hi]);
+        } catch {
+          /* skip a pattern that is not valid */
+        }
+      });
+      refresh();
+    }
   };
 }
