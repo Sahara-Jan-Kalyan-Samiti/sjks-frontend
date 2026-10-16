@@ -10,7 +10,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Img from "@/components/ui/Img";
 import PageHero from "@/components/layout/PageHero";
-import VolunteerWall from "@/components/sections/VolunteerWall";
+import dynamic from "next/dynamic";
+import Skeleton from "@/components/ui/Skeleton";
+const VolunteerWall = dynamic(() => import("@/components/sections/VolunteerWall"), { loading: () => <Skeleton className="h-96" /> });
 import { aboutImages } from "@/data/content/slideshows";
 
 function CopyId({ value }: { value: string }) {

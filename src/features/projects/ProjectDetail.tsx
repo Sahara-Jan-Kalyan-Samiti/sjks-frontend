@@ -10,7 +10,9 @@ import NotFound from "@/features/NotFound";
 import DonateButton from "@/components/ui/DonateButton";
 import { Steps, Faq } from "@/components/sections/InfoBlocks";
 import { focusAreas } from "@/data/content/projectFocus";
-import MedicalFunding from "@/components/sections/MedicalFunding";
+import dynamic from "next/dynamic";
+import Skeleton from "@/components/ui/Skeleton";
+const MedicalFunding = dynamic(() => import("@/components/sections/MedicalFunding"), { loading: () => <Skeleton className="h-64" /> });
 
 export default function ProjectDetail({ slug }: { slug: string }) {
   const c = usePageText();
