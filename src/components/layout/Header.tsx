@@ -32,9 +32,9 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 bg-white shadow-[0_6px_24px_-12px_rgba(11,79,156,.35)]">
-      <div className="w-full px-3 sm:px-6 lg:px-8">
-        {/* full-width white bar behind everything: logo badge on the left, links in the middle, Donate on the right */}
-        <div className="flex h-16 items-center justify-between sm:h-[72px]">
+      <div className="container-site">
+        {/* same container as the top strip so the logo, links and Donate line up with it: logo left, links centred, Donate right */}
+        <div className="flex h-16 items-center justify-between gap-4 sm:h-[72px]">
           <Link href="/" aria-label={`${site.name} home`} className="flex h-12 shrink-0 items-center sm:h-14 xl:h-[60px]">
             <img
               src="/assets/images/logo.png"
@@ -43,16 +43,29 @@ export default function Header() {
             />
           </Link>
 
-          <nav aria-label="Main" className="hidden min-w-0 flex-1 items-center justify-between gap-3 pl-3 xl:flex 2xl:pl-8">
-            <div className="flex flex-1 items-center justify-center gap-0.5 2xl:gap-1.5">
+          <nav aria-label="Main" className="hidden min-w-0 flex-1 items-center justify-between gap-4 xl:flex">
+            <div className="flex flex-1 items-center justify-center gap-0.5 2xl:gap-1">
               {nav.map((item) => (
                 <div key={item.label} className="group relative">
                   <Link
                     href={item.href}
-                    className={`block whitespace-nowrap rounded-full px-2.5 py-2 text-[14px] font-medium transition-colors 2xl:px-4 2xl:text-[15px] ${isActivePath(pathname, item.href) || item.children?.some((c) => c.href === pathname) ? "bg-brand text-white" : "text-ink hover:bg-brand-light hover:text-brand-dark"}`}
+                    className={`flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2 text-[14px] font-medium transition-colors 2xl:px-4 2xl:text-[15px] ${isActivePath(pathname, item.href) || item.children?.some((c) => c.href === pathname) ? "bg-brand text-white" : "text-ink hover:bg-brand-light hover:text-brand-dark"}`}
                   >
                     {t(item.label)}
-                    {item.children && <span aria-hidden="true"> ▾</span>}
+                    {item.children && (
+                      <svg
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-hover:rotate-180"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    )}
                   </Link>
                   {/* open on hover, and for keyboard users on focus; a mouse click must not leave it open after the pointer has moved away */}
                   {item.children && (
