@@ -1,5 +1,7 @@
+"use client";
+
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { projects } from "@/data/content/content";
 import { usePageText } from "@/hooks/usePageText";
 import Img from "@/components/ui/Img";
@@ -23,7 +25,7 @@ export default function ProjectSlider() {
                 <h3 className="mt-2 font-serif text-lg font-bold">{c(`project.${p.slug}.title`)}</h3>
                 <p className="mt-2 text-sm text-ink/70">{c(`project.${p.slug}.text`)}</p>
                 <div className="mt-auto grid grid-cols-2 gap-2 pt-4">
-                  <Link to={`/projects/${p.slug}`} className="btn btn-brand justify-center whitespace-nowrap !px-3 !py-2">Learn Details</Link>
+                  <Link href={`/projects/${p.slug}`} className="btn btn-brand justify-center whitespace-nowrap !px-3 !py-2">Learn Details</Link>
                   <DonateButton to={`/donate${p.detail?.donateCause ? `?cause=${encodeURIComponent(p.detail.donateCause)}` : ""}`} variant="outline" size="sm" className="justify-center">Sponsor</DonateButton>
                 </div>
               </div>

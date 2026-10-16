@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { hi } from "./hi";
 import { startDomTranslate, type DomTranslator } from "./domTranslate";
@@ -12,9 +14,11 @@ const LangCtx = createContext<Ctx>({ lang: "en", setLang: () => {}, t: (s) => s 
  * from the same dictionary plus src/i18n/hi.site.ts and hi.messages.ts, which are only downloaded when a visitor switches to Hindi.
  */
 export function LangProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(() => {
-    try { return localStorage.getItem("lang") === "hi" ? "hi" : "en"; } catch { return "en"; }
-  });
+  // English on the server and for the first render in the browser; a saved Hindi choice is applied right after (keeps hydration exact)
+  const [lang, setLangState] = useState<Lang>("en");
+  useEffect(() => {
+    try { if (localStorage.getItem("lang") === "hi") setLangState("hi"); } catch { /* storage blocked: stay in English */ }
+  }, []);
   const setLang = (l: Lang) => { setLangState(l); try { localStorage.setItem("lang", l); } catch { /* ignore */ } };
   const langRef = useRef(lang); langRef.current = lang;
   const dom = useRef<DomTranslator | null>(null);

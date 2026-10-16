@@ -4,21 +4,22 @@ import { defaultMedicalFundings, type MedicalFunding } from "@/data/content/medi
 import { defaultMemberOrganizations, type MemberOrganization } from "@/data/content/memberOrganizations";
 import { useSavedPageText } from "./usePageText";
 import { supabase, supabaseConfigured } from "@/services/supabase";
+import { env } from "@/lib/env";
 
 export interface Campaign { id: string; title: string; text: string; goal: number; raised: number; cause?: string; sample?: boolean }
 export interface EventItem { id: string; title: string; date: string; time?: string; place: string; text: string; images?: string[]; sample?: boolean }
 interface Live { stats: Stat[]; campaigns: Campaign[]; events: EventItem[] }
 
 /** Base URL of the admin server. Empty = same address as the site (dev proxy / single-server deploy). */
-export const API_BASE = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
-const URL_ = import.meta.env.VITE_LIVE_DATA_URL || "/data/live.json";
+export const API_BASE = env.apiUrl;
+const URL_ = env.liveDataUrl;
 let cache: Live | null = null;
 
 /** Today as YYYY-MM-DD in the visitor's own time zone (not UTC), so an event dated today stays "upcoming" all day. */
 export const todayLocal = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; };
 
 /** Sample entries are shown while developing but hidden on the published site. */
-const visible = <T extends { sample?: boolean }>(list: T[] = []) => (import.meta.env.DEV ? list : list.filter((x) => !x.sample));
+const visible = <T extends { sample?: boolean }>(list: T[] = []) => (env.isDev ? list : list.filter((x) => !x.sample));
 
 /** Events published in the admin panel. Tries the site's own server first (self-hosted deployments), then Supabase. */
 async function fetchAdminEvents(): Promise<EventItem[]> {

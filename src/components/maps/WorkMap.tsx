@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { site } from "@/config/site";
 import { useLang } from "@/i18n/LangContext";

@@ -1,3 +1,5 @@
+"use client";
+
 import { useInView } from "@/hooks/useInView";
 import type { Campaign } from "@/hooks/useLiveData";
 import { useLang } from "@/i18n/LangContext";

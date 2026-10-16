@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { impactTiers } from "@/data/content/content";
 import DonateButton from "@/components/ui/DonateButton";

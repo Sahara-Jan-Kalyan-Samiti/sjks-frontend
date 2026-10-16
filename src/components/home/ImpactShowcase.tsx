@@ -1,3 +1,5 @@
+"use client";
+
 import { statFromText, type Stat } from "@/data/content/content";
 import { keyFigureDefaults } from "@/data/content/pageContent";
 import { useLiveData } from "@/hooks/useLiveData";
@@ -120,7 +122,7 @@ export function KeyFigures() {
             <div className="flex flex-col-reverse">
               <dt className="max-w-[9rem] text-xs font-semibold uppercase leading-snug tracking-wider text-ink/60 sm:text-[13px]">{f.label}</dt>
               {/* counts up from 0 when the card scrolls into view; tabular figures keep the width steady while it runs */}
-              <dd className="num-gradient font-[Merriweather,Georgia,serif] text-3xl font-black tabular-nums sm:text-[2.4rem] sm:leading-tight"><CountUp stat={f.stat} /></dd>
+              <dd className="num-gradient font-display text-3xl font-black tabular-nums sm:text-[2.4rem] sm:leading-tight"><CountUp stat={f.stat} /></dd>
             </div>
           </div>
         ))}

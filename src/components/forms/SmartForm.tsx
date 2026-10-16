@@ -1,3 +1,5 @@
+"use client";
+
 import { FormEvent, useState } from "react";
 import { submitForm } from "@/services/forms";
 import { useLang } from "@/i18n/LangContext";

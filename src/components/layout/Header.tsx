@@ -1,14 +1,18 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { nav } from "@/config/navigation";
 import { site } from "@/config/site";
+import { isActivePath } from "@/utils/navigation";
 import { useLang } from "@/i18n/LangContext";
 import DonateButton from "@/components/ui/DonateButton";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [sub, setSub] = useState<string | null>(null);
-  const { pathname } = useLocation();
+  const pathname = usePathname();
   const { t } = useLang();
   useEffect(() => { setOpen(false); }, [pathname]);
   // the full-page menu always opens with its sections closed, and the page behind it must not scroll
@@ -24,7 +28,7 @@ export default function Header() {
       <div className="w-full px-3 sm:px-6 lg:px-8">
         {/* full-width white bar behind everything: logo badge on the left, links in the middle, Donate on the right */}
         <div className="flex h-16 items-center justify-between sm:h-[72px]">
-          <Link to="/" aria-label={`${site.name} home`} className="flex h-12 shrink-0 items-center sm:h-14 xl:h-[60px]">
+          <Link href="/" aria-label={`${site.name} home`} className="flex h-12 shrink-0 items-center sm:h-14 xl:h-[60px]">
             <img src="/assets/images/logo.png" alt={`${site.name} logo`} className="h-11 w-auto max-w-[190px] object-contain sm:h-12 sm:max-w-[220px] xl:h-14 xl:max-w-[220px] 2xl:max-w-[260px]" />
           </Link>
 
@@ -32,16 +36,16 @@ export default function Header() {
             <div className="flex flex-1 items-center justify-center gap-0.5 2xl:gap-1.5">
               {nav.map((item) => (
                 <div key={item.label} className="group relative">
-                  <NavLink to={item.href} end={item.href === "/"} className={({ isActive }) =>
-                    `block whitespace-nowrap rounded-full px-2.5 py-2 text-[14px] font-medium transition-colors 2xl:px-4 2xl:text-[15px] ${isActive || item.children?.some((c) => c.href === pathname) ? "bg-brand text-white" : "text-ink hover:bg-brand-light hover:text-brand-dark"}`}>
+                  <Link href={item.href} className={
+                    `block whitespace-nowrap rounded-full px-2.5 py-2 text-[14px] font-medium transition-colors 2xl:px-4 2xl:text-[15px] ${isActivePath(pathname, item.href) || item.children?.some((c) => c.href === pathname) ? "bg-brand text-white" : "text-ink hover:bg-brand-light hover:text-brand-dark"}`}>
                     {t(item.label)}{item.children && <span aria-hidden="true"> ▾</span>}
-                  </NavLink>
+                  </Link>
                   {/* open on hover, and for keyboard users on focus; a mouse click must not leave it open after the pointer has moved away */}
                   {item.children && (
                     <div className="invisible absolute left-1/2 top-full min-w-[230px] -translate-x-1/2 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-has-[:focus-visible]:visible group-has-[:focus-visible]:opacity-100">
                       <div className="rounded-2xl border bg-white py-3 shadow-xl">
                         {item.children.map((c) => (
-                          <Link key={c.href} to={c.href} onClick={() => setSub(null)} className="block px-5 py-2 text-center text-sm text-ink transition hover:bg-brand-light hover:text-brand-dark">{t(c.label)}</Link>
+                          <Link key={c.href} href={c.href} onClick={() => setSub(null)} className="block px-5 py-2 text-center text-sm text-ink transition hover:bg-brand-light hover:text-brand-dark">{t(c.label)}</Link>
                         ))}
                       </div>
                     </div>
@@ -65,7 +69,7 @@ export default function Header() {
         {open && (
           <nav id="mobile-nav" aria-label="Mobile" className="fixed inset-0 z-50 flex flex-col bg-white text-ink xl:hidden">
             <div className="flex h-16 shrink-0 items-center justify-between border-b px-3 sm:h-[72px] sm:px-6">
-              <Link to="/" onClick={() => setOpen(false)} aria-label={`${site.name} home`} className="flex h-12 items-center sm:h-14">
+              <Link href="/" onClick={() => setOpen(false)} aria-label={`${site.name} home`} className="flex h-12 items-center sm:h-14">
                 <img src="/assets/images/logo.png" alt={`${site.name} logo`} className="h-11 w-auto max-w-[190px] object-contain sm:h-12 sm:max-w-[220px] xl:h-14 xl:max-w-[220px] 2xl:max-w-[260px]" />
               </Link>
               <button className="flex h-11 w-11 items-center justify-center rounded-full text-ink" aria-label="Close menu" onClick={() => setOpen(false)}>
@@ -77,7 +81,7 @@ export default function Header() {
               {nav.map((item) => (
                 <div key={item.label} className="border-b border-ink/10">
                   <div className="flex min-h-[3.5rem] items-center justify-between gap-3">
-                    <Link to={item.href} onClick={() => setOpen(false)} className="flex-1 py-3 text-lg font-semibold">{t(item.label)}</Link>
+                    <Link href={item.href} onClick={() => setOpen(false)} className="flex-1 py-3 text-lg font-semibold">{t(item.label)}</Link>
                     {item.children && (
                       <button className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand-dark" aria-label={`${sub === item.label ? "Hide" : "Show"} ${item.label} options`} aria-expanded={sub === item.label}
                         onClick={() => setSub(sub === item.label ? null : item.label)}>
@@ -87,7 +91,7 @@ export default function Header() {
                   </div>
                   {item.children && sub === item.label && (
                     <div className="mb-3 rounded-2xl bg-brand-light py-2">
-                      {item.children.map((c) => <Link key={c.href} to={c.href} onClick={() => setOpen(false)} className="block px-5 py-3 text-[15px] font-medium">{t(c.label)}</Link>)}
+                      {item.children.map((c) => <Link key={c.href} href={c.href} onClick={() => setOpen(false)} className="block px-5 py-3 text-[15px] font-medium">{t(c.label)}</Link>)}
                     </div>
                   )}
                 </div>

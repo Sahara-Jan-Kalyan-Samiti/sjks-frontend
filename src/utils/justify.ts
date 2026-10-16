@@ -8,8 +8,13 @@
 const MIN_EM = 42;
 const SELECTOR = "main p, main .justified";
 
-function check() {
+/** React tags a node with a "__reactFiber$..." key once it has taken it over; changing the class earlier would break hydration. */
+const isHydrated = (el: HTMLElement) => Object.keys(el).some((k) => k.startsWith("__reactFiber$"));
+
+function check(retries = 10) {
+  let pending = false;
   document.querySelectorAll<HTMLElement>(SELECTOR).forEach((el) => {
+    if (!isHydrated(el)) { pending = true; return; }
     const narrow = el.classList.contains("no-justify");
     // measured without the class, so a box that has become wide enough is justified again
     if (narrow) el.classList.remove("no-justify");
@@ -18,6 +23,8 @@ function check() {
     const width = el.clientWidth, size = parseFloat(cs.fontSize) || 16;
     if (width > 0 && width / size < MIN_EM) el.classList.add("no-justify");
   });
+  // parts of the page that React hydrates later (Suspense) are checked again shortly
+  if (pending && retries > 0) window.setTimeout(() => check(retries - 1), 300);
 }
 
 let started = false;

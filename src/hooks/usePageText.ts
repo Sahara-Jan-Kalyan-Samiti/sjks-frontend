@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { pageTextDefaults } from "@/data/content/pageContent";
 import { supabase, supabaseConfigured } from "@/services/supabase";
 import { useLang } from "@/i18n/LangContext";
+import { env } from "@/lib/env";
 
 /** Texts changed in the admin panel (Website Pages), by key. Loaded once and shared by every page. */
 let saved: Record<string, string> = {};
@@ -38,7 +39,7 @@ export function usePageText() {
   const { t } = useLang();
   useSavedPageText();
   return (key: string) => {
-    if (import.meta.env.DEV && !(key in pageTextDefaults)) console.warn(`usePageText: unknown key "${key}" (add it to src/data/pageContent.ts)`);
+    if (env.isDev && !(key in pageTextDefaults)) console.warn(`usePageText: unknown key "${key}" (add it to src/data/pageContent.ts)`);
     return saved[key] ?? t(pageTextDefaults[key] ?? "");
   };
 }

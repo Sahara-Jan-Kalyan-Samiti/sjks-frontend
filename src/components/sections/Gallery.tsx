@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useEffect, useRef, useState } from "react";
 import Img from "@/components/ui/Img";
 import { useLang } from "@/i18n/LangContext";

@@ -1,5 +1,7 @@
+"use client";
+
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { testimonials, type Testimonial } from "@/data/content/content";
 import { useLiveData } from "@/hooks/useLiveData";
 import { useLang } from "@/i18n/LangContext";
@@ -154,8 +156,8 @@ export default function Testimonials() {
             <span className="max-w-xs text-sm text-ink/65 md:text-base">{t("people reached through our programmes")}</span>
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link to="/news" className="btn border border-ink/15 bg-white text-ink">{t("Read more stories")}</Link>
-            <Link to="/donate" className="btn btn-primary">{t("Support our work")}</Link>
+            <Link href="/news" className="btn border border-ink/15 bg-white text-ink">{t("Read more stories")}</Link>
+            <Link href="/donate" className="btn btn-primary">{t("Support our work")}</Link>
           </div>
         </div>
       </div>

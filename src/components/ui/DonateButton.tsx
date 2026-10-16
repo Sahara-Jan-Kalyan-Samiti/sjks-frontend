@@ -1,5 +1,8 @@
+"use client";
+
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Props {
   /** internal page, e.g. "/donate?amount=500" */ to?: string;
@@ -22,7 +25,7 @@ const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matc
  * and a burst of dots when clicked. Links wait ~0.45 s so the click animation is seen before the page changes.
  */
 export default function DonateButton({ to, href, type = "button", disabled, variant = "solid", size = "md", full, icon = "heart", className = "", children }: Props) {
-  const nav = useNavigate();
+  const router = useRouter();
   const [burst, setBurst] = useState(false);
   const timers = useRef<number[]>([]);
   useEffect(() => () => timers.current.forEach(window.clearTimeout), []);
@@ -42,9 +45,9 @@ export default function DonateButton({ to, href, type = "button", disabled, vari
 
   if (to) {
     return (
-      <Link to={to} className={cls} onClick={(e) => {
+      <Link href={to} className={cls} onClick={(e) => {
         if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || reduced()) return;
-        e.preventDefault(); play(); later(() => nav(to), 450);
+        e.preventDefault(); play(); later(() => router.push(to), 450);
       }}>{inner}</Link>
     );
   }

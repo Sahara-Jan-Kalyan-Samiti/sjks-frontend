@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { site } from "@/config/site";
 import Reveal from "@/components/ui/Reveal";
 
@@ -103,7 +105,7 @@ export function Faq({ title = "Frequently asked questions", items, className = "
             );
           })}
           <p className="pt-4 text-center text-sm text-ink/60">
-            Still have a question? <Link to="/contact" className="font-semibold text-brand underline-offset-4 hover:underline">Contact us</Link> or call <a href={site.phoneHref} className="font-semibold text-brand-dark hover:underline">{site.phone}</a>.
+            Still have a question? <Link href="/contact" className="font-semibold text-brand underline-offset-4 hover:underline">Contact us</Link> or call <a href={site.phoneHref} className="font-semibold text-brand-dark hover:underline">{site.phone}</a>.
           </p>
         </div>
       </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import { useLang } from "@/i18n/LangContext";
 /** One EN | HI switch: click (or Space/Enter) to flip between English and Hindi. The highlighted side is the active language. */
 export default function LanguageToggle() {
