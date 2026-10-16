@@ -1,5 +1,7 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { supabase, supabaseConfigured } from "@/services/supabase";
 import { useLang } from "@/i18n/LangContext";
 import Reveal from "@/components/ui/Reveal";
@@ -48,7 +50,7 @@ export default function VolunteerWall() {
           </Reveal>
         ))}
         <Reveal delay={Math.min(list.length, 9) * 60} className="h-full">
-          <Link to="/get-involved" className="group flex h-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-brand/40 bg-brand-light/50 p-5 text-center transition duration-300 hover:-translate-y-1.5 hover:border-brand hover:bg-brand-light">
+          <Link href="/get-involved" className="group flex h-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-brand/40 bg-brand-light/50 p-5 text-center transition duration-300 hover:-translate-y-1.5 hover:border-brand hover:bg-brand-light">
             <span aria-hidden="true" className="flex h-20 w-20 items-center justify-center rounded-full bg-white text-3xl font-light text-brand shadow-sm transition duration-300 group-hover:rotate-90 group-hover:bg-brand group-hover:text-white sm:h-24 sm:w-24">+</span>
             <span className="mt-3 font-semibold text-brand-dark">{t("Become a volunteer")}</span>
             <span className="mt-0.5 text-xs text-ink/60">{t("Join the team")} →</span>

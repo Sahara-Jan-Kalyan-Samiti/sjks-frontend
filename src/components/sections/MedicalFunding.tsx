@@ -1,3 +1,5 @@
+"use client";
+
 import { useMedicalFundings } from "@/hooks/useLiveData";
 import { usePageText } from "@/hooks/usePageText";
 import type { MedicalFunding as Funding } from "@/data/content/medicalFunding";

@@ -1,3 +1,5 @@
+"use client";
+
 import { checkField } from "@/utils/validate";
 import { FormEvent, useState } from "react";
 import { legalIds } from "@/config/site";

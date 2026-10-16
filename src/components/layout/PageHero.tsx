@@ -1,4 +1,6 @@
-import { useLocation } from "react-router-dom";
+"use client";
+
+import { usePathname } from "next/navigation";
 import { bannerFor } from "@/data/content/slideshows";
 import Wave from "@/components/ui/Wave";
 
@@ -11,7 +13,7 @@ import Wave from "@/components/ui/Wave";
  * `compact` = a shorter banner on large screens, for pages whose main box should be in view without scrolling.
  */
 export default function PageHero({ eyebrow, title, text, images, compact, imgClassName = "object-[center_35%]" }: { eyebrow: string; title: string; text?: string; images?: string[]; compact?: boolean; imgClassName?: string }) {
-  const { pathname } = useLocation();
+  const pathname = usePathname();
   const img = (images ?? bannerFor(pathname))?.[0];
   return (
     <section className={`relative isolate overflow-hidden bg-gradient-to-br from-brand-dark to-brand pb-24 pt-12 text-white sm:pt-16 md:pb-36 md:pt-24 ${compact ? "lg:pb-[72px] lg:pt-4" : ""}`}>

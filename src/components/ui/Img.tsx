@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 interface Props { file: string; alt: string; className?: string; eager?: boolean }
 /** Loads /assets/images/<file>. If the file is missing, shows a labelled placeholder. */

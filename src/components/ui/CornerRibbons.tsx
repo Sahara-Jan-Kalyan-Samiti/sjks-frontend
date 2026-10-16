@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 
 const clamp = (n: number) => Math.min(1, Math.max(0, n));

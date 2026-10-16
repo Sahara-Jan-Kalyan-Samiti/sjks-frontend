@@ -1,9 +1,17 @@
-# Dependencies and build output
+# Dependencies
 node_modules/
+.pnp
+.pnp.js
+
+# Next.js build output
+.next/
+out/
+next-env.d.ts
+
+# Other build and test output
 dist/
 build/
 coverage/
-.vite/
 *.tsbuildinfo
 
 # Environment files: never commit real values. Only .env.example is tracked.
@@ -11,14 +19,19 @@ coverage/
 .env.*
 !.env.example
 
-# Logs and local tooling
+# Logs
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor, OS and local tooling
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
 .claude/
+.vercel
 
 # Generated or temporary files
 admin-data/

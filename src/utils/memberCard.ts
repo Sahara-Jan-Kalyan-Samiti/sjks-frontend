@@ -1,5 +1,6 @@
 import { site } from "@/config/site";
 import { jpegToPdf, saveBlob } from "./pdf";
+import { env } from "@/lib/env";
 
 /** The member ID card: one drawing used by the preview on /member-id, the downloads there, the public list of issued cards and the admin panel. */
 
@@ -91,7 +92,7 @@ export function draw(canvas: HTMLCanvasElement, d: CardData, logo: HTMLImageElem
 
 /** Storage bucket holding the applicants' photos (see supabase/migrations/20250127000000_member_card_photos.sql). */
 export const MEMBER_PHOTOS = "member-photos";
-export const memberPhotoUrl = (path: string) => `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/${MEMBER_PHOTOS}/${path}`;
+export const memberPhotoUrl = (path: string) => `${env.supabaseUrl}/storage/v1/object/public/${MEMBER_PHOTOS}/${path}`;
 
 /** The chosen photo as a small JPEG (at most 600 x 750), which is what gets sent with the application. */
 export function photoForUpload(img: HTMLImageElement): Promise<Blob> {

@@ -1,6 +1,7 @@
 import { site } from "@/config/site";
 import { API_BASE } from "@/hooks/useLiveData";
 import { supabase, supabaseConfigured } from "./supabase";
+import { env } from "@/lib/env";
 
 export type SubmitResult = "sent" | "mailto";
 interface Opts {
@@ -83,8 +84,8 @@ export async function subscribeNewsletter(email: string): Promise<NewsletterResu
  *  3. FALLBACK  - with nothing configured, the visitor's email app opens, addressed to the Samiti.
  */
 export async function submitForm(kind: string, data: Record<string, string>, opts: Opts = {}): Promise<SubmitResult> {
-  const key = import.meta.env.VITE_WEB3FORMS_KEY;
-  const endpoint = import.meta.env.VITE_FORM_ENDPOINT;
+  const key = env.web3formsKey;
+  const endpoint = env.formEndpoint;
   const subject = `[${site.shortName} website] ${kind}`;
   let saved = false;
 

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { GLOBE, INDIA_BORDER, INDIA_DOTS, WORLD_BORDERS, WORLD_DOTS, project } from "@/data/geo/globeData";
 import { useLang } from "@/i18n/LangContext";

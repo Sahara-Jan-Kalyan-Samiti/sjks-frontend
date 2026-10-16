@@ -6,7 +6,7 @@ on:
     branches: [dev, stage, main]
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,36 +18,30 @@ jobs:
       - run: npm test
       - run: npm run build
         env:
-          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
-          VITE_API_URL: ${{ vars.VITE_API_URL }}
-          VITE_ADMIN_URL: ${{ vars.VITE_ADMIN_URL }}
-      - uses: actions/upload-artifact@v4
-        with: { name: dist, path: dist }
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
+          NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
 
-  # Deploys to Google Cloud Storage + Cloud CDN. Set these in GitHub -> Settings:
-  #   Variables: GCP_BUCKET_STAGING, GCP_BUCKET_PROD, GCP_URLMAP, GCP_PROJECT, GCP_WIF_PROVIDER, GCP_SERVICE_ACCOUNT
+  # Builds the container with Cloud Build and deploys it to Cloud Run. Set in GitHub -> Settings -> Variables:
+  #   GCP_PROJECT, GCP_REGION, GCP_WIF_PROVIDER, GCP_SERVICE_ACCOUNT, NEXT_PUBLIC_SUPABASE_URL,
+  #   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, NEXT_PUBLIC_SITE_URL, NEXT_PUBLIC_API_URL, NEXT_PUBLIC_ADMIN_URL
   deploy:
-    needs: build
+    needs: check
     # dev = checks only; stage deploys to staging; main deploys to production
     if: github.event_name == 'push' && github.ref != 'refs/heads/dev'
     runs-on: ubuntu-latest
     permissions: { contents: read, id-token: write }
     steps:
-      - uses: actions/download-artifact@v4
-        with: { name: dist, path: dist }
+      - uses: actions/checkout@v4
       - uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
           service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
       - uses: google-github-actions/setup-gcloud@v2
-      - name: Pick bucket
-        run: echo "BUCKET=${{ github.ref == 'refs/heads/main' && vars.GCP_BUCKET_PROD || vars.GCP_BUCKET_STAGING }}" >> "$GITHUB_ENV"
-      - name: Upload (hashed assets cached for a year, HTML never cached)
+      - name: Build and deploy
         run: |
-          gsutil -m -h "Cache-Control:public,max-age=31536000,immutable" rsync -r dist/assets "gs://$BUCKET/assets"
-          gsutil -m rsync -d -r -x '^assets/' dist "gs://$BUCKET"
-          gsutil -m setmeta -h "Cache-Control:no-cache" "gs://$BUCKET/index.html"
-      - name: Invalidate CDN
-        if: github.ref == 'refs/heads/main'
-        run: gcloud compute url-maps invalidate-cdn-cache "${{ vars.GCP_URLMAP }}" --path "/*" --project "${{ vars.GCP_PROJECT }}"
+          SERVICE=sjks-frontend-staging
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then SERVICE=sjks-frontend; fi
+          gcloud builds submit --project "${{ vars.GCP_PROJECT }}" --config cloudbuild.yaml \
+            --substitutions "_TAG=${GITHUB_SHA::7},_SERVICE=$SERVICE,_REGION=${{ vars.GCP_REGION }},_SUPABASE_URL=${{ vars.NEXT_PUBLIC_SUPABASE_URL }},_SUPABASE_KEY=${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }},_SITE_URL=${{ vars.NEXT_PUBLIC_SITE_URL }},_API_URL=${{ vars.NEXT_PUBLIC_API_URL }},_ADMIN_URL=${{ vars.NEXT_PUBLIC_ADMIN_URL }}" .

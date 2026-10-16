@@ -1,3 +1,5 @@
+"use client";
+
 import type { ReactNode } from "react";
 import { useInView } from "@/hooks/useInView";
 /** Fades + slides its children in when scrolled into view. */

@@ -30,14 +30,13 @@ The site is bilingual (English and Hindi) and lets visitors learn about the prog
 
 | Area | Technology |
 |---|---|
-| UI | React 18, TypeScript 5.5 |
-| Build | Vite 5 |
-| Styling | Tailwind CSS 3 (brand tokens in `tailwind.config.js`, shared classes in `src/styles/index.css`) |
-| Routing | React Router 6, every page except Home is loaded on demand |
+| Framework | Next.js 14 (App Router, server rendering for search engines), React 18, TypeScript 5.5 |
+| Styling | Tailwind CSS 3 (brand tokens in `tailwind.config.ts`, shared classes in `src/styles/index.css`) |
+| Routing | Next.js file-based routes in `src/app`; each page has its own title, description, share preview, sitemap entry |
 | Data | Supabase (Postgres, Storage) through `@supabase/supabase-js` |
 | Languages | English and Hindi, switched on screen (`src/i18n`) |
 | Quality | ESLint, Prettier, Vitest, GitHub Actions |
-| Hosting | Google Cloud Storage behind Cloud CDN |
+| Hosting | Google Cloud Run (container built with Cloud Build) |
 
 Requires **Node.js 20 or newer** (see `.nvmrc`).
 
@@ -66,21 +65,21 @@ Other behaviour worth knowing:
 git clone https://github.com/scalric/sjks-frontend.git
 cd sjks-frontend
 npm ci
-cp .env.example .env     # then fill in the two Supabase values (see below)
-npm run dev              # http://localhost:5173
+cp .env.example .env.local   # then fill in the two Supabase values (see below)
+npm run dev                  # http://localhost:3000
 ```
 
 The site starts without any environment file, but content that comes from Supabase (gallery, blog, awards, team, live numbers) will then show its built-in defaults only.
 
-To work with the backend at the same time, start `sjks-backend` on port 8080. In development Vite forwards every `/api` request there, so `VITE_API_URL` can stay empty.
+To work with the backend at the same time, start `sjks-backend` on port 8080. In development Next.js forwards every `/api` request there, so `NEXT_PUBLIC_API_URL` can stay empty.
 
 ## Scripts
 
 | Command | What it does |
 |---|---|
 | `npm run dev` | Development server with hot reload |
-| `npm run build` | Type-check, then build to `dist/` |
-| `npm run preview` | Serve the built site locally |
+| `npm run build` | Production build into `.next/` |
+| `npm start` | Serve the production build locally |
 | `npm run typecheck` | TypeScript check only |
 | `npm run lint` | ESLint |
 | `npm test` | Unit tests (Vitest) |
@@ -89,55 +88,50 @@ To work with the backend at the same time, start `sjks-backend` on port 8080. In
 
 ## Environment variables
 
-Copy `.env.example` to `.env`. **Every value here is public**: it is compiled into the browser bundle. Never put a secret or a Supabase `service_role` key in a `VITE_` variable.
+Copy `.env.example` to `.env.local`. **Every value here is public**: it is compiled into the browser bundle. Never put a secret or a Supabase `service_role` key in a `NEXT_PUBLIC_` variable.
 
 | Variable | Required | Purpose |
 |---|---|---|
-| `VITE_SUPABASE_URL` | yes | Supabase project URL |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` | yes | Supabase publishable (anon) key. Access is limited by Row Level Security in the database |
-| `VITE_API_URL` | production | Address of `sjks-backend`, for example `https://api.saharangosag.com`. Leave empty in development |
-| `VITE_ADMIN_URL` | no | Shows an "Admin" link in the footer |
-| `VITE_WEB3FORMS_KEY`, `VITE_FORM_ENDPOINT` | no | Fallback form delivery by e-mail |
-| `VITE_LIVE_DATA_URL` | no | Remote copy of `public/data/live.json` |
-| `VITE_PLAUSIBLE_DOMAIN` | no | Privacy-friendly analytics |
+| `NEXT_PUBLIC_SUPABASE_URL` | yes | Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | yes | Supabase publishable (anon) key. Access is limited by Row Level Security in the database |
+| `NEXT_PUBLIC_API_URL` | production | Address of `sjks-backend`, for example `https://api.saharangosag.com`. Leave empty in development |
+| `NEXT_PUBLIC_SITE_URL` | production | Public address of the website, for canonical links, the sitemap and share previews |
+| `NEXT_PUBLIC_ADMIN_URL` | no | Shows an "Admin" link in the footer |
+| `NEXT_PUBLIC_WEB3FORMS_KEY`, `NEXT_PUBLIC_FORM_ENDPOINT` | no | Fallback form delivery by e-mail |
+| `NEXT_PUBLIC_LIVE_DATA_URL` | no | Remote copy of `public/data/live.json` |
+| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | no | Privacy-friendly analytics |
 
-The real `.env` is ignored by git. Only `.env.example` is committed.
+The real `.env.local` is ignored by git. Only `.env.example` is committed.
 
 ## Project structure
 
 ```
-index.html                  Page shell: title, fonts, SEO data
-vite.config.ts              Vite settings, the "@" alias, dev proxy to the backend
-tailwind.config.js          Brand colours, fonts, page width
+next.config.mjs             Next.js settings: security headers, dev proxy to the backend, standalone output
+tailwind.config.ts          Brand colours, fonts, page width
 eslint.config.js · .prettierrc · .editorconfig   Code quality rules
+Dockerfile · cloudbuild.yaml   Container image and Cloud Run deployment
 scripts/                    export-admin-data.ts
-public/                     Static files served as they are
-  images/                   Photos grouped by page (about, home, awards, partners, ...)
-  assets/images/            Logo, gallery photos, news clippings, crowdfunding images
-  documents/                Impact reports and annual report PDFs
-  data/live.json            Fallback live numbers
+public/                     Static files served as they are (images, documents, data/live.json)
 src/
-  main.tsx                  Entry point
-  app/App.tsx               All routes (lazy-loaded)
-  styles/index.css          Global styles, buttons, animations
-  config/                   site.ts (organisation identity, legal IDs), navigation.ts (menu)
-  pages/                    One folder per area, one file per route
-    home/ about/ projects/ media/ news/ events/ blog/
-    transparency/ membership/ support/ legal/ NotFound.tsx
-  components/
-    layout/                 Header, TopBar, Footer, PageHero, floating buttons
-    ui/                     Small parts: Img, Reveal, CountUp, DonateButton, Wave, ...
-    forms/                  SmartForm, DocumentRequestForm, OrganizationApplyForm
-    home/                   Impact dashboard, campaigns, slider, testimonials, supporters
-    sections/               FAQ, gallery, volunteer wall, issued cards, medical funding
-    maps/                   India network map, work map
+  app/                      Routes. page.tsx files are thin: they set the SEO metadata and render a view
+    layout.tsx              Root layout: fonts, site-wide metadata, structured data, header and footer
+    sitemap.ts · robots.ts  /sitemap.xml and /robots.txt
+  features/                 The screens, one folder per area (home, about, projects, media, news, events,
+                            blog, transparency, membership, support, legal) + NotFound.tsx
+  providers/                AppProviders (language, text justification)
+  styles/                   index.css (global styles) and fonts.ts (self-hosted fonts)
+  config/                   site.ts (organisation identity), navigation.ts (menu), seo.ts (title and description per page)
+  components/               layout/ ui/ forms/ sections/ maps/ (shared pieces)
   data/content/             Built-in content: news, blog, awards, portfolio, legal, page texts
   data/geo/                 Map geometry (large; loaded only when a map is shown)
-  hooks/                    useLiveData, usePageText, useBlog, useTitle, ...
-  services/                 supabase.ts (database client), forms.ts (form delivery)
+  hooks/                    useLiveData, usePageText, useBlog, useClientValue, ...
+  services/                 supabase.ts (database client), blog.ts (server-side blog fetch), forms.ts
+  lib/                      env.ts (typed public settings), seo.ts (metadata and structured data builders)
   utils/                    validate, date, justify, receipt, pdf, memberCard (+ tests)
   i18n/                     LangContext and the Hindi dictionaries
 ```
+
+Files that use hooks, click handlers or browser features start with `"use client"`. Everything else renders on the server, so search engines receive the full page.
 
 Imports use the `@/` alias for `src/`, for example `import Img from "@/components/ui/Img"`.
 
@@ -174,11 +168,11 @@ Razorpay ── webhook ──► sjks-backend
 
 ## Working on the site
 
-**Change a page's text or a menu item.** Page structure is in `src/pages`. The menu is `src/config/navigation.ts`. Organisation details (phone, address, 80G and 12A numbers, social links) are in `src/config/site.ts`.
+**Change a page's text or a menu item.** Page screens are in `src/features`. Search and share text of each page is in `src/config/seo.ts`. The menu is `src/config/navigation.ts`. Organisation details (phone, address, 80G and 12A numbers, social links) are in `src/config/site.ts`.
 
 **Add a news story.** Open `src/data/content/news.ts`, copy an entry and edit it, then put the image in `public/assets/images/news/`. Newest first. Only publish things that really happened.
 
-**Add a page.** Create the file in the matching `src/pages/<area>/` folder, add a lazy import and a route in `src/app/App.tsx`, and add it to `src/config/navigation.ts` if it needs a menu entry.
+**Add a page.** Create the screen in `src/features/<area>/`, add `src/app/<route>/page.tsx` (copy a simple one such as `about/awards`), add its title and description to `src/config/seo.ts`, and add it to `src/config/navigation.ts` if it needs a menu entry.
 
 **Add Hindi text.** Wording written with `t("English text")` is looked up in `src/i18n/hi.ts`. Other on-screen text is translated from the dictionaries in `src/i18n`. A missing entry simply stays in English.
 
@@ -200,26 +194,26 @@ The same checks run on every pull request and every push (see `.github/workflows
 
 ## Deployment
 
-The site is built into static files and hosted on **Google Cloud Storage behind an HTTPS load balancer with Cloud CDN**.
+The site runs as a container on **Google Cloud Run**. `Dockerfile` builds the Next.js standalone server; `cloudbuild.yaml` builds the image and deploys it.
 
-1. Create a bucket per environment (staging and production). Turn on static website hosting with `index.html` as both the main page and the not-found page, so the single-page app can handle every route.
-2. Put a load balancer with a managed SSL certificate in front, for example `www.saharangosag.com`, with Cloud CDN on.
+1. In the Google Cloud project, create an Artifact Registry Docker repository named `sjks` and two Cloud Run services' worth of access (`sjks-frontend-staging`, `sjks-frontend`).
+2. Map `www.saharangosag.com` to the production service (Cloud Run domain mapping or a load balancer with Cloud CDN).
 3. In GitHub, go to Settings → Secrets and variables → Actions → Variables and add:
 
    | Variable | Value |
    |---|---|
-   | `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` | Public Supabase values for that environment |
-   | `VITE_API_URL` | `https://api.saharangosag.com` |
-   | `VITE_ADMIN_URL` | Optional admin address |
-   | `GCP_BUCKET_STAGING`, `GCP_BUCKET_PROD` | Bucket names |
-   | `GCP_URLMAP`, `GCP_PROJECT` | Load balancer and project |
+   | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Public Supabase values for that environment |
+   | `NEXT_PUBLIC_SITE_URL` | Public address of the website |
+   | `NEXT_PUBLIC_API_URL` | `https://api.saharangosag.com` |
+   | `NEXT_PUBLIC_ADMIN_URL` | Optional admin address |
+   | `GCP_PROJECT`, `GCP_REGION` | Project and region (for example `asia-south1`) |
    | `GCP_WIF_PROVIDER`, `GCP_SERVICE_ACCOUNT` | Workload Identity Federation (keyless login from GitHub) |
 
 4. Push to `stage` to deploy staging, or to `main` to deploy production. `dev` only runs the checks.
 
-The workflow caches hashed files in `assets/` for a year and never caches `index.html`.
+`NEXT_PUBLIC_` values are compiled in at build time, so staging and production are separate builds. Blog pages refresh from the database about once a minute without a redeploy.
 
-Recommended response headers on the load balancer: `Strict-Transport-Security`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, and a Content-Security-Policy that allows the site itself, Google Fonts, `https://*.supabase.co` and the API address.
+Local container test: `docker build -t sjks-frontend . && docker run -p 8080:8080 sjks-frontend`.
 
 ## Branches and contributing
 

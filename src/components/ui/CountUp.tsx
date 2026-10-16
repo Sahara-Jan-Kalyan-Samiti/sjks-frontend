@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useInView } from "@/hooks/useInView";
 import type { Stat } from "@/data/content/content";

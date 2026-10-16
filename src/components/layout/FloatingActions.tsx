@@ -1,5 +1,7 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { usePathname } from "next/navigation";
 import { site } from "@/config/site";
 import { useLang } from "@/i18n/LangContext";
 import DonateButton from "@/components/ui/DonateButton";
@@ -8,7 +10,7 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 /** WhatsApp button (bottom-right), Donate pill (bottom-left) and a back-to-top button. */
 export default function FloatingActions() {
   const { t } = useLang();
-  const { pathname } = useLocation();
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const isMobile = useIsMobile();
   useEffect(() => {
