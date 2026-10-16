@@ -1,0 +1,53 @@
+name: Build and deploy (sjks-frontend)
+
+on:
+  pull_request:
+  push:
+    branches: [dev, stage, main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          VITE_ADMIN_URL: ${{ vars.VITE_ADMIN_URL }}
+      - uses: actions/upload-artifact@v4
+        with: { name: dist, path: dist }
+
+  # Deploys to Google Cloud Storage + Cloud CDN. Set these in GitHub -> Settings:
+  #   Variables: GCP_BUCKET_STAGING, GCP_BUCKET_PROD, GCP_URLMAP, GCP_PROJECT, GCP_WIF_PROVIDER, GCP_SERVICE_ACCOUNT
+  deploy:
+    needs: build
+    # dev = checks only; stage deploys to staging; main deploys to production
+    if: github.event_name == 'push' && github.ref != 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    permissions: { contents: read, id-token: write }
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { name: dist, path: dist }
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+      - uses: google-github-actions/setup-gcloud@v2
+      - name: Pick bucket
+        run: echo "BUCKET=${{ github.ref == 'refs/heads/main' && vars.GCP_BUCKET_PROD || vars.GCP_BUCKET_STAGING }}" >> "$GITHUB_ENV"
+      - name: Upload (hashed assets cached for a year, HTML never cached)
+        run: |
+          gsutil -m -h "Cache-Control:public,max-age=31536000,immutable" rsync -r dist/assets "gs://$BUCKET/assets"
+          gsutil -m rsync -d -r -x '^assets/' dist "gs://$BUCKET"
+          gsutil -m setmeta -h "Cache-Control:no-cache" "gs://$BUCKET/index.html"
+      - name: Invalidate CDN
+        if: github.ref == 'refs/heads/main'
+        run: gcloud compute url-maps invalidate-cdn-cache "${{ vars.GCP_URLMAP }}" --path "/*" --project "${{ vars.GCP_PROJECT }}"

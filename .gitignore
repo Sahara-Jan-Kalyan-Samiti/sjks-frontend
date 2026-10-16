@@ -1,0 +1,25 @@
+# Dependencies and build output
+node_modules/
+dist/
+build/
+coverage/
+.vite/
+*.tsbuildinfo
+
+# Environment files: never commit real values. Only .env.example is tracked.
+.env
+.env.*
+!.env.example
+
+# Logs and local tooling
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.claude/
+
+# Generated or temporary files
+admin-data/
+*.local
