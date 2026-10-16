@@ -6,7 +6,9 @@ import { useClientValue } from "@/hooks/useClientValue";
 import PageHero from "@/components/layout/PageHero";
 import Reveal from "@/components/ui/Reveal";
 import { W, H, draw, fmtDate, loadImage, downloadCard, photoForUpload, memberPhotoUrl, MEMBER_PHOTOS } from "@/utils/memberCard";
-import IssuedCards from "@/components/sections/IssuedCards";
+import dynamic from "next/dynamic";
+import Skeleton from "@/components/ui/Skeleton";
+const IssuedCards = dynamic(() => import("@/components/sections/IssuedCards"), { loading: () => <Skeleton className="h-64" /> });
 import { supabase } from "@/services/supabase";
 
 const BLOOD = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];

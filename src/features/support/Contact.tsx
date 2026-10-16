@@ -7,7 +7,9 @@ import { useClientValue } from "@/hooks/useClientValue";
 import PageHero from "@/components/layout/PageHero";
 import { contactImages } from "@/data/content/slideshows";
 import SmartForm from "@/components/forms/SmartForm";
-import WorkMap from "@/components/maps/WorkMap";
+import dynamic from "next/dynamic";
+import Skeleton from "@/components/ui/Skeleton";
+const WorkMap = dynamic(() => import("@/components/maps/WorkMap"), { loading: () => <Skeleton className="h-96" /> });
 import Reveal from "@/components/ui/Reveal";
 import type { ReactNode } from "react";
 
