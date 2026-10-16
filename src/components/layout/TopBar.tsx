@@ -140,7 +140,7 @@ export default function TopBar() {
   const seconds = Math.max(30, Math.round(text.length / 5.5));
   return (
     <div className="border-b border-sky-200 bg-gradient-to-r from-[#dff1ff] via-[#eaf6ff] to-[#dff1ff] text-xs font-medium text-brand-dark">
-      <div className="container-site flex items-center gap-3 py-2.5 lg:gap-5">
+      <div className="mx-auto flex w-full max-w-[1480px] items-center gap-3 px-4 py-2.5 md:px-6 lg:gap-5">
         <span className="hidden shrink-0 items-center gap-2 rounded-full bg-brand-dark px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-white sm:inline-flex">
           <span aria-hidden="true" className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-70" />

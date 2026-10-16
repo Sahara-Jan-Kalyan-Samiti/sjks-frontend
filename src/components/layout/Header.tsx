@@ -32,7 +32,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 bg-white shadow-[0_6px_24px_-12px_rgba(11,79,156,.35)]">
-      <div className="container-site">
+      <div className="mx-auto w-full max-w-[1480px] px-4 md:px-6">
         {/* same container as the top strip so the logo, links and Donate line up with it: logo left, links centred, Donate right */}
         <div className="flex h-16 items-center justify-between gap-4 sm:h-[72px]">
           <Link href="/" aria-label={`${site.name} home`} className="flex h-12 shrink-0 items-center sm:h-14 xl:h-[60px]">
