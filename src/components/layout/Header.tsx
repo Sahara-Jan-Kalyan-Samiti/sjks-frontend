@@ -111,7 +111,7 @@ export default function Header() {
 
         {/* Phones / tablets: the menu is a full page. The arrow on a section opens its options underneath it, like the dropdowns on desktop. */}
         {open && (
-          <nav id="mobile-nav" aria-label="Mobile" className="fixed inset-0 z-50 flex flex-col bg-white text-ink xl:hidden">
+          <nav id="mobile-nav" aria-label="Mobile" className="fixed inset-x-0 top-0 z-50 flex h-[100dvh] flex-col bg-white text-ink xl:hidden">
             <div className="flex h-16 shrink-0 items-center justify-between border-b px-3 sm:h-[72px] sm:px-6">
               <Link href="/" onClick={() => setOpen(false)} aria-label={`${site.name} home`} className="flex h-12 items-center sm:h-14">
                 <img
@@ -171,7 +171,7 @@ export default function Header() {
               ))}
             </div>
 
-            <div className="shrink-0 border-t px-4 py-3">
+            <div className="shrink-0 border-t px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-4">
               <DonateButton to="/donate" full>
                 {t("Donate")}
               </DonateButton>
