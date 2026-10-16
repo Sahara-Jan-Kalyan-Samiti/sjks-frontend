@@ -1,5 +1,5 @@
 /**
- * Supporter / partner logos. Files live in public/images/partners/.
+ * Supporter / partner logos. Files live in public/assets/images/partners/.
  * To add one: drop the logo in that folder and add a line here. Order here = order on screen.
  * `url` = the website the logo opens (leave it out for a logo that should not be a link).
  * Use an .svg, or a .png at least 400px tall, so the logo stays sharp on large / high-density screens.
@@ -19,10 +19,10 @@ const partners: { file: string; name: string; url?: string }[] = [
   { file: "national-urban-livelihoods-mission.png", name: "National Urban Livelihoods Mission", url: "https://nulm.gov.in/" },
   { file: "sgsy-rural-development.png", name: "SGSY, Ministry of Rural Development", url: "https://www.rural.gov.in/" },
   { file: "rajya-shiksha-kendra.png", name: "Rajya Shiksha Kendra", url: "https://www.rskmp.in/" },
-  { file: "Ketto.png", name: "Ketto", url: "https://www.ketto.org/" },
-  { file: "Milaap.png", name: "Milaap", url: "https://milaap.org/" },
-  { file: "give.do.png", name: "Give.do", url: "https://www.give.do/" },
-  { file: "VFS_Global_Logo.png", name: "VFS Global", url: "https://www.vfsglobal.com/" },
+  { file: "ketto.png", name: "Ketto", url: "https://www.ketto.org/" },
+  { file: "milaap.png", name: "Milaap", url: "https://milaap.org/" },
+  { file: "give-do.png", name: "Give.do", url: "https://www.give.do/" },
+  { file: "vfs-global.png", name: "VFS Global", url: "https://www.vfsglobal.com/" },
   { file: "google.png", name: "Google", url: "https://www.google.com/" },
   { file: "partner-15.png", name: "Supporter" }
 ];
@@ -40,7 +40,7 @@ export default function SupportersStrip() {
       <div className="h-marquee flex w-max" style={{ ["--n" as string]: partners.length }}>
         {loop.map((p, n) => {
           const copy = n >= partners.length;
-          const img = <img src={`/images/partners/${p.file}`} alt={copy ? "" : p.name} loading="lazy" draggable={false} className="h-full w-full object-contain" />;
+          const img = <img src={`/assets/images/partners/${p.file}`} alt={copy ? "" : p.name} loading="lazy" draggable={false} className="h-full w-full object-contain" />;
           return p.url
             ? <a key={n} href={p.url} target="_blank" rel="noopener noreferrer" title={p.name} aria-hidden={copy} tabIndex={copy ? -1 : undefined}
                 className={`${card} transition hover:-translate-y-1 hover:ring-brand/40`}>{img}</a>

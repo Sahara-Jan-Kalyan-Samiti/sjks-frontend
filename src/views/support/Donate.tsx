@@ -59,7 +59,7 @@ export default function Donate() {
     <>
       {/* banner: light-blue pattern, round organisation badge, title */}
       <section className="relative isolate overflow-hidden pb-16 pt-12 text-white md:pb-24 md:pt-16" aria-labelledby="donate-title">
-        <img src="/images/donation/donate-slide-01.jpg" alt="" loading="eager" decoding="async" className="absolute inset-0 -z-20 h-full w-full object-cover object-[center_38%]" />
+        <img src="/assets/images/donation/donate-slide-01.jpg" alt="" loading="eager" decoding="async" className="absolute inset-0 -z-20 h-full w-full object-cover object-[center_38%]" />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-[#061a36]/90 via-[#0b3d7a]/70 to-[#0b4f9c]/30" />
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-3 bg-gradient-to-r from-brand-dark via-brand to-sky" />
         <div className="container-site">

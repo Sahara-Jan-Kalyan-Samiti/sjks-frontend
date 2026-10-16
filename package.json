@@ -2,7 +2,7 @@
   "name": "sjks-frontend",
   "private": true,
   "version": "1.0.0",
-  "description": "Public website of Sahara Jan Kalyan Samiti (React + TypeScript + Vite + Tailwind)",
+  "description": "Public website of Sahara Jan Kalyan Samiti (Next.js + TypeScript + Tailwind)",
   "type": "module",
   "engines": {
     "node": ">=20"

@@ -55,8 +55,8 @@ export const activityDates: { date: string; title: string; detail: string }[] = 
 
 /** Photos of the activity (files already on the website). */
 export const photos: { file: string; alt: string }[] = [
-  { file: "/images/home/hero-slide-02.jpg", alt: "Children enjoying a hot meal served at a Sahara centre" },
-  { file: "/images/projects/projects-01.jpg", alt: "Children with slates and school bags at a village learning centre" },
+  { file: "/assets/images/home/hero-slide-02.jpg", alt: "Children enjoying a hot meal served at a Sahara centre" },
+  { file: "/assets/images/projects/projects-01.jpg", alt: "Children with slates and school bags at a village learning centre" },
   { file: "/assets/images/gallery/health-nutrition/child-nutrition-kit-handover.jpg", alt: "A nutrition kit handed to a mother at the education and nutrition programme" }
 ];
 

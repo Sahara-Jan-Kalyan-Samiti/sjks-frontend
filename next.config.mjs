@@ -21,14 +21,17 @@ const nextConfig = {
 
   async rewrites() {
     const useDevProxy = process.env.NODE_ENV === "development" && !process.env.NEXT_PUBLIC_API_URL;
-    return useDevProxy ? [{ source: "/api/:path*", destination: `${devApiTarget}/api/:path*` }] : [];
+    return [
+      // photos moved from /images to /assets/images; addresses already saved in the database (awards, gallery) keep working
+      { source: "/images/:path*", destination: "/assets/images/:path*" },
+      ...(useDevProxy ? [{ source: "/api/:path*", destination: `${devApiTarget}/api/:path*` }] : [])
+    ];
   },
 
   async headers() {
     const longCache = [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }];
     return [
       { source: "/:path*", headers: securityHeaders },
-      { source: "/images/:path*", headers: longCache },
       { source: "/assets/:path*", headers: longCache },
       { source: "/documents/:path*", headers: longCache }
     ];

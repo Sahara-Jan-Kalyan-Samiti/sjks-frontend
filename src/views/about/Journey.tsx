@@ -8,7 +8,7 @@ import PageHero from "@/components/layout/PageHero";
 import DonateButton from "@/components/ui/DonateButton";
 
 /** Banner photo for this page and for the closing section. */
-const banner = "/images/journey/journey-banner.jpg";
+const banner = "/assets/images/journey/journey-banner.jpg";
 
 const icon = (d: ReactNode) => (
   <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{d}</svg>
