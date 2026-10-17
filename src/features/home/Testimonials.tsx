@@ -95,9 +95,16 @@ export default function Testimonials() {
   };
 
   return (
-    <section id="testimonials" className="bg-white py-16 md:py-24" aria-labelledby="testimonials-title">
-      <div className="container-site">
-        <Reveal className="mx-auto max-w-2xl text-center">
+    <section id="testimonials" className="relative overflow-hidden bg-white py-16 md:py-24" aria-labelledby="testimonials-title">
+      {/* soft background glow so the header area does not feel empty */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(ellipse_at_top,rgba(14,116,224,0.10),transparent_70%)]"
+      />
+      <QuoteMark className="pointer-events-none absolute left-[6%] top-24 hidden h-20 w-20 text-brand/10 lg:block" />
+      <QuoteMark className="pointer-events-none absolute right-[6%] top-40 hidden h-14 w-14 rotate-180 text-brand/10 lg:block" />
+      <div className="container-site relative">
+        <Reveal className="mx-auto max-w-3xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-ink/10 bg-white px-4 py-1.5 text-sm font-medium text-ink/80 shadow-sm">
             <span aria-hidden="true" className="h-2 w-2 rounded-full bg-brand" />
             {t("Testimonials")}
@@ -108,7 +115,8 @@ export default function Testimonials() {
           >
             {t("Stories of Hope, Empowerment & Transformation")}
           </h2>
-          <p className="mt-4 text-base text-ink/65 md:text-lg">
+          <span aria-hidden="true" className="mx-auto mt-5 block h-1 w-16 rounded-full bg-gradient-to-r from-brand to-sky-400" />
+          <p className="mx-auto mt-5 max-w-xl text-base text-ink/65 md:text-lg">
             {t("Hear from the families and communities our programmes have reached.")}
           </p>
         </Reveal>
