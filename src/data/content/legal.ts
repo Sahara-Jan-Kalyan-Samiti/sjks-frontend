@@ -127,7 +127,9 @@ export const legalDocs: Record<LegalKind, LegalDoc> = {
       },
       {
         h: "Governing law",
-        p: ["These terms are governed by the laws of India. Any dispute is subject to the jurisdiction of the courts at the location of our registered office."]
+        p: [
+          "These terms are governed by the laws of India. Any dispute is subject to the jurisdiction of the courts at the location of our registered office."
+        ]
       },
       { h: "Contact", p: [contact] }
     ]
