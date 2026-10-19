@@ -29,8 +29,9 @@ jobs:
   #   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, NEXT_PUBLIC_SITE_URL, NEXT_PUBLIC_API_URL, NEXT_PUBLIC_ADMIN_URL
   deploy:
     needs: check
-    # dev = checks only; stage deploys to staging; main deploys to production
-    if: github.event_name == 'push' && github.ref != 'refs/heads/dev'
+    # dev = checks only; stage deploys to staging; main deploys to production.
+    # Skipped until GCP is configured (GCP_WIF_PROVIDER is set in GitHub -> Settings -> Variables).
+    if: github.event_name == 'push' && github.ref != 'refs/heads/dev' && vars.GCP_WIF_PROVIDER != ''
     runs-on: ubuntu-latest
     permissions: { contents: read, id-token: write }
     steps:
