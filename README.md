@@ -10,7 +10,7 @@ The site is bilingual (English and Hindi) and lets visitors learn about the prog
 
 ---
 
-## Contents
+## Content
 
 1. [Tech stack](#tech-stack)
 2. [Features and pages](#features-and-pages)
