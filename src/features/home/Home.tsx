@@ -130,7 +130,7 @@ export default function Home() {
                 <path d="m2 15 6 6" />
                 <path d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z" />
               </svg>
-              {t("Registered NGO")}
+              {t("Registered NPO")}
             </p>
             <h1 className="mt-2.5 md:mt-5 text-[clamp(1.9rem,10.4vw,2.6rem)] font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-[3.25rem]">
               <span className="block">

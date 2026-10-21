@@ -168,7 +168,7 @@ add("Medical Facilities", [
   ],
   ["medical.hospitals.title", "Hospitals: heading", "Hospital Funding"],
   ["medical.hospitals.empty", "Hospitals: text when there are none", "Hospital contributions will be listed here soon."],
-  ["medical.facilities.title", "Medical facilities: heading", "NGO Medical Facilities"],
+  ["medical.facilities.title", "Medical facilities: heading", "NPO Medical Facilities"],
   ["medical.facilities.empty", "Medical facilities: text when there are none", "Medical facilities will be listed here soon."]
 ]);
 
@@ -193,7 +193,7 @@ add("Memberships", [
   [
     "memberships.apply.text",
     "Application form: text",
-    "NGOs, trusts, societies and community organizations can apply to join our network. Fill in the form and our team will review it."
+    "NPOs, trusts, societies and community organizations can apply to join our network. Fill in the form and our team will review it."
   ],
   ["memberships.apply.step.1.title", "Application step 1: name", "Apply"],
   ["memberships.apply.step.1.text", "Application step 1: text", "Tell us about your organization and who we can contact."],
@@ -205,7 +205,7 @@ add("Memberships", [
   [
     "memberships.join.text",
     "Join box: text",
-    "We welcome NGOs, institutions and community organizations to collaborate with us for meaningful and sustainable impact across India."
+    "We welcome NPOs, institutions and community organizations to collaborate with us for meaningful and sustainable impact across India."
   ]
 ]);
 

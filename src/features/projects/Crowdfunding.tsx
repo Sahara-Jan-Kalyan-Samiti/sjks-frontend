@@ -115,7 +115,7 @@ export default function Crowdfunding() {
           <Reveal className="h-full">
             <p className="justified text-lg text-ink/80">
               {t(
-                "Crowdfunding is the process of raising funds with the help of people across the country. Anyone can raise funds this way: a newborn child, a senior citizen, or an NGO standing beside them."
+                "Crowdfunding is the process of raising funds with the help of people across the country. Anyone can raise funds this way: a newborn child, a senior citizen, or an NPO standing beside them."
               )}
             </p>
             <p className="justified mt-4 text-ink/70">
