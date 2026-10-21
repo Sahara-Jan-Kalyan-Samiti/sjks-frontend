@@ -34,7 +34,7 @@ export const hi: Record<string, string> = {
   "Live Impact": "जीवंत प्रभाव",
   Live: "लाइव",
   // Hero
-  "Registered NGO": "पंजीकृत एनजीओ",
+  "Registered NPO": "पंजीकृत एनपीओ",
   "Empowering Lives,": "सशक्त जीवन,",
   Empowering: "सशक्त",
   "in Rural India": "ग्रामीण भारत में",

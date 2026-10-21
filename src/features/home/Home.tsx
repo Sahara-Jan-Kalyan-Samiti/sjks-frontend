@@ -130,7 +130,7 @@ export default function Home() {
                 <path d="m2 15 6 6" />
                 <path d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z" />
               </svg>
-              {t("Registered NGO")}
+              {t("Registered NPO")}
             </p>
             <h1 className="mt-2.5 md:mt-5 text-[clamp(1.9rem,10.4vw,2.6rem)] font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-[3.25rem]">
               <span className="block">
@@ -147,7 +147,7 @@ export default function Home() {
             <p className="mt-5 max-w-[620px] text-base font-medium leading-relaxed text-white/90 max-md:order-last max-md:mt-6 max-md:pb-16 md:text-lg">
               {site.name}{" "}
               {t(
-                "is dedicated to sustainable grassroots upliftment providing quality education to children, health camps, women's skill training, and emergency relief across India."
+                "is dedicated to sustainable grassroots upliftment by providing quality education to children, health services, women's skill training, and emergency relief across India."
               )}
             </p>
             <div className="mt-8 flex max-w-xs flex-col gap-3 max-md:mx-auto max-md:mt-5 max-md:w-full max-md:max-w-sm min-[480px]:max-w-none min-[480px]:flex-row min-[480px]:flex-wrap min-[480px]:gap-4 sm:mt-9">

@@ -143,7 +143,7 @@ export default function GetInvolved() {
           ["How soon will someone contact me?", "We aim to reply within a few working days. For something urgent, call or WhatsApp us."],
           [
             "Can my organisation partner with the Samiti?",
-            "Yes. NGOs, institutions and community organisations can apply to join our network from the Memberships page, and companies can write to us about CSR partnerships."
+            "Yes. NPOs, institutions and community organisations can apply to join our network from the Memberships page, and companies can write to us about CSR partnerships."
           ],
           [
             "Where is your office?",

@@ -114,9 +114,9 @@ export const defaultAwards: Award[] = [
   },
   {
     category: "Award / Recognition",
-    title: "NGO Partner Recognition Certificate – I.I.M.U.N. Yoga Initiative 2026",
+    title: "NPO Partner Recognition Certificate – I.I.M.U.N. Yoga Initiative 2026",
     description:
-      "India’s International Movement to Unite Nations recognized Sahara Jan Kalyan Samiti for participation as an NGO Partner in I.I.M.U.N.’s Sagar International Yoga Day Initiative 2026.",
+      "India’s International Movement to Unite Nations recognized Sahara Jan Kalyan Samiti for participation as an NPO Partner in I.I.M.U.N.’s Sagar International Yoga Day Initiative 2026.",
     image_url: "/assets/images/awards/award-14.jpg"
   }
 ];
