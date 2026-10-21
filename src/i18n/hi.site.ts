@@ -6,7 +6,7 @@ export const hiSite: Record<string, string> = {
   "WhatsApp": "व्हाट्सऐप",
   "Our Journey": "हमारी यात्रा",
   "Sahara Jan Kalyan Samiti": "सहारा जन कल्याण समिति",
-  "is dedicated to sustainable grassroots upliftment providing quality education to children, health camps, women's skill training, and emergency relief across India.": "सतत जमीनी उत्थान के लिए समर्पित है: बच्चों को गुणवत्तापूर्ण शिक्षा, स्वास्थ्य शिविर, महिलाओं का कौशल प्रशिक्षण और पूरे भारत में आपातकालीन राहत।",
+  "is dedicated to sustainable grassroots upliftment by providing quality education to children, health services, women's skill training, and emergency relief across India.": "सतत जमीनी उत्थान के लिए समर्पित है, जिसके अंतर्गत बच्चों को गुणवत्तापूर्ण शिक्षा, स्वास्थ्य सेवाएँ, महिलाओं का कौशल प्रशिक्षण और पूरे भारत में आपातकालीन राहत।",
   "+ patients": "+ मरीज",
   "“Selfless service and inclusive education pave the path to true social empowerment.”": "“निःस्वार्थ सेवा और समावेशी शिक्षा ही सच्चे सामाजिक सशक्तिकरण का मार्ग प्रशस्त करती हैं।”",
   "Welcome to": "आपका स्वागत है:",

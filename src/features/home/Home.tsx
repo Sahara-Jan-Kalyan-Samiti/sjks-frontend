@@ -147,7 +147,7 @@ export default function Home() {
             <p className="mt-5 max-w-[620px] text-base font-medium leading-relaxed text-white/90 max-md:order-last max-md:mt-6 max-md:pb-16 md:text-lg">
               {site.name}{" "}
               {t(
-                "is dedicated to sustainable grassroots upliftment providing quality education to children, health camps, women's skill training, and emergency relief across India."
+                "is dedicated to sustainable grassroots upliftment by providing quality education to children, health services, women's skill training, and emergency relief across India."
               )}
             </p>
             <div className="mt-8 flex max-w-xs flex-col gap-3 max-md:mx-auto max-md:mt-5 max-md:w-full max-md:max-w-sm min-[480px]:max-w-none min-[480px]:flex-row min-[480px]:flex-wrap min-[480px]:gap-4 sm:mt-9">
