@@ -1,4 +1,4 @@
-# sjks-frontend
+# sjks--frontend
 
 [![Build and deploy](https://github.com/scalric/sjks-frontend/actions/workflows/deploy.yml/badge.svg)](https://github.com/scalric/sjks-frontend/actions/workflows/deploy.yml)
 
