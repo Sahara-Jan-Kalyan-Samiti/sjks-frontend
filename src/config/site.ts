@@ -44,6 +44,8 @@ export const site = {
   },
   /** Google Business Profile / Maps listing. Replace with the Samiti's own profile link (Google Maps > Share > Copy link) when available. */
   googleBusiness: googleBusinessUrl,
+  /** Opens Google's "write a review" box for the Samiti's Business Profile. */
+  googleReview: "https://g.page/r/CXKhKf6OPjgXEAE/review",
   /** YouTube channel id (the part after /channel/). Used for the Video Gallery embed. */
   youtubeChannelId: "UCr2i8fA8YLC0JKYTFV45ukQ",
   logo: "/assets/images/logo.png"
