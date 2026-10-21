@@ -60,7 +60,7 @@ add("About Us", [
   [
     "about.founder.intro",
     "Founder message: first paragraph",
-    `${site.name} has grown from community-led work into programmes supporting education, healthcare, nutrition, women's livelihoods, renewable energy and environmental awareness across 12 districts of Madhya Pradesh.`
+    `${site.name} has grown from community-led work into programmes supporting education, healthcare, nutrition, women's livelihoods, renewable energy and environmental awareness across a growing number of districts in Madhya Pradesh.`
   ],
   [
     "about.founder.quote1",
@@ -100,11 +100,11 @@ add("About Us", [
     [`about.focus.${i + 1}.title`, `Thematic area ${i + 1}: name`, title],
     [`about.focus.${i + 1}.text`, `Thematic area ${i + 1}: text`, text]
   ]),
-  ["about.reach.title", "Where we work: heading", "12 Districts of Madhya Pradesh and Beyond"],
+  ["about.reach.title", "Where we work: heading", "Growing Across Madhya Pradesh and Beyond"],
   [
     "about.reach.text",
     "Where we work: text",
-    "With 20+ years of grassroots field experience, the Samiti works with marginalised, tribal, rural and underprivileged communities through participatory, community-driven development."
+    "With 22 years of grassroots field experience, the Samiti works with marginalised, tribal, rural and underprivileged communities through participatory, community-driven development."
   ],
   ["about.committee.title", "Executive committee: heading", "Our Executive Committee"],
   ["about.team.title", "Management team: heading", "Management Team"],
@@ -168,7 +168,7 @@ add("Medical Facilities", [
   ],
   ["medical.hospitals.title", "Hospitals: heading", "Hospital Funding"],
   ["medical.hospitals.empty", "Hospitals: text when there are none", "Hospital contributions will be listed here soon."],
-  ["medical.facilities.title", "Medical facilities: heading", "NGO Medical Facilities"],
+  ["medical.facilities.title", "Medical facilities: heading", "NPO Medical Facilities"],
   ["medical.facilities.empty", "Medical facilities: text when there are none", "Medical facilities will be listed here soon."]
 ]);
 
@@ -193,7 +193,7 @@ add("Memberships", [
   [
     "memberships.apply.text",
     "Application form: text",
-    "NGOs, trusts, societies and community organizations can apply to join our network. Fill in the form and our team will review it."
+    "NPOs, trusts, societies and community organizations can apply to join our network. Fill in the form and our team will review it."
   ],
   ["memberships.apply.step.1.title", "Application step 1: name", "Apply"],
   ["memberships.apply.step.1.text", "Application step 1: text", "Tell us about your organization and who we can contact."],
@@ -205,7 +205,7 @@ add("Memberships", [
   [
     "memberships.join.text",
     "Join box: text",
-    "We welcome NGOs, institutions and community organizations to collaborate with us for meaningful and sustainable impact across India."
+    "We welcome NPOs, institutions and community organizations to collaborate with us for meaningful and sustainable impact across India."
   ]
 ]);
 

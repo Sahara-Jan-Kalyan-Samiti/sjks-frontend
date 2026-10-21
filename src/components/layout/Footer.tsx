@@ -148,6 +148,7 @@ export default function Footer() {
           </a>
           <p>
             © <span suppressHydrationWarning>{new Date().getFullYear()}</span> {site.name}. All rights reserved.
+            <span className="mt-1 block text-white/70 md:mt-0 md:ml-3 md:inline">Developed by Scalric</span>
           </p>
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
             <Link href="/privacy" className="no-underline hover:text-white">
