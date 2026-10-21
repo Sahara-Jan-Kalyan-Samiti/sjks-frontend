@@ -60,7 +60,7 @@ add("About Us", [
   [
     "about.founder.intro",
     "Founder message: first paragraph",
-    `${site.name} has grown from community-led work into programmes supporting education, healthcare, nutrition, women's livelihoods, renewable energy and environmental awareness across 12 districts of Madhya Pradesh.`
+    `${site.name} has grown from community-led work into programmes supporting education, healthcare, nutrition, women's livelihoods, renewable energy and environmental awareness across a growing number of districts in Madhya Pradesh.`
   ],
   [
     "about.founder.quote1",
@@ -100,11 +100,11 @@ add("About Us", [
     [`about.focus.${i + 1}.title`, `Thematic area ${i + 1}: name`, title],
     [`about.focus.${i + 1}.text`, `Thematic area ${i + 1}: text`, text]
   ]),
-  ["about.reach.title", "Where we work: heading", "12 Districts of Madhya Pradesh and Beyond"],
+  ["about.reach.title", "Where we work: heading", "Growing Across Madhya Pradesh and Beyond"],
   [
     "about.reach.text",
     "Where we work: text",
-    "With 20+ years of grassroots field experience, the Samiti works with marginalised, tribal, rural and underprivileged communities through participatory, community-driven development."
+    "With 22 years of grassroots field experience, the Samiti works with marginalised, tribal, rural and underprivileged communities through participatory, community-driven development."
   ],
   ["about.committee.title", "Executive committee: heading", "Our Executive Committee"],
   ["about.team.title", "Management team: heading", "Management Team"],
