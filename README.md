@@ -8,7 +8,7 @@ The site is bilingual (English and Hindi) and lets visitors learn about the prog
 
 > This repository is one of four that make up the SJKS platform. See [How the platform fits together](#how-the-platform-fits-together).
 
----
+--
 
 ## Content
 

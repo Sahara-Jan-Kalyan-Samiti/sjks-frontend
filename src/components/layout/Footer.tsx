@@ -135,17 +135,30 @@ export default function Footer() {
       </div>
       <div className="border-t border-white/10">
         <div className="container-site flex flex-col items-center justify-between gap-3 pb-24 pt-4 text-center text-xs md:flex-row md:pb-4 md:pr-24 md:text-left 2xl:pr-6">
-          <a
-            href={site.googleBusiness}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 font-semibold text-brand-dark shadow transition hover:bg-brand-light md:order-last"
-          >
-            <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 text-red-500" fill="currentColor">
-              <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" />
-            </svg>
-            Find us on Google
-          </a>
+          <div className="grid w-full max-w-[17rem] grid-cols-1 gap-2 sm:w-auto sm:max-w-none sm:grid-cols-2 md:order-last">
+            <a
+              href={site.googleBusiness}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-white px-4 py-2 font-semibold text-brand-dark shadow transition hover:bg-brand-light"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 text-red-500" fill="currentColor">
+                <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" />
+              </svg>
+              Find us on Google
+            </a>
+            <a
+              href={site.googleReview}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-white px-4 py-2 font-semibold text-brand-dark shadow transition hover:bg-brand-light"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 text-amber-500" fill="currentColor">
+                <path d="m12 2.5 2.94 5.96 6.58.96-4.76 4.64 1.12 6.55L12 17.52l-5.88 3.09 1.12-6.55L2.48 9.42l6.58-.96L12 2.5Z" />
+              </svg>
+              Review us on Google
+            </a>
+          </div>
           <p>
             © <span suppressHydrationWarning>{new Date().getFullYear()}</span> {site.name}. All rights reserved.
             <span className="mt-1 block text-white/70 md:mt-0 md:ml-3 md:inline">Developed by Scalric</span>
