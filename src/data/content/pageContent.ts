@@ -247,7 +247,7 @@ add("Transparency & Reports", [
     "Reports: text",
     "The organisation maintains statutory compliance, regular audits and annual reports. Our published impact reports set out what was done, where, for whom and with which partners."
   ],
-  ["transparency.annual.title", "Annual reports box: heading", "Comprehensive Annual Report 2004-2025"],
+  ["transparency.annual.title", "Annual reports box: heading", "Comprehensive Annual Report 2004-2026"],
   [
     "transparency.annual.text",
     "Annual reports box: text",
