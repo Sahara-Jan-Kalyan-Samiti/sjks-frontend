@@ -21,6 +21,7 @@ export const hi: Record<string, string> = {
   "Video Gallery": "वीडियो गैलरी",
   "Press / News": "प्रेस / समाचार",
   "Latest News": "ताज़ा समाचार",
+  "In the News": "मीडिया में सहारा",
   "Events Calendar": "कार्यक्रम कैलेंडर",
   "Annual Reports": "वार्षिक रिपोर्ट",
   "Impact & Annual Reports": "प्रभाव एवं वार्षिक रिपोर्ट",
