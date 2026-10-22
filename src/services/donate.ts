@@ -81,7 +81,10 @@ async function post<T>(path: string, body: unknown): Promise<T> {
  */
 export async function startDonation(input: DonationInput, orgName: string): Promise<PaidDonation | null> {
   const [order] = await Promise.all([
-    post<{ keyId: string; orderId: string; amount: number; currency: string }>("/api/public/donations/order", { ...input, pan: input.pan || undefined }),
+    post<{ keyId: string; orderId: string; amount: number; currency: string }>("/api/public/donations/order", {
+      ...input,
+      pan: input.pan || undefined
+    }),
     loadCheckout()
   ]);
 

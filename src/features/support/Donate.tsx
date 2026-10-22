@@ -48,7 +48,10 @@ export default function Donate() {
     let alive = true;
     (async () => {
       for (let i = 0; i < 15 && alive; i++) {
-        const ok = await fetch(receiptUrl(paid), { cache: "no-store" }).then((r) => r.ok, () => false);
+        const ok = await fetch(receiptUrl(paid), { cache: "no-store" }).then(
+          (r) => r.ok,
+          () => false
+        );
         if (!alive) return;
         if (ok) return setReceiptReady(true);
         await new Promise((r) => setTimeout(r, 2000));
@@ -273,7 +276,9 @@ export default function Donate() {
                     </a>
                   ) : receiptLate ? (
                     <p role="alert" className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm font-medium text-amber-800">
-                      {t("Your payment is safe, but the receipt is taking longer than usual. Please contact us and we will send it to you.")}
+                      {t(
+                        "Your payment is safe, but the receipt is taking longer than usual. Please contact us and we will send it to you."
+                      )}
                     </p>
                   ) : (
                     <p className="mt-4 rounded-xl bg-brand-light px-4 py-3 text-center text-sm font-semibold text-brand-dark">
