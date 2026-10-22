@@ -6,12 +6,12 @@ import { site, reg80G, reg12A, fcraReg } from "@/config/site";
 import { usePageText } from "@/hooks/usePageText";
 import { useLang } from "@/i18n/LangContext";
 import { Highlights, Faq } from "@/components/sections/InfoBlocks";
-import { demoReceipt, downloadReceipt, renderReceipt, type Receipt } from "@/utils/receipt";
+import { DonateError, receiptUrl, startDonation, type PaidDonation } from "@/services/donate";
 
 /**
  * Donate page, fundraiser style: banner with the organisation badge, "About" text on the left, donation card on the right.
- * DEMO MODE: "Donate Now" does not take any money. It only shows how the donor receipt looks and lets the donor download it
- * (JPG / PDF), stamped DEMO / NOT A VALID RECEIPT. Real donations still go through the Razorpay link under the card (site.razorpayMe).
+ * "Donate Now" opens Razorpay Checkout for the chosen amount. When the payment is captured, Razorpay calls the backend webhook, which
+ * saves the donation and e-mails the receipt (see sjks-backend). The link under the card is a fallback for a plain Razorpay page.
  */
 const presets = [500, 1000, 2500, 5000];
 const G = "/assets/images/gallery";
@@ -35,24 +35,32 @@ export default function Donate() {
   const [amount, setAmount] = useState(Number.isInteger(picked) && picked >= 1 && picked <= 10000000 ? String(picked) : "1000");
   const [form, setForm] = useState({ name: "", email: "", pan: "" });
   const [err, setErr] = useState("");
-  const [receipt, setReceipt] = useState<Receipt | null>(null);
-  const [preview, setPreview] = useState("");
+  const [paid, setPaid] = useState<PaidDonation | null>(null);
+  const [busy, setBusy] = useState(false);
+  // Razorpay tells our server about the payment a moment after the donor's browser hears about it, so the receipt link waits until it exists.
+  const [receiptReady, setReceiptReady] = useState(false);
+  const [receiptLate, setReceiptLate] = useState(false);
 
   useEffect(() => {
-    if (!receipt) {
-      setPreview("");
-      return;
-    }
+    setReceiptReady(false);
+    setReceiptLate(false);
+    if (!paid) return;
     let alive = true;
-    renderReceipt(receipt).then((cv) => {
-      if (alive) setPreview(cv.toDataURL("image/jpeg", 0.85));
-    });
+    (async () => {
+      for (let i = 0; i < 15 && alive; i++) {
+        const ok = await fetch(receiptUrl(paid), { cache: "no-store" }).then((r) => r.ok, () => false);
+        if (!alive) return;
+        if (ok) return setReceiptReady(true);
+        await new Promise((r) => setTimeout(r, 2000));
+      }
+      if (alive) setReceiptLate(true);
+    })();
     return () => {
       alive = false;
     };
-  }, [receipt]);
+  }, [paid]);
 
-  const donate = (e: React.FormEvent) => {
+  const donate = async (e: React.FormEvent) => {
     e.preventDefault();
     const n = Number(amount),
       pan = form.pan.trim().toUpperCase();
@@ -61,7 +69,15 @@ export default function Donate() {
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email.trim())) return setErr("Please enter a valid email address.");
     if (pan && !/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(pan)) return setErr("PAN must look like ABCDE1234F, or be left empty.");
     setErr("");
-    setReceipt(demoReceipt({ name: form.name.trim(), pan, email: form.email.trim(), amount: n }));
+    setBusy(true);
+    try {
+      const result = await startDonation({ amount: n, name: form.name.trim(), email: form.email.trim(), pan }, site.name);
+      if (result) setPaid(result);
+    } catch (error) {
+      setErr(error instanceof DonateError ? error.message : "Something went wrong. Please try again.");
+    } finally {
+      setBusy(false);
+    }
   };
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
@@ -131,7 +147,7 @@ export default function Donate() {
               {[
                 ["Choose an amount", "Pick a preset or enter any amount you like."],
                 ["Add your details", "Your name and email go on the receipt. PAN is optional and is needed for the 80G deduction."],
-                ["Download your receipt", "Save it as a PDF or JPG as soon as you donate."]
+                ["Pay securely", "Pay by UPI, card or net banking. You can download your receipt right after paying."]
               ].map(([h, d], i) => (
                 <li key={h} className="flex gap-4 rounded-2xl bg-brand-light/60 p-4">
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand text-lg font-bold text-white">
@@ -162,7 +178,7 @@ export default function Donate() {
 
           <aside className="space-y-6 lg:sticky lg:top-28">
             <div className="rounded-3xl bg-white p-6 shadow-[0_10px_40px_-12px_rgba(11,79,156,.35)] ring-1 ring-brand/10 sm:p-7">
-              {!receipt ? (
+              {!paid ? (
                 <form onSubmit={donate} noValidate>
                   <h2 className="text-2xl font-extrabold uppercase tracking-tight text-ink">{c("donate.title")}</h2>
                   <div className="mt-4">
@@ -232,37 +248,40 @@ export default function Donate() {
                   )}
                   <button
                     type="submit"
-                    className="mt-5 w-full rounded-full bg-gradient-to-r from-brand-dark to-brand px-6 py-3.5 text-base font-bold uppercase tracking-wide text-white shadow-lg shadow-brand/30 transition hover:brightness-110"
+                    disabled={busy}
+                    className="mt-5 w-full rounded-full bg-gradient-to-r from-brand-dark to-brand px-6 py-3.5 text-base font-bold uppercase tracking-wide text-white shadow-lg shadow-brand/30 transition hover:brightness-110 disabled:cursor-wait disabled:opacity-70"
                   >
-                    {t("Donate Now")}
+                    {busy ? t("Please wait...") : t("Donate Now")}
                   </button>
                   <p className="mt-3 text-center text-xs text-ink/60">
-                    {t("Demo: no payment is taken. You will see how your receipt looks.")}
+                    {t("Secure payment by Razorpay. You can download your receipt right after paying.")}
                   </p>
                 </form>
               ) : (
                 <div>
-                  <p className="rounded-xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-800">
-                    {t("Thank you")}, {receipt.name}! {t("Your demo donation of")} ₹{receipt.amount.toLocaleString("en-IN")}{" "}
-                    {t("was recorded.")}
+                  <p role="status" className="rounded-xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-800">
+                    {t("Thank you")}, {paid.name}! {t("Your donation of")} ₹{paid.amount.toLocaleString("en-IN")} {t("was received.")}
                   </p>
-                  {preview && <img src={preview} alt="Donation receipt preview" className="mt-4 w-full rounded-lg border border-ink/10" />}
-                  <div className="mt-4 grid grid-cols-2 gap-3">
-                    <button
-                      onClick={() => downloadReceipt(receipt, "pdf")}
-                      className="rounded-full bg-ink px-4 py-3 text-sm font-bold text-white transition hover:bg-ink/90"
+                  {receiptReady ? (
+                    <a
+                      href={receiptUrl(paid)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 block w-full rounded-full bg-ink px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-ink/90"
                     >
-                      {t("Download PDF")}
-                    </button>
-                    <button
-                      onClick={() => downloadReceipt(receipt, "jpg")}
-                      className="rounded-full bg-ink px-4 py-3 text-sm font-bold text-white transition hover:bg-ink/90"
-                    >
-                      {t("Download JPG")}
-                    </button>
-                  </div>
+                      {t("Download receipt")}
+                    </a>
+                  ) : receiptLate ? (
+                    <p role="alert" className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm font-medium text-amber-800">
+                      {t("Your payment is safe, but the receipt is taking longer than usual. Please contact us and we will send it to you.")}
+                    </p>
+                  ) : (
+                    <p className="mt-4 rounded-xl bg-brand-light px-4 py-3 text-center text-sm font-semibold text-brand-dark">
+                      {t("Preparing your receipt...")}
+                    </p>
+                  )}
                   <button
-                    onClick={() => setReceipt(null)}
+                    onClick={() => setPaid(null)}
                     className="mt-3 w-full text-center text-sm font-semibold text-brand-dark underline underline-offset-4"
                   >
                     {t("Make another donation")}
