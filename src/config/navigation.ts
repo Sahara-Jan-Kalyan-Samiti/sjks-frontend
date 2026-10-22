@@ -42,6 +42,7 @@ export const nav: NavItem[] = [
       { label: "Video Gallery", href: "/media#video-gallery" },
       { label: "Press / News", href: "/media#press-news" },
       { label: "Latest News", href: "/news" },
+      { label: "In the News", href: "/in-the-news" },
       { label: "Events Calendar", href: "/events" }
     ]
   },

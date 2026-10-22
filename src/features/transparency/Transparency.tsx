@@ -46,7 +46,7 @@ export default function Transparency() {
             </article>
           ))}
           <article className="flex flex-col rounded-2xl border bg-white p-6 shadow-sm">
-            <p className="eyebrow !text-rose-700">Year by year · 2004 - 2025</p>
+            <p className="eyebrow !text-rose-700">Year by year · 2004 - 2026</p>
             <h3 className="mt-2 font-serif text-lg font-bold">{c("transparency.annual.title")}</h3>
             <p className="justified mt-2 flex-1 text-sm text-ink/70">{c("transparency.annual.text")}</p>
             <div className="mt-4 flex flex-wrap gap-2">

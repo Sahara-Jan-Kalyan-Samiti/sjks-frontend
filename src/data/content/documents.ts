@@ -15,8 +15,8 @@ export interface DocItem {
 export const documents: DocItem[] = [
   {
     section: "reports",
-    year: "2004 - 2025",
-    title: "Comprehensive Impact Report 2004-2025",
+    year: "2004 - 2026",
+    title: "Comprehensive Impact Report 2004-2026",
     description:
       "Two decades of service: all 15 projects with goals, reach, budgets and funding partners; sector-wise impact, success stories, partners and governance.",
     file: "/documents/SJKS-Impact-Report-2004-2025.pdf",
