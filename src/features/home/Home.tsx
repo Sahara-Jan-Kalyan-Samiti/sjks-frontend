@@ -211,7 +211,7 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={120} className="max-lg:order-first">
-              <div className="relative mx-auto w-full max-w-[300px] pb-16 sm:max-w-[340px] lg:ml-auto lg:mr-6 lg:max-w-[380px]">
+              <div className="relative mx-auto w-full max-w-[240px] pb-14 sm:max-w-[270px] lg:ml-auto lg:mr-10 lg:max-w-[300px]">
                 <div
                   aria-hidden="true"
                   className="absolute -left-[26%] top-[14%] -z-10 h-[78%] w-[120%] rounded-[46%_54%_52%_48%/55%_45%_55%_45%] bg-gradient-to-br from-[#93c5fd] via-[#60a5fa] to-[#3b82f6] opacity-80"
@@ -219,13 +219,13 @@ export default function Home() {
                 <Img
                   file="founder-chairman.jpeg"
                   alt="Founder Chairman & CEO"
-                  className="aspect-[4/5] w-full rounded-[28px] border-[5px] border-white shadow-[0_24px_50px_-20px_rgba(11,61,122,.45)]"
+                  className="aspect-[4/5] w-full rounded-[28px] border-[5px] object-top border-white shadow-[0_24px_50px_-20px_rgba(11,61,122,.45)]"
                 />
-                <div className="absolute bottom-0 left-[-8%] right-[12%] rounded-2xl bg-white px-6 py-5 shadow-[0_18px_40px_-18px_rgba(11,61,122,.4)] max-sm:left-0 max-sm:right-[6%]">
-                  <h3 className="font-display text-xl font-bold text-ink">{site.chairman}</h3>
-                  <p className="mt-0.5 font-medium text-brand">{t("Founder Chairman & CEO")}</p>
-                  <span aria-hidden="true" className="mt-3 block h-px w-6 bg-ink/25" />
-                  <p className="mt-3 text-sm leading-snug text-ink/65">25+ years in social development and community empowerment</p>
+                <div className="absolute bottom-0 left-[-8%] right-[12%] rounded-xl bg-white px-4 py-3 shadow-[0_18px_40px_-18px_rgba(11,61,122,.4)] max-sm:left-0 max-sm:right-[6%]">
+                  <h3 className="font-display text-base font-bold text-ink">{site.chairman}</h3>
+                  <p className="mt-0.5 text-sm font-medium text-brand">{t("Founder Chairman & CEO")}</p>
+                  <span aria-hidden="true" className="mt-2 block h-px w-6 bg-ink/25" />
+                  <p className="mt-2 text-xs leading-snug text-ink/65">25+ years in social development and community empowerment</p>
                 </div>
               </div>
             </Reveal>
@@ -403,6 +403,52 @@ export default function Home() {
                 </Link>
               </Reveal>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Hospital work in Mumbai (photos: public/assets/images/hospital/) */}
+      <section className="bg-brand-light py-16">
+        <div className="container-site">
+          <Reveal>
+            <p className="eyebrow">{t("Health Care")}</p>
+            <h2 className="h2 mt-2">Helping Mumbai's Cooper Hospital Care for More Patients</h2>
+            <p className="mt-3 max-w-3xl text-ink/70">
+              With KONE India's CSR support, the Samiti handed over a renovated room with an ultrasound machine, wheelchairs and a stretcher
+              trolley to the Dr. R. N. Cooper Municipal General Hospital in Juhu, Mumbai, on 13 August 2026, so patients can be examined
+              sooner and the many families who depend on the hospital for affordable care are served better.
+            </p>
+          </Reveal>
+          <div className="mt-8 grid gap-4 md:grid-cols-3 md:grid-rows-2">
+            {[
+              [
+                "cooper-ultrasound-room.jpg",
+                "Renovated room with ultrasound machine, handed over at Cooper Hospital, Mumbai",
+                "md:col-span-2 md:row-span-2"
+              ],
+              ["cooper-team-group.jpg", "Hospital staff, KONE India and Samiti representatives in the new ultrasound room", ""],
+              ["cooper-ribbon-cutting.jpg", "Ribbon cutting at the inauguration of the renovated room", ""]
+            ].map(([f, alt, span], i) => (
+              <Reveal key={f} delay={i * 90} className={span}>
+                <Img file={`hospital/${f}`} alt={alt} className="h-full min-h-[220px] w-full rounded-2xl shadow-sm" />
+              </Reveal>
+            ))}
+          </div>
+          <div className="mt-4 grid grid-cols-2 gap-4">
+            {[
+              ["cooper-lamp-lighting.jpg", "Lighting the lamp at the inauguration"],
+              ["cooper-coconut-ceremony.jpg", "Breaking a coconut to bless the new facility"]
+            ].map(([f, alt], i) => (
+              <Reveal key={f} delay={i * 90}>
+                <Img file={`hospital/${f}`} alt={alt} className="aspect-[16/10] w-full rounded-2xl object-top shadow-sm" />
+              </Reveal>
+            ))}
+          </div>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/news/cooper-hospital-diagnostic-facilities-kone-india" className="btn btn-brand">
+              {t("Read the full story")} →
+            </Link>
+            <DonateButton to="/donate?cause=Healthcare">Support Our Health Care Work</DonateButton>
           </div>
         </div>
       </section>
