@@ -39,6 +39,11 @@ export const pageSeo = {
   },
   "/media": { title: "Media & Gallery", description: "Photos and videos from the field work of Sahara Jan Kalyan Samiti." },
   "/news": { title: "News & Updates", description: "Press coverage and news about the work of Sahara Jan Kalyan Samiti." },
+  "/in-the-news": {
+    title: "In the News",
+    description:
+      "Newspaper coverage of the work of Sahara Jan Kalyan Samiti across Madhya Pradesh and Maharashtra, with the original clippings."
+  },
   "/events": { title: "Events Calendar", description: "Upcoming and past events and drives of Sahara Jan Kalyan Samiti." },
   "/blog": { title: "Blog", description: "Stories, voices and lessons from the communities Sahara Jan Kalyan Samiti works with." },
   "/transparency": {
