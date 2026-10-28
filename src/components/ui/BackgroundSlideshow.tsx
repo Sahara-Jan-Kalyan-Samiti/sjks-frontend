@@ -60,15 +60,38 @@ export default function BackgroundSlideshow({
   const mountedAt = useRef(performance.now());
   const key = images.join("|");
 
-  // preload every image first, so a slide is never shown half-loaded
+  // preload every image first, so a slide is never shown half-loaded.
+  // When a `fallback` photo is shown first (the home page hero), the slides start loading a few seconds after the page has loaded, so five
+  // more photos do not compete with that first photo for the connection (it is the largest thing on screen and decides how fast the page feels).
   useEffect(() => {
     let alive = true;
+    let started = false;
     setPos({ index: -1, prev: -1 });
-    Promise.all(images.map(load)).then((found) => {
-      if (alive) setSlides(found.filter((s): s is string => !!s));
-    });
+    const start = () => {
+      if (started) return;
+      started = true;
+      Promise.all(images.map(load)).then((found) => {
+        if (alive) setSlides(found.filter((s): s is string => !!s));
+      });
+    };
+    let cleanup = () => {};
+    if (fallback) {
+      let timer = 0;
+      const onLoad = () => {
+        timer = window.setTimeout(start, 3000);
+      };
+      if (document.readyState === "complete") onLoad();
+      else window.addEventListener("load", onLoad, { once: true });
+      const failsafe = window.setTimeout(start, 7000); // never wait forever if something on the page hangs
+      cleanup = () => {
+        window.removeEventListener("load", onLoad);
+        window.clearTimeout(timer);
+        window.clearTimeout(failsafe);
+      };
+    } else start();
     return () => {
       alive = false;
+      cleanup();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
@@ -127,6 +150,7 @@ export default function BackgroundSlideshow({
         <img
           src={fallback}
           alt=""
+          fetchPriority="high"
           className={`bg-slide ${effect === "shift" && index >= 0 ? "is-prev" : "is-base"} ${imgClassName} ${imgClassNames[fallback] ?? ""}`}
         />
       )}

@@ -216,9 +216,9 @@ export function KeyFigures() {
   });
   return (
     <Reveal delay={160}>
-      <dl className="relative mt-12 grid grid-cols-2 gap-y-8 rounded-3xl bg-white px-4 py-8 shadow-[0_24px_60px_-30px_rgba(11,61,122,.45)] ring-1 ring-ink/5 sm:px-8 lg:mt-14 lg:grid-cols-4 lg:py-10">
+      <ul className="relative mt-12 grid grid-cols-2 gap-y-8 rounded-3xl bg-white px-4 py-8 shadow-[0_24px_60px_-30px_rgba(11,61,122,.45)] ring-1 ring-ink/5 sm:px-8 lg:mt-14 lg:grid-cols-4 lg:py-10">
         {founderFigures.map((f, i) => (
-          <div
+          <li
             key={f.key}
             className={`group flex items-center gap-4 px-2 transition duration-300 hover:-translate-y-0.5 sm:px-6 lg:justify-center ${i % 2 ? "border-l border-ink/10" : ""} ${i === 2 ? "lg:border-l lg:border-ink/10" : ""}`}
           >
@@ -241,17 +241,17 @@ export function KeyFigures() {
               </span>
             </span>
             <div className="flex flex-col-reverse">
-              <dt className="max-w-[9rem] text-xs font-semibold uppercase leading-snug tracking-wider text-ink/60 sm:text-[13px]">
+              <p className="max-w-[9rem] text-xs font-semibold uppercase leading-snug tracking-wider text-ink/60 sm:text-[13px]">
                 {f.label}
-              </dt>
+              </p>
               {/* counts up from 0 when the card scrolls into view; tabular figures keep the width steady while it runs */}
-              <dd className="num-gradient font-display text-3xl font-black tabular-nums sm:text-[2.4rem] sm:leading-tight">
+              <p className="num-gradient font-display text-3xl font-black tabular-nums sm:text-[2.4rem] sm:leading-tight">
                 <CountUp stat={f.stat} />
-              </dd>
+              </p>
             </div>
-          </div>
+          </li>
         ))}
-      </dl>
+      </ul>
     </Reveal>
   );
 }

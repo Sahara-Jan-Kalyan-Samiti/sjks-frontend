@@ -89,6 +89,9 @@ export async function startDonation(input: DonationInput, orgName: string): Prom
   ]);
 
   return new Promise((resolve, reject) => {
+    // Checkout stays open after a failed attempt so the donor can try another card or UPI. A failure is therefore only
+    // reported if the donor gives up (closes the window); a later successful attempt still resolves normally.
+    let lastFailure = "";
     const checkout = new window.Razorpay!({
       key: order.keyId,
       amount: order.amount,
@@ -100,15 +103,23 @@ export async function startDonation(input: DonationInput, orgName: string): Prom
       // Also on the payment itself: the webhook reads these to fill the donation and to know the payment came from the website.
       notes: { source: "website", name: input.name, email: input.email, pan: input.pan },
       theme: { color: "#0b4f9c" },
-      modal: { ondismiss: () => resolve(null) },
+      modal: { ondismiss: () => (lastFailure ? reject(new DonateError(lastFailure)) : resolve(null)) },
       handler: (r) => {
         const proof = { order_id: r.razorpay_order_id, payment_id: r.razorpay_payment_id, signature: r.razorpay_signature };
         post("/api/public/donations/verify", proof)
           .then(() => resolve({ ...proof, amount: input.amount, name: input.name, email: input.email }))
-          .catch(reject);
+          .catch(() =>
+            reject(
+              new DonateError(
+                `We could not confirm your payment on this page. If the money was deducted it is safe: please contact us with payment ID ${proof.payment_id}.`
+              )
+            )
+          );
       }
     });
-    checkout.on("payment.failed", (r) => reject(new DonateError(r.error.description || "The payment failed. You have not been charged.")));
+    checkout.on("payment.failed", (r) => {
+      lastFailure = r.error.description || "The payment failed. You have not been charged.";
+    });
     checkout.open();
   });
 }
