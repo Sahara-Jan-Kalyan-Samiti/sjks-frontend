@@ -13,19 +13,29 @@ const isHydrated = (el: HTMLElement) => Object.keys(el).some((k) => k.startsWith
 
 function check(retries = 10) {
   let pending = false;
+  const els: HTMLElement[] = [];
   document.querySelectorAll<HTMLElement>(SELECTOR).forEach((el) => {
-    if (!isHydrated(el)) {
-      pending = true;
-      return;
-    }
-    const narrow = el.classList.contains("no-justify");
-    // measured without the class, so a box that has become wide enough is justified again
-    if (narrow) el.classList.remove("no-justify");
+    if (!isHydrated(el)) pending = true;
+    else els.push(el);
+  });
+  // Three passes (change, measure, change) instead of changing and measuring one paragraph after another: a measurement right after a
+  // change makes the browser lay the whole page out again, which on a long page happened hundreds of times per check.
+  // 1. every box is measured without the class, so a box that has become wide enough is justified again
+  const wasNarrow = els.map((el) => el.classList.contains("no-justify"));
+  els.forEach((el, i) => {
+    if (wasNarrow[i]) el.classList.remove("no-justify");
+  });
+  // 2. all the measuring together
+  const narrow = els.map((el) => {
     const cs = getComputedStyle(el);
-    if (cs.textAlign !== "justify") return;
+    if (cs.textAlign !== "justify") return false;
     const width = el.clientWidth,
       size = parseFloat(cs.fontSize) || 16;
-    if (width > 0 && width / size < MIN_EM) el.classList.add("no-justify");
+    return width > 0 && width / size < MIN_EM;
+  });
+  // 3. the narrow ones lose the justification
+  els.forEach((el, i) => {
+    if (narrow[i]) el.classList.add("no-justify");
   });
   // parts of the page that React hydrates later (Suspense) are checked again shortly
   if (pending && retries > 0) window.setTimeout(() => check(retries - 1), 300);

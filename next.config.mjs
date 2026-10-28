@@ -29,7 +29,9 @@ const nextConfig = {
   },
 
   async headers() {
-    const longCache = [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }];
+    // Pictures and documents keep their file name when they are replaced, so they are cached for 30 days (not a year): a replaced file reaches
+    // returning visitors within a month, and sooner for most (the browser checks again in the background after a day).
+    const longCache = [{ key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" }];
     return [
       { source: "/:path*", headers: securityHeaders },
       { source: "/assets/:path*", headers: longCache },
