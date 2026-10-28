@@ -79,9 +79,9 @@ export default function ImpactCalculator() {
             </span>
             <div className="min-w-0 text-left">
               <p className="text-[11px] font-semibold uppercase tracking-widest text-brand-dark">Direct impact outcome</p>
-              <h4 key={outcome.text} className="ic-pop mt-0.5 text-sm font-semibold leading-snug sm:text-base">
+              <p key={outcome.text} className="ic-pop mt-0.5 text-sm font-semibold leading-snug sm:text-base">
                 {outcome.text}
-              </h4>
+              </p>
             </div>
           </div>
         </div>
