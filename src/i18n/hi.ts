@@ -224,5 +224,17 @@ export const hi: Record<string, string> = {
   "More from the blog": "ब्लॉग से और",
   "Our first stories are being written. Please check back soon.": "हमारी पहली कहानियाँ लिखी जा रही हैं। कृपया जल्द फिर देखें।",
   "Have a story from the field you would like us to tell?": "क्या आपके पास कोई ज़मीनी कहानी है जो आप चाहते हैं कि हम सुनाएँ?",
-  "Write to us": "हमें लिखें"
+  "Write to us": "हमें लिखें",
+  "How Crowdfunding Helps": "क्राउडफंडिंग कैसे मदद करती है",
+  Membership: "सदस्यता",
+  Memberships: "सदस्यताएँ",
+  "Member ID Card": "सदस्य पहचान पत्र",
+  "Donor Transparency": "दानदाता पारदर्शिता",
+  "children supported": "बच्चों को सहयोग",
+  "patients assisted": "मरीजों की सहायता",
+  "women in SHGs & livelihoods": "महिलाएँ स्वयं सहायता समूहों और आजीविका में",
+  "families lit up with solar lanterns": "परिवार सोलर लालटेन से रोशन",
+  "in tree plantation drives": "लोग वृक्षारोपण अभियानों में",
+  "Review us on Google": "Google पर हमें रेटिंग दें",
+  "Developed by Scalric": "Scalric द्वारा विकसित"
 };
