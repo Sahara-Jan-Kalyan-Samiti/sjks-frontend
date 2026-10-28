@@ -20,6 +20,11 @@ const Pic = ({ file, alt, className }: { file: string; alt: string; className: s
     <Img file={file} alt={alt} className={className} />
   );
 
+/** Column spans for the tiles that stretch to fill the last row of a single-category view (written out in full so Tailwind finds them). */
+const SPAN_PHONE: Record<number, string> = { 1: "col-span-1", 2: "col-span-2" };
+const SPAN_TABLET: Record<number, string> = { 1: "md:col-span-1", 2: "md:col-span-2" };
+const SPAN_DESK: Record<number, string> = { 1: "lg:col-span-1", 2: "lg:col-span-2" };
+
 /** Filterable bento photo grid. A photo opens a full-screen slideshow of its own group (autoplay, pause, arrows, Esc, arrow keys, thumbnail strip, and left / right swipe on touch screens). */
 export default function Gallery({ photos }: { photos: Photo[] }) {
   const { t } = useLang();
@@ -108,13 +113,22 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
           const bento = cat === "All" && list.length >= 8;
           const big = bento && i % 7 === 0;
           const wide = bento && i % 7 === 4;
+          // One category selected: the tiles of the last row stretch so no row is left half empty (2 across on phones, 3 on tablets, 4 on desktops).
+          // The "All" view above is unchanged.
+          const n = list.length;
+          const stretch = cat !== "All";
+          const phone = stretch && n % 2 === 1 && i === n - 1 ? 2 : 1;
+          const tablet = stretch && ((n % 3 === 1 && (i === 0 || i === n - 1)) || (n % 3 === 2 && i === n - 1)) ? 2 : 1;
+          const deskBig = stretch && n % 4 === 1 && i === 0;
+          const desk = deskBig || (stretch && ((n % 4 === 2 && i >= n - 2) || (n % 4 === 3 && i === n - 3))) ? 2 : 1;
+          const fill = stretch ? `${SPAN_PHONE[phone]} ${SPAN_TABLET[tablet]} ${SPAN_DESK[desk]} ${deskBig ? "lg:row-span-2" : ""}` : "";
           return (
             <button
               key={p.file}
               type="button"
               onClick={() => start(p)}
               aria-label={`Open photo: ${p.alt}`}
-              className={`group relative block overflow-hidden rounded-2xl bg-brand-light shadow-sm ring-1 ring-ink/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/20 ${big ? "col-span-2 row-span-2" : ""} ${wide ? "md:col-span-2" : ""}`}
+              className={`group relative block overflow-hidden rounded-2xl bg-brand-light shadow-sm ring-1 ring-ink/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/20 ${big ? "col-span-2 row-span-2" : ""} ${wide ? "md:col-span-2" : ""} ${fill}`}
             >
               <Pic file={p.file} alt={p.alt} className="absolute inset-0 h-full w-full transition duration-700 group-hover:scale-110" />
               <span
