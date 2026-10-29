@@ -51,7 +51,7 @@ export default function Footer() {
           </p>
           <p className="text-xs">FCRA: {fcraReg.value}</p>
           <p className="text-xs">
-            <Link href="/transparency?request=certificate#request" className="underline hover:text-white">
+            <Link href="/transparency?request=certificate#request" className="no-underline hover:text-white">
               Request registration certificates
             </Link>
           </p>
@@ -62,7 +62,7 @@ export default function Footer() {
           <ul className="space-y-2 lg:flex lg:flex-1 lg:flex-col lg:justify-between">
             {quickNav.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="underline decoration-white/40 underline-offset-4 hover:text-white hover:decoration-white">
+                <Link href={l.href} className="no-underline hover:text-white">
                   {t(l.label)}
                 </Link>
               </li>
