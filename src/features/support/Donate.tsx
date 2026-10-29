@@ -6,6 +6,7 @@ import { site, reg80G, reg12A, fcraReg } from "@/config/site";
 import { usePageText } from "@/hooks/usePageText";
 import { useLang } from "@/i18n/LangContext";
 import { Highlights, Faq } from "@/components/sections/InfoBlocks";
+import BankDetails from "./BankDetails";
 import { DonateError, receiptUrl, startDonation, type PaidDonation } from "@/services/donate";
 
 /**
@@ -180,7 +181,10 @@ export default function Donate() {
           </div>
 
           <aside className="space-y-6 lg:sticky lg:top-28">
-            <div className="rounded-3xl bg-white p-6 shadow-[0_10px_40px_-12px_rgba(11,79,156,.35)] ring-1 ring-brand/10 sm:p-7">
+            <div
+              id="donate-form"
+              className="scroll-mt-28 rounded-3xl bg-white p-6 shadow-[0_10px_40px_-12px_rgba(11,79,156,.35)] ring-1 ring-brand/10 sm:p-7"
+            >
               {!paid ? (
                 <form onSubmit={donate} noValidate>
                   <h2 className="text-2xl font-extrabold uppercase tracking-tight text-ink">{c("donate.title")}</h2>
@@ -332,6 +336,8 @@ export default function Donate() {
           </aside>
         </div>
       </section>
+
+      <BankDetails />
 
       <Highlights
         eyebrow="Why give"

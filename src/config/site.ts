@@ -23,8 +23,9 @@ export const site = {
   website: "www.saharangosag.com",
   /** Additional mobile numbers listed in the organisation profile and impact report. */
   altPhones: [
-    { label: "+91 9406520190", href: "tel:+919406520190" },
-    { label: "+91 7974406288", href: "tel:+917974406288" }
+    { label: "+91 9179130039", href: "tel:+919179130039" },
+    { label: "+91 7974406288", href: "tel:+917974406288" },
+    { label: "07582-355068", href: "tel:+917582355068" }
   ],
   altEmails: ["sjksrehli@gmail.com", "sahara_rehli@yahoo.com"],
   registeredOffice: "333/4, Ram Nagari, Ward No. 5, Rehli - 470227, District Sagar, Madhya Pradesh, India",
@@ -143,3 +144,46 @@ export const payment = {
   ifsc: "[IFSC PLACEHOLDER]",
   upi: "[UPI ID PLACEHOLDER]"
 };
+
+/** Bank accounts shown on the Donate page (bank transfer). "foreign" = the FCRA account, only for contributions from abroad. */
+export interface BankAccount {
+  id: string;
+  kind: "india" | "foreign";
+  bank: string;
+  accountName: string;
+  accountNumber: string;
+  ifsc: string;
+  /** International transfers only */
+  swift?: string;
+  branch: string;
+}
+export const bankAccounts: BankAccount[] = [
+  {
+    id: "union",
+    kind: "india",
+    bank: "Union Bank of India",
+    accountName: "Sahara Jan Kalyan Samiti",
+    accountNumber: "595002010000613",
+    ifsc: "UBIN0559504",
+    branch: "Bhagwanganj, Sagar, Madhya Pradesh"
+  },
+  {
+    id: "sbi",
+    kind: "india",
+    bank: "State Bank of India",
+    accountName: "Sahara Jan Kalyan Samiti",
+    accountNumber: "63036026316",
+    ifsc: "SBIN0030179",
+    branch: "Gujarati Bazar, Sagar, Madhya Pradesh"
+  },
+  {
+    id: "fcra",
+    kind: "foreign",
+    bank: "FCRA Designated Account",
+    accountName: "Sahara Jan Kalyan Samiti",
+    accountNumber: "40082359181",
+    ifsc: "SBIN0000691",
+    swift: "SBININBB104",
+    branch: "SBI New Delhi Main Branch, Sansad Marg"
+  }
+];
