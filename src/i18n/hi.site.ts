@@ -802,8 +802,11 @@ export const hiSite: Record<string, string> = {
   "After a bank transfer, please email your name, amount and transaction reference to": "बैंक ट्रांसफ़र के बाद, कृपया अपना नाम, राशि और लेन-देन संदर्भ संख्या इस पते पर ईमेल करें:",
   "so that we can send you a receipt.": "ताकि हम आपको रसीद भेज सकें।",
   "Want an 80G receipt?": "80G रसीद चाहिए?",
-  "Please donate through the donation form above and enter your PAN. Payments through the Razorpay link or by bank transfer do not get an automatic receipt.": "कृपया ऊपर दिए गए दान फ़ॉर्म से दान करें और अपना PAN दर्ज करें। रेज़रपे लिंक या बैंक ट्रांसफ़र से किए गए भुगतान पर स्वचालित रसीद नहीं मिलती।",
+  "Please donate through the donation form above and enter your PAN. Payments through the Razorpay link, UPI QR or bank transfer do not get an automatic receipt.": "कृपया ऊपर दिए गए दान फ़ॉर्म से दान करें और अपना PAN दर्ज करें। रेज़रपे लिंक, UPI QR या बैंक ट्रांसफ़र से किए गए भुगतान पर स्वचालित रसीद नहीं मिलती।",
   "Go to the donation form": "दान फ़ॉर्म पर जाएँ",
   "For donors who do not need an 80G receipt.": "उन दानदाताओं के लिए जिन्हें 80G रसीद की आवश्यकता नहीं है।",
-
+  "UPI QR code of Sahara Jan Kalyan Samiti": "सहारा जन कल्याण समिति का UPI QR कोड",
+  "Scan to pay by UPI": "UPI से भुगतान के लिए स्कैन करें",
+  "Scan the QR code with any UPI app such as Google Pay, PhonePe or Paytm, or use the UPI ID below.": "किसी भी UPI ऐप, जैसे Google Pay, PhonePe या Paytm से QR कोड स्कैन करें, या नीचे दी गई UPI ID का उपयोग करें।",
+  "UPI ID": "UPI आईडी"
 };
