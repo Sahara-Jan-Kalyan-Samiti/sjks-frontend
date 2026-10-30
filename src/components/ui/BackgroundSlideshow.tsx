@@ -15,6 +15,8 @@ interface Props {
   duration?: number;
   /** Optional image shown underneath while the slides load (keeps the original look, no blank flash). */
   fallback?: string;
+  /** A smaller picture of the `fallback` for phones (same scene, cropped to what a phone shows), so the first photo downloads quickly. */
+  fallbackMobile?: string;
   /** Classes for the wrapper (it fills its parent by default). */
   className?: string;
   /** Classes for each <img>, e.g. an object-position. */
@@ -47,6 +49,7 @@ export default function BackgroundSlideshow({
   startDelay = 0,
   duration = 1200,
   fallback,
+  fallbackMobile,
   className = "",
   imgClassName = "",
   imgClassNames = {},
@@ -147,12 +150,15 @@ export default function BackgroundSlideshow({
       style={{ ["--slide-fade" as string]: `${duration}ms` }}
     >
       {fallback && (
-        <img
-          src={fallback}
-          alt=""
-          fetchPriority="high"
-          className={`bg-slide ${effect === "shift" && index >= 0 ? "is-prev" : "is-base"} ${imgClassName} ${imgClassNames[fallback] ?? ""}`}
-        />
+        <picture>
+          {fallbackMobile && <source media="(max-width: 767px)" srcSet={fallbackMobile} />}
+          <img
+            src={fallback}
+            alt=""
+            fetchPriority="high"
+            className={`bg-slide ${effect === "shift" && index >= 0 ? "is-prev" : "is-base"} ${imgClassName} ${imgClassNames[fallback] ?? ""}`}
+          />
+        </picture>
       )}
       {slides.map((src, i) => (
         <img

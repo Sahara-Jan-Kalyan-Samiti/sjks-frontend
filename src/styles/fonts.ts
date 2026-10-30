@@ -10,10 +10,24 @@ export const devanagari = Noto_Sans_Devanagari({
   subsets: ["devanagari", "latin"],
   weight: ["400", "600", "700"],
   variable: "--font-devanagari",
-  display: "swap"
+  display: "swap",
+  preload: false
 });
-export const lora = Lora({ subsets: ["latin"], weight: ["400", "500"], style: ["italic"], variable: "--font-lora", display: "swap" });
-export const merriweather = Merriweather({ subsets: ["latin"], weight: ["700"], variable: "--font-merriweather", display: "swap" });
+export const lora = Lora({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["italic"],
+  variable: "--font-lora",
+  display: "swap",
+  preload: false
+});
+export const merriweather = Merriweather({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-merriweather",
+  display: "swap",
+  preload: false
+});
 
 /** Class names that put all five font variables on <body>. */
 export const fontVariables = [poppins, inter, devanagari, lora, merriweather].map((f) => f.variable).join(" ");

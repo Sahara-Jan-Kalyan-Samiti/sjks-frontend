@@ -99,6 +99,7 @@ export default function Home() {
             images={heroImages}
             imgClassNames={heroFocus}
             fallback={homeHeroOpening.src}
+            fallbackMobile={homeHeroOpening.mobile}
             startDelay={4000}
             effect="shift"
             interval={5000}
