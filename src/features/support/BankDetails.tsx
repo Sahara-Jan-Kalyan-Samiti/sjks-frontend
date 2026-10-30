@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { bankAccounts, site, type BankAccount } from "@/config/site";
+import { bankAccounts, site, upiQr, type BankAccount } from "@/config/site";
 import { useLang } from "@/i18n/LangContext";
 
 /** Only the SBI card has a button: the Razorpay page. The other cards just show their bank details. */
@@ -186,6 +186,53 @@ function Card({ account, className = "" }: { account: BankAccount; className?: s
   );
 }
 
+/** The Union Bank UPI QR code: scan it with any UPI app, or copy the UPI ID. */
+function UpiCard() {
+  const { t } = useLang();
+  const [copied, setCopied] = useState(false);
+  const idRef = useRef<HTMLParagraphElement>(null);
+  const timer = useRef(0);
+  const copy = async () => {
+    window.clearTimeout(timer.current);
+    if (await copyText(upiQr.id)) {
+      setCopied(true);
+      timer.current = window.setTimeout(() => setCopied(false), 2000);
+    } else if (idRef.current) window.getSelection()?.selectAllChildren(idRef.current);
+  };
+  return (
+    <article className="mx-auto mt-6 flex w-full max-w-3xl flex-col items-center gap-6 rounded-3xl bg-white p-6 shadow-[0_10px_40px_-12px_rgba(11,79,156,.25)] ring-1 ring-brand/10 sm:p-7 md:flex-row md:items-center md:gap-10">
+      <img
+        src={upiQr.image}
+        alt={t("UPI QR code of Sahara Jan Kalyan Samiti")}
+        loading="lazy"
+        decoding="async"
+        className="w-full max-w-[260px] shrink-0 rounded-2xl ring-1 ring-ink/10"
+      />
+      <div className="min-w-0 text-center md:text-left">
+        <p className="inline-flex rounded-full bg-brand-light px-4 py-1.5 text-xs font-semibold text-brand-dark">{t("Indian Donations")}</p>
+        <h3 className="mt-3 text-xl font-extrabold tracking-tight text-ink">{t("Scan to pay by UPI")}</h3>
+        <p className="mt-2 text-ink/70">
+          {t("Scan the QR code with any UPI app such as Google Pay, PhonePe or Paytm, or use the UPI ID below.")}
+        </p>
+        <p className="mt-4 text-[11px] font-semibold uppercase tracking-widest text-ink/55">{t("UPI ID")}</p>
+        <p ref={idRef} className="mt-0.5 select-all break-all text-[15px] font-semibold text-ink">
+          {upiQr.id}
+        </p>
+        <button
+          type="button"
+          onClick={copy}
+          className={`mt-3 inline-flex !min-h-0 h-8 w-[5.5rem] items-center justify-center rounded-full border px-3 text-xs font-semibold transition ${copied ? "border-emerald-300 bg-emerald-50 text-emerald-700" : "border-brand/25 bg-white text-brand-dark hover:bg-brand-light"}`}
+        >
+          {copied ? t("Copied") : t("Copy")}
+        </button>
+        <span role="status" aria-live="polite" className="sr-only">
+          {copied ? `${t("UPI ID")}: ${t("Copied")}` : ""}
+        </span>
+      </div>
+    </article>
+  );
+}
+
 /** Bank-transfer details for every account (src/config/site.ts), in the style of the rest of the Donate page. */
 export default function BankDetails() {
   const { t } = useLang();
@@ -213,7 +260,7 @@ export default function BankDetails() {
           <p>
             <strong className="font-semibold text-ink">{t("Want an 80G receipt?")}</strong>{" "}
             {t(
-              "Please donate through the donation form above and enter your PAN. Payments through the Razorpay link or by bank transfer do not get an automatic receipt."
+              "Please donate through the donation form above and enter your PAN. Payments through the Razorpay link, UPI QR or bank transfer do not get an automatic receipt."
             )}{" "}
             <a href="#donate-form" className="whitespace-nowrap font-semibold text-brand-dark hover:text-brand">
               {t("Go to the donation form")} →
@@ -234,6 +281,7 @@ export default function BankDetails() {
             />
           ))}
         </div>
+        <UpiCard />
         <p className="mx-auto mt-8 max-w-3xl text-center text-sm text-ink/60">
           {t("After a bank transfer, please email your name, amount and transaction reference to")}{" "}
           <a href={`mailto:${site.email}`} className="font-semibold text-brand-dark hover:text-brand">
