@@ -86,7 +86,7 @@ export default function Contact() {
                     <span aria-hidden="true" className={tile}>
                       {svg(o.icon)}
                     </span>
-                    <p className="mt-3 text-xs font-semibold uppercase tracking-widest text-ink/60">{o.label}</p>
+                    <p className="mt-3 text-xs font-semibold uppercase tracking-widest text-ink/65">{o.label}</p>
                     <p className="mt-1 text-sm leading-relaxed">{o.text}</p>
                   </div>
                 </Reveal>
@@ -101,7 +101,7 @@ export default function Contact() {
                     {svg(<path d="M6.5 3h3l1.5 4.5-2 1.5a12 12 0 006 6l1.5-2 4.5 1.5v3a2 2 0 01-2 2A16 16 0 014.5 5a2 2 0 012-2z" />)}
                   </span>
                   <div className="min-w-0">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-ink/60">Phone</p>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-ink/65">Phone</p>
                     <p className="mt-2 flex flex-wrap gap-2">
                       <a className={chip} href={site.phoneHref}>
                         {site.phone}
@@ -126,7 +126,7 @@ export default function Contact() {
                     )}
                   </span>
                   <div className="min-w-0">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-ink/60">Email</p>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-ink/65">Email</p>
                     <p className="mt-1">
                       <a className="break-all font-semibold text-brand hover:text-brand-dark hover:underline" href={`mailto:${site.email}`}>
                         {site.email}
@@ -146,7 +146,7 @@ export default function Contact() {
                     )}
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold uppercase tracking-widest text-ink/60">
+                    <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold uppercase tracking-widest text-ink/65">
                       Office Hours
                       <span
                         className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] normal-case tracking-normal ${open ? "bg-green-100 text-green-800" : "bg-slate-100 text-ink/70"}`}

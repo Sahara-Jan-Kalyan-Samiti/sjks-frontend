@@ -95,7 +95,7 @@ export default function Transparency() {
                 </li>
               ))}
             </ol>
-            <p className="justified mt-6 text-sm text-ink/60">
+            <p className="justified mt-6 text-sm text-ink/65">
               Prefer to talk? Call{" "}
               <a className="font-semibold text-brand" href={site.phoneHref}>
                 {site.phone}

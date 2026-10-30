@@ -106,7 +106,7 @@ export default function CampaignProgress({ c }: { c: Campaign }) {
         </div>
         <div className="shrink-0 text-right">
           <p className="num-gradient text-3xl font-extrabold tabular-nums leading-none">{pct}%</p>
-          <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-ink/50">{t("funded")}</p>
+          <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-ink/65">{t("funded")}</p>
         </div>
       </div>
       <p className="relative mt-4 text-sm leading-relaxed text-ink/70">{c.text}</p>
@@ -133,15 +133,15 @@ export default function CampaignProgress({ c }: { c: Campaign }) {
 
       <div className="relative mt-4 grid grid-cols-2 gap-3 text-sm">
         <div className="rounded-xl bg-brand-light/60 px-3 py-2">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/50">{t("Raised")}</p>
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/65">{t("Raised")}</p>
           <p className="mt-0.5 text-base font-bold tabular-nums text-brand-dark">{fmt(c.raised)}</p>
         </div>
         <div className="rounded-xl bg-ink/[.04] px-3 py-2">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/50">{t("Still needed")}</p>
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/65">{t("Still needed")}</p>
           <p className="mt-0.5 text-base font-bold tabular-nums text-ink">{fmt(left)}</p>
         </div>
       </div>
-      <p className="relative mt-3 text-xs text-ink/50">
+      <p className="relative mt-3 text-xs text-ink/65">
         {t("Goal")} {fmt(c.goal)}
       </p>
 

@@ -29,7 +29,7 @@ function Speaker({ item }: { item: Testimonial }) {
       </span>
       <span className="min-w-0 text-left">
         <strong className="block text-sm font-semibold leading-snug text-ink">{item.name}</strong>
-        <span className="block text-xs leading-snug text-ink/60">{item.program}</span>
+        <span className="block text-xs leading-snug text-ink/65">{item.program}</span>
       </span>
     </figcaption>
   );

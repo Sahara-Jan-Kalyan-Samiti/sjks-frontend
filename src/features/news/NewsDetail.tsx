@@ -32,7 +32,7 @@ export default function NewsDetail({ slug }: { slug: string }) {
       <article className="container-site max-w-3xl py-14">
         <figure>
           <Img file={p.image} alt={p.title} className="h-auto w-full rounded-3xl border border-ink/10 shadow-sm" />
-          {p.source && <figcaption className="mt-2 text-center text-xs font-medium text-ink/55">{p.source}</figcaption>}
+          {p.source && <figcaption className="mt-2 text-center text-xs font-medium text-ink/65">{p.source}</figcaption>}
         </figure>
         <div className="mt-8 space-y-5 text-base leading-relaxed text-ink/80 sm:text-lg">
           {p.body.map((b, i) => (
@@ -42,7 +42,7 @@ export default function NewsDetail({ slug }: { slug: string }) {
         {p.more?.map((m) => (
           <figure key={m.image} className="mt-8">
             <Img file={m.image} alt={`${p.title} (${m.source})`} className="h-auto w-full rounded-3xl border border-ink/10 shadow-sm" />
-            <figcaption className="mt-2 text-center text-xs font-medium text-ink/55">{m.source}</figcaption>
+            <figcaption className="mt-2 text-center text-xs font-medium text-ink/65">{m.source}</figcaption>
           </figure>
         ))}
         <div className="mt-8 flex flex-wrap items-center gap-3 border-t pt-6 text-sm">

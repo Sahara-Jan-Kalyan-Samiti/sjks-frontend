@@ -142,7 +142,7 @@ export default function Projects() {
                     </p>
                     <h3 className="mt-2 font-serif text-lg font-bold">{p.name}</h3>
                     {p.description && <p className="justified mt-2 flex-1 whitespace-pre-line text-sm text-ink/70">{p.description}</p>}
-                    <p className="mt-3 text-xs text-ink/60">
+                    <p className="mt-3 text-xs text-ink/65">
                       {[p.location, p.beneficiaries ? `${p.beneficiaries.toLocaleString("en-IN")} beneficiaries` : ""]
                         .filter(Boolean)
                         .join(" · ")}
@@ -151,7 +151,7 @@ export default function Projects() {
                 ))}
             </div>
           ) : (
-            <p className="mt-6 rounded-2xl border-2 border-dashed border-ink/15 bg-white p-6 text-center text-ink/60">
+            <p className="mt-6 rounded-2xl border-2 border-dashed border-ink/15 bg-white p-6 text-center text-ink/65">
               {c("projects.upcoming.empty")}
             </p>
           )}
@@ -174,7 +174,7 @@ export default function Projects() {
                   {p.detail.stats.map((s) => (
                     <div key={s.label} className="rounded-xl bg-white p-3">
                       <dt className="text-lg font-bold text-brand-dark">{s.value}</dt>
-                      <dd className="text-[11px] text-ink/60">{s.label}</dd>
+                      <dd className="text-[11px] text-ink/65">{s.label}</dd>
                     </div>
                   ))}
                 </dl>
@@ -279,12 +279,12 @@ export default function Projects() {
                           {areaLook[p.area].icon}
                         </svg>
                       </span>
-                      <span className="text-sm font-extrabold tabular-nums text-ink/35">{String(p.no).padStart(2, "0")}</span>
+                      <span className="text-sm font-extrabold tabular-nums text-ink/65">{String(p.no).padStart(2, "0")}</span>
                       <span className={`rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wider ${areaLook[p.area].chip}`}>
                         {areaLabel(p.area)}
                       </span>
                       {p.period && (
-                        <span className="ml-auto rounded-full bg-ink/5 px-2.5 py-1 text-[11px] font-semibold text-ink/60">{p.period}</span>
+                        <span className="ml-auto rounded-full bg-ink/5 px-2.5 py-1 text-[11px] font-semibold text-ink/65">{p.period}</span>
                       )}
                     </div>
                     <h3 className="mt-4 font-serif text-lg font-bold leading-snug text-ink sm:text-xl">{p.name}</h3>
@@ -293,7 +293,7 @@ export default function Projects() {
                   <dl className="mt-auto grid grid-cols-2 gap-px border-t border-ink/10 bg-ink/10 text-xs">
                     {facts.map(([k, v]) => (
                       <div key={k} className="bg-slate-50/80 px-5 py-3 transition-colors group-hover:bg-white sm:px-6">
-                        <dt className="text-[10px] font-semibold uppercase tracking-widest text-ink/45">{k}</dt>
+                        <dt className="text-[10px] font-semibold uppercase tracking-widest text-ink/65">{k}</dt>
                         <dd className="mt-0.5 text-left text-[13px] font-semibold leading-snug text-ink">{v}</dd>
                       </div>
                     ))}

@@ -27,7 +27,7 @@ export default function Memberships() {
           <h2 className="h2 mt-2">{c("memberships.list.title")}</h2>
           <p className="mt-3 max-w-3xl text-ink/70">{c("memberships.list.text")}</p>
           {list.length === 0 ? (
-            <p className="mt-8 rounded-2xl border-2 border-dashed border-ink/15 bg-white p-6 text-center text-ink/60">
+            <p className="mt-8 rounded-2xl border-2 border-dashed border-ink/15 bg-white p-6 text-center text-ink/65">
               {c("memberships.list.empty")}
             </p>
           ) : (

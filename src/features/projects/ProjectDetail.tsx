@@ -104,7 +104,7 @@ export default function ProjectDetail({ slug }: { slug: string }) {
           <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {d.benefits.map(([t, x], i) => (
               <div key={t} className="rounded-2xl border p-5">
-                <p className="text-xs text-ink/50">0{i + 1}</p>
+                <p className="text-xs text-ink/65">0{i + 1}</p>
                 <h3 className="font-semibold">{t}</h3>
                 <p className="mt-1 text-sm text-ink/70">{x}</p>
               </div>
@@ -127,7 +127,7 @@ export default function ProjectDetail({ slug }: { slug: string }) {
             </div>
             {d.quote && (
               <blockquote className="mx-auto mt-10 max-w-3xl border-l-4 border-brand bg-white p-5 font-quote text-lg italic text-brand-dark sm:p-6 sm:text-xl">
-                “{d.quote}”<footer className="mt-2 text-sm not-italic text-ink/60">Voice from the field, Sagar district</footer>
+                “{d.quote}”<footer className="mt-2 text-sm not-italic text-ink/65">Voice from the field, Sagar district</footer>
               </blockquote>
             )}
           </div>
@@ -157,7 +157,7 @@ export default function ProjectDetail({ slug }: { slug: string }) {
               </tbody>
             </table>
           </div>
-          {d.reachNote && <p className="mt-2 text-xs italic text-ink/60">{d.reachNote}</p>}
+          {d.reachNote && <p className="mt-2 text-xs italic text-ink/65">{d.reachNote}</p>}
           <div className="mt-10 rounded-2xl bg-brand-dark p-6 text-center text-white sm:p-8">
             <p className="font-serif text-2xl font-bold">Light One Lamp, Change One Life.</p>
             <p className="mx-auto mt-2 max-w-2xl text-sm text-white/85">
@@ -210,7 +210,7 @@ export default function ProjectDetail({ slug }: { slug: string }) {
                       ] as [string, string][]
                     ).map(([k, v]) => (
                       <div key={k} className="bg-slate-50/80 px-4 py-3 transition-colors group-hover:bg-white sm:px-5">
-                        <dt className="text-[10px] font-semibold uppercase tracking-widest text-ink/45">{k}</dt>
+                        <dt className="text-[10px] font-semibold uppercase tracking-widest text-ink/65">{k}</dt>
                         <dd className="mt-0.5 text-left text-[13px] font-semibold leading-snug text-ink">{v}</dd>
                       </div>
                     ))}

@@ -23,7 +23,7 @@ export default function NotFound() {
         </Link>
       </div>
       <nav aria-label="Popular pages" className="mt-10">
-        <p className="text-sm font-semibold text-ink/60">Or try one of these</p>
+        <p className="text-sm font-semibold text-ink/65">Or try one of these</p>
         <ul className="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-2">
           {suggestions.map((s) => (
             <li key={s.href}>

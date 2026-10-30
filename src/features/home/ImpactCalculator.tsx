@@ -15,14 +15,14 @@ export default function ImpactCalculator() {
     <div className="mx-auto max-w-xl overflow-hidden rounded-2xl bg-white text-ink shadow-xl">
       <div className="p-5 sm:p-6">
         <div className="flex items-center justify-between gap-3">
-          <p className="text-xs font-semibold uppercase tracking-wider text-ink/55">Select contribution</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-ink/65">Select contribution</p>
           <span className="rounded-full bg-brand/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-dark">
             INR only
           </span>
         </div>
 
         <div className="mt-4 flex items-baseline justify-between gap-3 border-b border-ink/10 pb-4">
-          <p className="text-sm font-medium text-ink/60">Contribution amount</p>
+          <p className="text-sm font-medium text-ink/65">Contribution amount</p>
           <p key={amount} className="ic-pop text-3xl font-bold tabular-nums text-brand-dark">
             ₹{fmt(amount)}
           </p>
@@ -40,7 +40,7 @@ export default function ImpactCalculator() {
             className="ic-range w-full"
             style={{ ["--p" as string]: `${pct}%` }}
           />
-          <div className="mt-2 flex justify-between text-xs font-medium text-ink/50">
+          <div className="mt-2 flex justify-between text-xs font-medium text-ink/65">
             <span>₹ 500</span>
             <span>₹ 12,500</span>
             <span>₹ 25,000</span>
@@ -54,7 +54,7 @@ export default function ImpactCalculator() {
               type="button"
               aria-pressed={amount === q}
               onClick={() => setAmount(q)}
-              className={`!min-h-0 rounded-full border px-3 py-1 text-xs font-semibold transition ${amount === q ? "border-brand bg-brand text-white" : "border-ink/15 bg-white text-ink/70 hover:border-brand/50 hover:bg-brand-light hover:text-brand-dark"}`}
+              className={`!min-h-0 rounded-full border px-3 py-1 text-xs font-semibold transition ${amount === q ? "border-[#1170c4] bg-[#1170c4] text-white" : "border-ink/15 bg-white text-ink/70 hover:border-brand/50 hover:bg-brand-light hover:text-brand-dark"}`}
             >
               ₹{fmt(q)}
             </button>

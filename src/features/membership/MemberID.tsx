@@ -54,7 +54,7 @@ function check(field: Field, form: { name: string; role: string; phone: string; 
 }
 
 const input =
-  "w-full rounded-2xl border border-brand/15 bg-white px-5 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-ink/40 focus:border-brand focus:ring-4 focus:ring-brand/15";
+  "w-full rounded-2xl border border-brand/15 bg-white px-5 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-ink/65 focus:border-brand focus:ring-4 focus:ring-brand/15";
 const label = "mb-1.5 block text-sm font-semibold text-ink";
 
 export default function MemberID() {
@@ -325,7 +325,7 @@ export default function MemberID() {
                     className={`${input} cursor-default bg-slate-50 text-ink/70`}
                     value={applied}
                   />
-                  <p className="mt-1.5 text-xs text-ink/55">
+                  <p className="mt-1.5 text-xs text-ink/65">
                     {t("The validity of your card is set by our team when your application is approved.")}
                   </p>
                 </div>
@@ -342,7 +342,7 @@ export default function MemberID() {
                     className={`${cls("photo")} cursor-pointer p-2.5 file:mr-4 file:cursor-pointer file:rounded-full file:border-0 file:bg-brand file:px-5 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-brand-dark`}
                   />
                   {problem("photo")}
-                  <p className="mt-1.5 text-xs text-ink/55">
+                  <p className="mt-1.5 text-xs text-ink/65">
                     {t("JPG, PNG or WebP, up to 5 MB. Your photo is sent with your application and printed on your ID card.")}
                   </p>
                 </div>
@@ -396,7 +396,7 @@ export default function MemberID() {
                 className="block h-auto w-full rounded-[22px] shadow-[0_30px_60px_-25px_rgba(6,26,54,.65)] ring-1 ring-black/5"
                 style={{ aspectRatio: `${W} / ${H}` }}
               />
-              <p className="mt-4 text-center text-sm text-ink/60">
+              <p className="mt-4 text-center text-sm text-ink/65">
                 {ready
                   ? t("Your card is ready. Download it from the buttons on the form.")
                   : t("Fill the form and apply. Your ID number and the downloads are enabled once our team approves your application.")}

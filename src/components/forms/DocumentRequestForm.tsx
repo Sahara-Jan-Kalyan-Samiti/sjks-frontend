@@ -91,9 +91,9 @@ export default function DocumentRequestForm() {
             ? "Thank you. Our team will review your request and reply on the email or phone number you gave."
             : "Your email app should have opened with the request ready. Press Send there to finish."}
         </p>
-        <p className="mt-4 text-sm text-ink/60">Your reference number</p>
+        <p className="mt-4 text-sm text-ink/65">Your reference number</p>
         <p className="font-mono text-xl font-bold text-brand-dark">{ref}</p>
-        <p className="mt-1 text-xs text-ink/60">Please quote it if you contact us about this request.</p>
+        <p className="mt-1 text-xs text-ink/65">Please quote it if you contact us about this request.</p>
         <button type="button" className="btn btn-brand mt-6" onClick={() => setState("idle")}>
           Make another request
         </button>
