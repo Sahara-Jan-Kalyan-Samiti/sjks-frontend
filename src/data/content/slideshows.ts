@@ -38,7 +38,12 @@ export const homeHeroSlides = [
   { src: "/assets/images/home/hero-slide-01.jpg", focus: "object-[88%_center] md:object-[100%_60%]" }
 ];
 
-export const homeHeroOpening = { src: "/assets/images/home/hero-slide-opening.jpg", focus: "object-[88%_center] md:object-[100%_60%]" };
+export const homeHeroOpening = {
+  src: "/assets/images/home/hero-slide-opening.jpg",
+  /** the same photo cropped for phones (public/assets/images/home/hero-slide-opening-sm.jpg) */
+  mobile: "/assets/images/home/hero-slide-opening-sm.jpg",
+  focus: "object-[88%_center] md:object-[100%_60%]"
+};
 
 /**
  * DONATION SET. Donate page only, completely separate from the featured set.
