@@ -27,9 +27,14 @@ export const featuredImages = [
  */
 export const homeHeroSlides = [
   { src: "/assets/images/home/hero-slide-02.jpg", focus: "object-[90%_center] md:object-[center_65%]" },
+  // real photos from our field work (the Media gallery), shown between the illustrated slides
+  { src: "/assets/images/home/hero-real-01.jpg", focus: "object-[70%_center] md:object-[center_55%]" },
   { src: "/assets/images/home/hero-slide-03.jpg", focus: "object-[58%_center] md:object-[center_40%]" },
+  { src: "/assets/images/home/hero-real-02.jpg", focus: "object-[55%_center] md:object-[center_60%]" },
   { src: "/assets/images/home/hero-slide-04.jpg", focus: "object-[100%_center] md:object-[center_50%]" },
+  { src: "/assets/images/home/hero-real-03.jpg", focus: "object-[50%_center] md:object-[center_65%]" },
   { src: "/assets/images/home/hero-slide-05.jpg", focus: "object-[80%_center] md:object-[center_20%]" },
+  { src: "/assets/images/home/hero-real-04.jpg", focus: "object-[60%_center] md:object-[center_45%]" },
   { src: "/assets/images/home/hero-slide-01.jpg", focus: "object-[88%_center] md:object-[100%_60%]" }
 ];
 

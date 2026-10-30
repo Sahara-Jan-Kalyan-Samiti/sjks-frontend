@@ -187,3 +187,10 @@ export const bankAccounts: BankAccount[] = [
     branch: "SBI New Delhi Main Branch, Sansad Marg"
   }
 ];
+
+/** UPI QR code of the Union Bank account, shown on the Donate page. The picture is public/assets/images/qr-sjks.jpeg. */
+export const upiQr = {
+  image: "/assets/images/qr-sjks.jpeg",
+  name: "Sahara Jan Kalyan Samiti",
+  id: "QR917974406288-0613@unionbankofindia"
+};
