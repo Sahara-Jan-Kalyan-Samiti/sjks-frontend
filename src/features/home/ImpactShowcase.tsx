@@ -122,7 +122,7 @@ function StatCard({ s, i, n }: { s: Stat; i: number; n: number }) {
           </span>
           {unit && <span className="text-xs font-semibold text-brand-dark [-webkit-text-fill-color:currentColor]">{t(unit)}</span>}
         </p>
-        <p className="mt-3 flex min-h-[2.5rem] items-start justify-center text-[13px] font-medium leading-snug text-ink/60">{label}</p>
+        <p className="mt-3 flex min-h-[2.5rem] items-start justify-center text-[13px] font-medium leading-snug text-ink/65">{label}</p>
       </div>
     </div>
   );
@@ -241,7 +241,7 @@ export function KeyFigures() {
               </span>
             </span>
             <div className="flex flex-col-reverse">
-              <p className="max-w-[9rem] text-xs font-semibold uppercase leading-snug tracking-wider text-ink/60 sm:text-[13px]">
+              <p className="max-w-[9rem] text-xs font-semibold uppercase leading-snug tracking-wider text-ink/65 sm:text-[13px]">
                 {f.label}
               </p>
               {/* counts up from 0 when the card scrolls into view; tabular figures keep the width steady while it runs */}

@@ -25,7 +25,7 @@ const causes = [
   { title: "Relief", text: "Ration and clothing support", img: G + "/social-relief/ration-kits-distribution.jpg" }
 ];
 const input =
-  "w-full rounded-xl border border-brand/20 bg-white px-4 py-3 text-[15px] text-ink outline-none transition placeholder:text-ink/40 focus:border-brand focus:ring-4 focus:ring-brand/15";
+  "w-full rounded-xl border border-brand/20 bg-white px-4 py-3 text-[15px] text-ink outline-none transition placeholder:text-ink/65 focus:border-brand focus:ring-4 focus:ring-brand/15";
 const label = "mb-1 block text-sm font-semibold text-ink";
 
 export default function Donate() {
@@ -173,7 +173,7 @@ export default function Donate() {
                 ["Society Reg. No.", site.regLine.replace("Reg. No. ", "")]
               ].map(([k, v]) => (
                 <div key={k} className="rounded-2xl border border-brand/15 bg-white px-4 py-3">
-                  <dt className="text-xs font-semibold uppercase tracking-widest text-ink/55">{t(k)}</dt>
+                  <dt className="text-xs font-semibold uppercase tracking-widest text-ink/65">{t(k)}</dt>
                   <dd className="mt-1 break-all font-semibold text-ink">{v}</dd>
                 </div>
               ))}
@@ -260,7 +260,7 @@ export default function Donate() {
                   >
                     {busy ? t("Please wait...") : t("Donate Now")}
                   </button>
-                  <p className="mt-3 text-center text-xs text-ink/60">
+                  <p className="mt-3 text-center text-xs text-ink/65">
                     {t("Secure payment by Razorpay. You can download your receipt right after paying.")}
                   </p>
                 </form>

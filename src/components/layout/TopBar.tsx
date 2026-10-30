@@ -178,7 +178,7 @@ export default function TopBar() {
           href={site.whatsappHref}
           target="_blank"
           rel="noreferrer"
-          className="shrink-0 rounded-full bg-green-500 px-3 py-1 font-semibold text-white transition hover:scale-105 hover:shadow-lg hover:shadow-green-500/40"
+          className="shrink-0 rounded-full bg-green-700 px-3 py-1 font-semibold text-white transition hover:scale-105 hover:shadow-lg hover:shadow-green-700/40"
         >
           WhatsApp
         </a>

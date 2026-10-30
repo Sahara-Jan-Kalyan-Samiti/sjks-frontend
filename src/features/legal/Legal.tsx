@@ -159,7 +159,7 @@ export default function Legal({ kind }: { kind: LegalKind }) {
                 </Link>
               </div>
 
-              <p className="mt-8 text-sm text-ink/60">Last updated: {c(`legal.${kind}.updated`)}.</p>
+              <p className="mt-8 text-sm text-ink/65">Last updated: {c(`legal.${kind}.updated`)}.</p>
               <p className="mt-4 flex flex-wrap gap-3">
                 {kinds
                   .filter(([k]) => k !== kind)

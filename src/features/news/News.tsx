@@ -30,7 +30,7 @@ export default function News() {
                 />
               </div>
               <div className="flex flex-1 flex-col p-5 sm:p-6">
-                <p className="flex items-center gap-1.5 text-xs font-medium text-ink/50">
+                <p className="flex items-center gap-1.5 text-xs font-medium text-ink/65">
                   <svg
                     aria-hidden="true"
                     viewBox="0 0 24 24"

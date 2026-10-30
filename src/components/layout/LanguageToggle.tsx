@@ -17,7 +17,7 @@ export default function LanguageToggle() {
     >
       <span
         aria-hidden="true"
-        className={`absolute inset-y-0.5 left-0.5 w-[calc(50%-2px)] rounded-full bg-brand shadow transition-transform duration-300 ease-out motion-reduce:transition-none ${isHi ? "translate-x-full" : "translate-x-0"}`}
+        className={`absolute inset-y-0.5 left-0.5 w-[calc(50%-2px)] rounded-full bg-[#1170c4] shadow transition-transform duration-300 ease-out motion-reduce:transition-none ${isHi ? "translate-x-full" : "translate-x-0"}`}
       />
       <span className={`relative z-10 w-8 py-0.5 text-center transition-colors duration-300 ${isHi ? "text-brand-dark/70" : "text-white"}`}>
         EN

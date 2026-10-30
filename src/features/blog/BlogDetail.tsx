@@ -44,7 +44,7 @@ export default function BlogDetail({ slug, initialPosts }: { slug: string; initi
   const p = posts?.find((x) => x.slug === slug);
   if (!posts)
     return (
-      <p role="status" className="container-site py-24 text-center text-ink/60">
+      <p role="status" className="container-site py-24 text-center text-ink/65">
         {t("Loading…")}
       </p>
     );
@@ -89,7 +89,7 @@ export default function BlogDetail({ slug, initialPosts }: { slug: string; initi
             </span>
             <p className="text-sm leading-snug">
               <span className="block font-semibold text-ink">{p.author || "Sahara Jan Kalyan Samiti"}</span>
-              <span className="text-ink/55">
+              <span className="text-ink/65">
                 {blogDate(p.published_on)} <span aria-hidden="true">·</span> {readMinutes(p.body)} {t("min read")}
               </span>
             </p>
@@ -137,7 +137,7 @@ export default function BlogDetail({ slug, initialPosts }: { slug: string; initi
                     className="w-full rounded-2xl object-cover shadow-md"
                   />
                   {p.photo_caption && (
-                    <figcaption className="mt-3 border-l-2 border-brand/40 pl-3 text-left text-sm text-ink/60">
+                    <figcaption className="mt-3 border-l-2 border-brand/40 pl-3 text-left text-sm text-ink/65">
                       {p.photo_caption}
                     </figcaption>
                   )}

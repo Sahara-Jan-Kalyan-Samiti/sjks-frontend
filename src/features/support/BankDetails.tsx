@@ -132,7 +132,7 @@ function Card({ account, className = "" }: { account: BankAccount; className?: s
         {fields.map((f) => (
           <li key={f.key} className="flex items-center justify-between gap-3 py-3">
             <div className="min-w-0">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-ink/55">{t(f.label)}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-ink/65">{t(f.label)}</p>
               <p
                 ref={(el) => {
                   valueRefs.current[f.key] = el;
@@ -179,7 +179,7 @@ function Card({ account, className = "" }: { account: BankAccount; className?: s
           >
             {t(action.label)}
           </a>
-          <p className="mt-2 text-center text-xs text-ink/55">{t("For donors who do not need an 80G receipt.")}</p>
+          <p className="mt-2 text-center text-xs text-ink/65">{t("For donors who do not need an 80G receipt.")}</p>
         </div>
       )}
     </article>
@@ -214,7 +214,7 @@ function UpiCard() {
         <p className="mt-2 text-ink/70">
           {t("Scan the QR code with any UPI app such as Google Pay, PhonePe or Paytm, or use the UPI ID below.")}
         </p>
-        <p className="mt-4 text-[11px] font-semibold uppercase tracking-widest text-ink/55">{t("UPI ID")}</p>
+        <p className="mt-4 text-[11px] font-semibold uppercase tracking-widest text-ink/65">{t("UPI ID")}</p>
         <p ref={idRef} className="mt-0.5 select-all break-all text-[15px] font-semibold text-ink">
           {upiQr.id}
         </p>
@@ -282,7 +282,7 @@ export default function BankDetails() {
           ))}
         </div>
         <UpiCard />
-        <p className="mx-auto mt-8 max-w-3xl text-center text-sm text-ink/60">
+        <p className="mx-auto mt-8 max-w-3xl text-center text-sm text-ink/65">
           {t("After a bank transfer, please email your name, amount and transaction reference to")}{" "}
           <a href={`mailto:${site.email}`} className="font-semibold text-brand-dark hover:text-brand">
             {site.email}

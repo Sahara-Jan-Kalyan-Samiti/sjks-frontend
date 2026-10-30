@@ -76,12 +76,12 @@ export default function Footer() {
             <p>{site.address}</p>
             <div>
               <p>
-                <a href={site.phoneHref} className="hover:text-white">
+                <a href={site.phoneHref} className="inline-block py-1 hover:text-white">
                   Phone: {site.phone}
                 </a>
               </p>
               <p>
-                <a href={`mailto:${site.email}`} className="hover:text-white">
+                <a href={`mailto:${site.email}`} className="inline-block py-1 hover:text-white">
                   Email: {site.email}
                 </a>
               </p>

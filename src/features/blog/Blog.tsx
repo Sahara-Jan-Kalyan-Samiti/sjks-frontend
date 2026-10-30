@@ -26,7 +26,7 @@ export function BlogCover({ post, className = "" }: { post: BlogPost; className?
 export function BlogMeta({ post, className = "" }: { post: BlogPost; className?: string }) {
   const { t } = useLang();
   return (
-    <p className={`text-xs font-medium text-ink/60 ${className}`}>
+    <p className={`text-xs font-medium text-ink/65 ${className}`}>
       {blogDate(post.published_on)} <span aria-hidden="true">·</span> {readMinutes(post.body)} {t("min read")}
     </p>
   );
@@ -71,7 +71,7 @@ export default function Blog({ initialPosts }: { initialPosts?: BlogPost[] }) {
   const list = !posts ? [] : group === "all" ? posts : posts.filter((p) => p.category === group);
   const [lead, ...rest] = list;
   const chip = (on: boolean) =>
-    `rounded-full px-4 py-2 text-sm font-semibold transition ${on ? "bg-brand text-white shadow" : "bg-white text-ink ring-1 ring-ink/10 hover:ring-brand/50"}`;
+    `rounded-full px-4 py-2 text-sm font-semibold transition ${on ? "bg-[#1170c4] text-white shadow" : "bg-white text-ink ring-1 ring-ink/10 hover:ring-brand/50"}`;
 
   return (
     <>
@@ -90,7 +90,7 @@ export default function Blog({ initialPosts }: { initialPosts?: BlogPost[] }) {
         />
         <div className="container-site">
           {!posts && (
-            <p role="status" className="py-16 text-center text-ink/60">
+            <p role="status" className="py-16 text-center text-ink/65">
               {t("Loading…")}
             </p>
           )}

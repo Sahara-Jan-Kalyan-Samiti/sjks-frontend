@@ -71,7 +71,7 @@ function check(field: Field, f: Form, focus: string[]): string {
 }
 
 const input =
-  "w-full rounded-2xl border border-brand/15 bg-white px-5 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-ink/40 focus:border-brand focus:ring-4 focus:ring-brand/15";
+  "w-full rounded-2xl border border-brand/15 bg-white px-5 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-ink/65 focus:border-brand focus:ring-4 focus:ring-brand/15";
 const label = "mb-1.5 block text-sm font-semibold text-ink";
 
 /**
@@ -270,7 +270,7 @@ export default function OrganizationApplyForm() {
         </div>
         <fieldset className="sm:col-span-2" {...aria("focus")}>
           <legend className={label}>
-            Areas of work * <span className="font-normal text-ink/55">(tick all that apply)</span>
+            Areas of work * <span className="font-normal text-ink/65">(tick all that apply)</span>
           </legend>
           <div className="flex flex-wrap gap-2">
             {FOCUS_AREAS.map((a, i) => (
@@ -306,13 +306,13 @@ export default function OrganizationApplyForm() {
             {...aria("description")}
             placeholder="One or two lines. This is shown on your card once you are approved."
           />
-          <p className="mt-1 text-right text-xs text-ink/45">{form.description.length} / 600</p>
+          <p className="mt-1 text-right text-xs text-ink/65">{form.description.length} / 600</p>
           {problem("description")}
         </div>
       </div>
 
       <h3 className="mt-8 text-lg font-bold text-ink">Contact person</h3>
-      <p className="mt-1 text-xs text-ink/55">
+      <p className="mt-1 text-xs text-ink/65">
         Used by our team to reach you. These details and the registration number are never shown on the website.
       </p>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">

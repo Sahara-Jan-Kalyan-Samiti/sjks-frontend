@@ -52,7 +52,7 @@ export default function InTheNews() {
                           <span className="rounded-full bg-brand/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand">
                             {r.kicker}
                           </span>
-                          <time dateTime={r.date} className="text-xs font-medium text-ink/55">
+                          <time dateTime={r.date} className="text-xs font-medium text-ink/65">
                             {fmtDate(r.date)}
                           </time>
                         </p>
@@ -61,7 +61,7 @@ export default function InTheNews() {
                           {r.headlineLocal}
                         </p>
                         <p className="mt-4 leading-relaxed text-ink/70">{r.summary}</p>
-                        <p className="mt-4 text-sm text-ink/60">
+                        <p className="mt-4 text-sm text-ink/65">
                           <span className="font-semibold text-ink/80">Covered by:</span> {r.coveredBy}
                         </p>
                       </div>
@@ -87,7 +87,7 @@ export default function InTheNews() {
                               </span>
                               <span className="flex flex-col gap-0.5 px-3 py-2 text-xs">
                                 <span className="font-semibold text-ink">{c.paper}</span>
-                                <span className="text-ink/55">{c.date}</span>
+                                <span className="text-ink/65">{c.date}</span>
                               </span>
                             </button>
                           ))}
@@ -98,10 +98,10 @@ export default function InTheNews() {
                 </Reveal>
               );
             })}
-            {reports.length === 0 && <p className="py-16 text-center text-ink/60">No reports in this section yet.</p>}
+            {reports.length === 0 && <p className="py-16 text-center text-ink/65">No reports in this section yet.</p>}
           </div>
 
-          <p className="mt-10 text-center text-sm text-ink/60">
+          <p className="mt-10 text-center text-sm text-ink/65">
             Media enquiries:{" "}
             <a href={`mailto:${site.email}`} className="font-semibold text-brand">
               {site.email}
