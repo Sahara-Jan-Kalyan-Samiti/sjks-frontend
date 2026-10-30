@@ -53,7 +53,7 @@ function Card({ e, past }: { e: EventItem; past?: boolean }) {
           </div>
           <div className="min-w-0 flex-1">
             <h3 className="font-serif text-lg font-bold">{e.title}</h3>
-            <p className="mt-1 text-sm text-ink/60">
+            <p className="mt-1 text-sm text-ink/65">
               {fmtDate(e.date)}
               {e.time ? ` · ${e.time}` : ""} · {e.place}
             </p>

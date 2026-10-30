@@ -94,7 +94,7 @@ export default function VolunteerWall() {
               +
             </span>
             <span className="mt-3 font-semibold text-brand-dark">{t("Become a volunteer")}</span>
-            <span className="mt-0.5 text-xs text-ink/60">{t("Join the team")} →</span>
+            <span className="mt-0.5 text-xs text-ink/65">{t("Join the team")} →</span>
           </Link>
         </Reveal>
       </div>

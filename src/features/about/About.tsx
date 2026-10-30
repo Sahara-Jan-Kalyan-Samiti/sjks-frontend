@@ -345,7 +345,7 @@ export default function About() {
           <div className="mt-8 grid gap-5 lg:grid-cols-3">
             <div className="rounded-3xl border border-ink/5 bg-white p-6 shadow-sm sm:p-7 lg:col-span-2">
               <div className="flex items-center justify-between gap-3">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink/55">Madhya Pradesh districts</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink/65">Madhya Pradesh districts</p>
                 <span className="rounded-full bg-brand px-3 py-1 text-xs font-bold text-white">{districts.length}</span>
               </div>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -536,7 +536,7 @@ export default function About() {
                 <p className="mt-1 break-all font-mono text-brand-dark">{l.value}</p>
                 {l.validity && <p className="mt-1 text-xs font-semibold text-ink/70">Valid: {l.validity}</p>}
                 <p className="justified mt-1 text-sm text-ink/70">{l.note}</p>
-                <p className="mt-2 text-xs text-ink/60">Authority: {l.authority}</p>
+                <p className="mt-2 text-xs text-ink/65">Authority: {l.authority}</p>
                 <div className="mt-1">
                   <CopyId value={l.value} />
                 </div>

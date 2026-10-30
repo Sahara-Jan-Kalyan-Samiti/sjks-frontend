@@ -114,7 +114,7 @@ function Programme({ d }: { d: DonorData }) {
           {figures.map(([label, value, tone], i) => (
             <Reveal key={label} delay={i * 60}>
               <div className="h-full rounded-2xl border bg-white p-5 shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-wide text-ink/55">{t(label)}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-ink/65">{t(label)}</p>
                 <p className={`mt-2 font-serif text-2xl font-bold sm:text-3xl ${tone}`}>{value}</p>
               </div>
             </Reveal>
@@ -165,7 +165,7 @@ function Programme({ d }: { d: DonorData }) {
             </div>
             <div className="mt-6 overflow-hidden rounded-2xl border bg-white shadow-sm">
               <table className="w-full text-left text-sm">
-                <thead className="bg-slate-100 text-xs uppercase tracking-wide text-ink/60">
+                <thead className="bg-slate-100 text-xs uppercase tracking-wide text-ink/65">
                   <tr>
                     <th className="px-4 py-3">{t("Spent on")}</th>
                     <th className="hidden px-4 py-3 md:table-cell">{t("Details")}</th>
@@ -179,7 +179,7 @@ function Programme({ d }: { d: DonorData }) {
                       <td className="px-4 py-3 font-semibold">
                         <span aria-hidden="true" className={`mr-2 inline-block h-2.5 w-2.5 rounded-full ${tones[i % tones.length]}`} />
                         {s.label}
-                        {s.detail && <span className="mt-1 block text-xs font-normal text-ink/60 md:hidden">{s.detail}</span>}
+                        {s.detail && <span className="mt-1 block text-xs font-normal text-ink/65 md:hidden">{s.detail}</span>}
                       </td>
                       <td className="hidden px-4 py-3 text-ink/70 md:table-cell">{s.detail}</td>
                       <td className="whitespace-nowrap px-4 py-3 text-right font-semibold">{rupees(s.amount)}</td>
@@ -218,7 +218,7 @@ function Programme({ d }: { d: DonorData }) {
             ))}
           </div>
           {first && /child/i.test(first.label) && first.value > 0 && spent > 0 && (
-            <p className="mt-4 text-sm text-ink/60">
+            <p className="mt-4 text-sm text-ink/65">
               {t("Cost per child")}: {rupees(Math.round(spent / first.value))}
             </p>
           )}

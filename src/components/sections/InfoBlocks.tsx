@@ -29,7 +29,7 @@ export function Steps({ eyebrow, title, intro, steps }: { eyebrow: string; title
               <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-brand/10 font-serif text-lg font-bold text-brand-dark ring-4 ring-brand/5 transition duration-300 group-hover:bg-brand group-hover:text-white">
                 {i + 1}
               </span>
-              <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/40">Step {String(i + 1).padStart(2, "0")}</p>
+              <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/65">Step {String(i + 1).padStart(2, "0")}</p>
               <h3 className="mt-1 font-serif text-lg font-bold text-ink">{h}</h3>
               <span aria-hidden="true" className="mx-auto mt-3 block h-px w-8 bg-brand/40 transition-all duration-300 group-hover:w-14" />
               <p className="mt-3 text-sm leading-relaxed text-ink/65">{p}</p>
@@ -160,7 +160,7 @@ export function Faq({
               </Reveal>
             );
           })}
-          <p className="pt-4 text-center text-sm text-ink/60">
+          <p className="pt-4 text-center text-sm text-ink/65">
             Still have a question?{" "}
             <Link href="/contact" className="font-semibold text-brand underline-offset-4 hover:underline">
               Contact us

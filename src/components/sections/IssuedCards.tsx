@@ -89,7 +89,7 @@ export default function IssuedCards({ refresh }: { refresh: number }) {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <h2 className="text-xl font-bold text-ink sm:text-2xl">Issued ID cards</h2>
-              <p className="mt-1 text-sm text-ink/60">Click a name to see the card details and download the card.</p>
+              <p className="mt-1 text-sm text-ink/65">Click a name to see the card details and download the card.</p>
             </div>
             <input
               value={q}
@@ -97,7 +97,7 @@ export default function IssuedCards({ refresh }: { refresh: number }) {
               placeholder="Search by name or ID"
               aria-label="Search issued cards"
               maxLength={40}
-              className="w-full rounded-2xl border border-brand/15 bg-white px-5 py-3 text-[15px] text-ink outline-none placeholder:text-ink/40 focus:border-brand focus:ring-4 focus:ring-brand/15 sm:w-72"
+              className="w-full rounded-2xl border border-brand/15 bg-white px-5 py-3 text-[15px] text-ink outline-none placeholder:text-ink/65 focus:border-brand focus:ring-4 focus:ring-brand/15 sm:w-72"
             />
           </div>
           {open && (
@@ -160,9 +160,9 @@ export default function IssuedCards({ refresh }: { refresh: number }) {
               </button>
             </p>
           )}
-          {state === "loading" && <p className="mt-6 text-sm text-ink/60">Loading…</p>}
+          {state === "loading" && <p className="mt-6 text-sm text-ink/65">Loading…</p>}
           {state === "ok" && rows.length === 0 && (
-            <p className="mt-6 text-sm text-ink/60">{q ? "No card matches your search." : "No cards have been issued yet."}</p>
+            <p className="mt-6 text-sm text-ink/65">{q ? "No card matches your search." : "No cards have been issued yet."}</p>
           )}
           <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {rows.map((r) => (
@@ -172,7 +172,7 @@ export default function IssuedCards({ refresh }: { refresh: number }) {
                   className={`w-full rounded-2xl border bg-white px-4 py-3 text-left transition hover:border-brand hover:shadow-md ${open?.card_id === r.card_id ? "border-brand ring-2 ring-brand/20" : "border-brand/10"}`}
                 >
                   <span className="block truncate font-semibold text-ink">{r.full_name}</span>
-                  <span className="block truncate text-sm text-ink/60">{r.role}</span>
+                  <span className="block truncate text-sm text-ink/65">{r.role}</span>
                   <span className="mt-1 block text-xs font-semibold text-brand-dark">{r.card_id}</span>
                 </button>
               </li>

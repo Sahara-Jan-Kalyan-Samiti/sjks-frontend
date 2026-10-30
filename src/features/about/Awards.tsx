@@ -108,7 +108,7 @@ export default function Awards() {
   }, [all]);
   const list = group === "all" ? all : all.filter((a) => a.category === group);
   const chip = (on: boolean) =>
-    `rounded-full px-4 py-2 text-sm font-semibold transition ${on ? "bg-brand text-white shadow" : "bg-white text-ink ring-1 ring-ink/10 hover:ring-brand/50"}`;
+    `rounded-full px-4 py-2 text-sm font-semibold transition ${on ? "bg-[#1170c4] text-white shadow" : "bg-white text-ink ring-1 ring-ink/10 hover:ring-brand/50"}`;
 
   return (
     <>

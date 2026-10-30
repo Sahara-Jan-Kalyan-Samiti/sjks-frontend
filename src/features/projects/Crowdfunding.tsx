@@ -129,17 +129,17 @@ export default function Crowdfunding() {
               <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 text-center">
                 <div>
                   <p className="font-serif text-3xl font-bold text-brand-dark md:text-4xl">₹100</p>
-                  <p className="mt-1 text-xs text-ink/60 md:text-sm">{t("from one person")}</p>
+                  <p className="mt-1 text-xs text-ink/65 md:text-sm">{t("from one person")}</p>
                 </div>
                 <p className="text-xl font-bold text-brand md:text-2xl" aria-hidden="true">
                   × 1,000
                 </p>
                 <div>
                   <p className="font-serif text-3xl font-bold text-brand-dark md:text-4xl">₹1,00,000</p>
-                  <p className="mt-1 text-xs text-ink/60 md:text-sm">{t("toward one patient")}</p>
+                  <p className="mt-1 text-xs text-ink/65 md:text-sm">{t("toward one patient")}</p>
                 </div>
               </div>
-              <p className="mt-5 border-t border-brand/20 pt-3 text-center text-xs text-ink/55">
+              <p className="mt-5 border-t border-brand/20 pt-3 text-center text-xs text-ink/65">
                 {t("An example of the arithmetic, not a record of one case.")}
               </p>
             </div>
@@ -197,7 +197,7 @@ export default function Crowdfunding() {
         <Reveal>
           <Chapter n="04" label={t("The people")} />
           <h2 className="h2 mt-3 max-w-3xl">{t("Behind every number is a bed, and someone waiting beside it.")}</h2>
-          <p className="mt-3 max-w-2xl text-sm text-ink/60">
+          <p className="mt-3 max-w-2xl text-sm text-ink/65">
             {t("Faces are kept private, and photos are shared only with the family's consent.")}
           </p>
         </Reveal>

@@ -12,7 +12,7 @@ export default function ProjectSlider() {
   const scroll = (d: number) => ref.current?.scrollBy({ left: d * 340, behavior: "smooth" });
   return (
     <div>
-      <div className="mb-4 flex items-center justify-between text-xs text-ink/60">
+      <div className="mb-4 flex items-center justify-between text-xs text-ink/65">
         <span>Swipe through active programs</span>
         <span>01 / {String(projects.length).padStart(2, "0")}</span>
       </div>

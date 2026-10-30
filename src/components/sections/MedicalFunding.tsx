@@ -20,7 +20,7 @@ function Group({ title, empty, rows }: { title: string; empty: string; rows: Fun
         )}
       </div>
       {rows.length === 0 ? (
-        <p className="mt-4 rounded-2xl border border-dashed p-5 text-sm text-ink/60">{empty}</p>
+        <p className="mt-4 rounded-2xl border border-dashed p-5 text-sm text-ink/65">{empty}</p>
       ) : (
         <ul className="mt-4 divide-y divide-ink/10 overflow-hidden rounded-2xl border border-ink/10 bg-white shadow-sm">
           {rows.map((r) => (
@@ -28,7 +28,7 @@ function Group({ title, empty, rows }: { title: string; empty: string; rows: Fun
               <div className="min-w-0">
                 <p className="font-semibold text-ink">{r.name}</p>
                 {(r.location || r.period) && (
-                  <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-ink/45">
+                  <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-ink/65">
                     {[r.location, r.period].filter(Boolean).join(" · ")}
                   </p>
                 )}
@@ -37,7 +37,7 @@ function Group({ title, empty, rows }: { title: string; empty: string; rows: Fun
               {r.amount > 0 && (
                 <p className="shrink-0 sm:text-right">
                   <span className="block font-serif text-xl font-bold text-brand-dark sm:text-2xl">{rupees(r.amount)}</span>
-                  <span className="text-[10px] font-semibold uppercase tracking-widest text-ink/45">Donated</span>
+                  <span className="text-[10px] font-semibold uppercase tracking-widest text-ink/65">Donated</span>
                 </p>
               )}
             </li>
