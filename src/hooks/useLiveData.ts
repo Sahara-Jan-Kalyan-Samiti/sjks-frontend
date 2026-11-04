@@ -98,6 +98,15 @@ async function loadAll(): Promise<Live> {
   };
 }
 
+/** Several components on a page ask for the live data at the same moment; they share one request instead of sending one each. */
+let inflight: Promise<Live> | null = null;
+function loadShared(): Promise<Live> {
+  inflight ??= loadAll().finally(() => {
+    inflight = null;
+  });
+  return inflight;
+}
+
 /** Runs `fn` now, whenever the tab becomes visible again, and every minute, so admin changes appear without a manual reload. */
 function useRefresh(fn: () => void) {
   useEffect(() => {
@@ -127,7 +136,7 @@ export function useLiveData(): Live & { loaded: boolean } {
   const [loaded, setLoaded] = useState(!!cache);
   const saved = useSavedPageText();
   useRefresh(() => {
-    loadAll()
+    loadShared()
       .then((next) => {
         cache = next;
         setData(next);

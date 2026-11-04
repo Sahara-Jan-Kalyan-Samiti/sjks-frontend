@@ -321,7 +321,7 @@ export default function Home() {
       <section className="defer-render bg-brand-light py-16">
         <div className="container-site grid items-center gap-10 lg:grid-cols-2">
           <Reveal>
-            <Img file="field-9.jpg" alt="Child Education Programme" className="aspect-[4/3] w-full rounded-3xl" />
+            <Img defer file="field-9.jpg" alt="Child Education Programme" className="aspect-[4/3] w-full rounded-3xl" />
           </Reveal>
           <Reveal delay={120}>
             <p className="eyebrow">{t("Featured Initiative")}</p>
@@ -432,7 +432,7 @@ export default function Home() {
               ["cooper-ribbon-cutting.jpg", "Ribbon cutting at the inauguration of the renovated room", ""]
             ].map(([f, alt, span], i) => (
               <Reveal key={f} delay={i * 90} className={span}>
-                <Img file={`hospital/${f}`} alt={alt} className="h-full min-h-[220px] w-full rounded-2xl shadow-sm" />
+                <Img defer file={`hospital/${f}`} alt={alt} className="h-full min-h-[220px] w-full rounded-2xl shadow-sm" />
               </Reveal>
             ))}
           </div>
@@ -442,7 +442,7 @@ export default function Home() {
               ["cooper-coconut-ceremony.jpg", "Breaking a coconut to bless the new facility"]
             ].map(([f, alt], i) => (
               <Reveal key={f} delay={i * 90}>
-                <Img file={`hospital/${f}`} alt={alt} className="aspect-[16/10] w-full rounded-2xl object-top shadow-sm" />
+                <Img defer file={`hospital/${f}`} alt={alt} className="aspect-[16/10] w-full rounded-2xl object-top shadow-sm" />
               </Reveal>
             ))}
           </div>
@@ -518,7 +518,7 @@ export default function Home() {
                 ["field-6.jpg", "Social Relief", "Community nutrition and family support"]
               ].map(([f, c, tt]) => (
                 <Link href="/media" key={f} className="group relative block overflow-hidden rounded-2xl">
-                  <Img file={f} alt={tt} className="aspect-[4/3] w-full transition group-hover:scale-105" />
+                  <Img defer file={f} alt={tt} className="aspect-[4/3] w-full transition group-hover:scale-105" />
                   <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 p-3 text-xs text-white">
                     <b className="block">{c}</b>
                     {tt}
@@ -542,6 +542,7 @@ export default function Home() {
                     className="group block h-full overflow-hidden rounded-2xl border bg-white transition hover:shadow-lg"
                   >
                     <Img
+                      defer
                       file={p.image}
                       alt={p.title}
                       className="aspect-[16/10] w-full object-top transition duration-500 group-hover:scale-105"
@@ -582,7 +583,9 @@ export default function Home() {
           </Reveal>
         </div>
         <div className="mt-6">
-          <SupportersStrip />
+          <LazyMount className="h-24">
+            <SupportersStrip />
+          </LazyMount>
         </div>
       </section>
 
