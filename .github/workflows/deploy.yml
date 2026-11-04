@@ -46,4 +46,4 @@ jobs:
           SERVICE=sjks-frontend-staging
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then SERVICE=sjks-frontend; fi
           gcloud builds submit --project "${{ vars.GCP_PROJECT }}" --config cloudbuild.yaml \
-            --substitutions "_TAG=${GITHUB_SHA::7},_SERVICE=$SERVICE,_REGION=${{ vars.GCP_REGION }},_SUPABASE_URL=${{ vars.NEXT_PUBLIC_SUPABASE_URL }},_SUPABASE_KEY=${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }},_SITE_URL=${{ vars.NEXT_PUBLIC_SITE_URL }},_API_URL=${{ vars.NEXT_PUBLIC_API_URL }},_ADMIN_URL=${{ vars.NEXT_PUBLIC_ADMIN_URL }}" .
+            --substitutions "_SERVICE=$SERVICE,_REGION=${{ vars.GCP_REGION }},_SUPABASE_URL=${{ vars.NEXT_PUBLIC_SUPABASE_URL }},_SUPABASE_KEY=${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }},_SITE_URL=${{ vars.NEXT_PUBLIC_SITE_URL }},_API_URL=${{ vars.NEXT_PUBLIC_API_URL }},_ADMIN_URL=${{ vars.NEXT_PUBLIC_ADMIN_URL }}" .
