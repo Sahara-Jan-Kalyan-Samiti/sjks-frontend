@@ -46,9 +46,8 @@ export default function Footer() {
           </p>
           <p className="mt-4 text-xs">Society Reg: {societyReg}</p>
           <p className="text-xs">Darpan ID: {darpanId}</p>
-          <p className="text-xs">
-            12A: {reg12A.value} · 80G: {reg80G.value}
-          </p>
+          <p className="text-xs">12A: {reg12A.value}</p>
+          <p className="text-xs">80G: {reg80G.value}</p>
           <p className="text-xs">FCRA: {fcraReg.value}</p>
           <p className="text-xs">
             <Link href="/transparency?request=certificate#request" className="no-underline hover:text-white">

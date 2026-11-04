@@ -16,7 +16,8 @@ export const nav: NavItem[] = [
       { label: "Where We Work", href: "/about#reach" },
       { label: "Partners & Supporters", href: "/about#partners" },
       { label: "Awards & Recognition", href: "/about/awards" },
-      { label: "Legal & Registration", href: "/about#legal" }
+      { label: "Legal & Registration", href: "/about#legal" },
+      { label: "Our Policies", href: "/policies" }
     ]
   },
   {
@@ -61,7 +62,8 @@ export const nav: NavItem[] = [
     href: "/memberships",
     children: [
       { label: "Member ID Card", href: "/member-id" },
-      { label: "Memberships", href: "/memberships" }
+      { label: "Memberships", href: "/memberships" },
+      { label: "Partner With Us", href: "/partner-with-us" }
     ]
   },
   { label: "Contact Us", href: "/contact" }

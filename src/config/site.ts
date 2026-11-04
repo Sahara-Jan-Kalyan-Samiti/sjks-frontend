@@ -127,6 +127,12 @@ export const legalIds: LegalId[] = [
     value: "7991Y",
     note: "NATO Commercial and Government Entity code.",
     authority: "National Codification Bureau (NCB India)"
+  },
+  {
+    title: "Udyam Registration",
+    value: "UDYAM-MP-39-0066675",
+    note: "Udyam Registration of the Samiti.",
+    authority: "Government of India"
   }
 ];
 const idOf = (prefix: string) => legalIds.find((l) => l.title.startsWith(prefix))!;
