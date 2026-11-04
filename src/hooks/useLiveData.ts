@@ -85,7 +85,8 @@ async function fetchAdminEvents(): Promise<EventItem[]> {
  * null = the database could not be reached, so the caller falls back to the file; [] = none published (the section stays hidden).
  */
 async function fetchAdminCampaigns(): Promise<Campaign[] | null> {
-  if (!supabaseConfigured || !supabase) return null;
+  const supabase = await getSupabase();
+  if (!supabase) return null;
   try {
     const { data, error } = await supabase
       .from("campaigns")
