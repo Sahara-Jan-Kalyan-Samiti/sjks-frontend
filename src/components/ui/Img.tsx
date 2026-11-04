@@ -45,14 +45,22 @@ export default function Img({ file, alt, className = "", eager, defer }: Props) 
     );
   }
   return (
-    <img
-      ref={ref}
-      src={near ? `/assets/images/${file}` : undefined}
-      alt={alt}
-      loading={eager ? "eager" : "lazy"}
-      decoding="async"
-      onError={() => setFailed(true)}
-      className={`object-cover ${className}`}
-    />
+    <>
+      <img
+        ref={ref}
+        src={near ? `/assets/images/${file}` : undefined}
+        alt={alt}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        onError={() => setFailed(true)}
+        className={`object-cover ${className}`}
+      />
+      {/* a deferred picture has no address until the page's code runs: this copy is for visitors and crawlers without JavaScript */}
+      {defer && (
+        <noscript>
+          <img src={`/assets/images/${file}`} alt={alt} loading="lazy" className={`object-cover ${className}`} />
+        </noscript>
+      )}
+    </>
   );
 }
