@@ -15,6 +15,7 @@ import RotatingWords from "@/components/ui/RotatingWords";
 import Wave from "@/components/ui/Wave";
 import CornerRibbons from "@/components/ui/CornerRibbons";
 import Reveal from "@/components/ui/Reveal";
+import LazyMount from "@/components/ui/LazyMount";
 import { ImpactDashboard, KeyFigures } from "@/features/home/ImpactShowcase";
 import CampaignProgress from "@/features/home/CampaignProgress";
 import Skeleton, { SectionSkeleton } from "@/components/ui/Skeleton";
@@ -237,7 +238,7 @@ export default function Home() {
       </section>
 
       {/* Focus areas */}
-      <section className="bg-slate-50 py-16">
+      <section className="defer-render bg-slate-50 py-16">
         <div className="container-site">
           <Reveal>
             <p className="eyebrow">{t("Our Core Focus Areas")}</p>
@@ -298,7 +299,7 @@ export default function Home() {
       )}
 
       {/* Calculator */}
-      <section className="relative overflow-hidden bg-brand-dark py-16 text-white">
+      <section className="defer-render relative overflow-hidden bg-brand-dark py-16 text-white">
         <CornerRibbons />
         <div className="container-site relative text-center">
           <Reveal>
@@ -317,7 +318,7 @@ export default function Home() {
       <Testimonials />
 
       {/* Featured initiative */}
-      <section className="bg-brand-light py-16">
+      <section className="defer-render bg-brand-light py-16">
         <div className="container-site grid items-center gap-10 lg:grid-cols-2">
           <Reveal>
             <Img file="field-9.jpg" alt="Child Education Programme" className="aspect-[4/3] w-full rounded-3xl" />
@@ -345,7 +346,7 @@ export default function Home() {
       </section>
 
       {/* Ways to help */}
-      <section className="py-16">
+      <section className="defer-render py-16">
         <div className="container-site">
           <Reveal>
             <p className="eyebrow">{t("Ways to Help")}</p>
@@ -409,7 +410,7 @@ export default function Home() {
       </section>
 
       {/* Hospital work in Mumbai (photos: public/assets/images/hospital/) */}
-      <section className="bg-brand-light py-16">
+      <section className="defer-render bg-brand-light py-16">
         <div className="container-site">
           <Reveal>
             <p className="eyebrow">{t("Health Care")}</p>
@@ -455,7 +456,7 @@ export default function Home() {
       </section>
 
       {/* News & events */}
-      <section className="bg-slate-50 py-16">
+      <section className="defer-render bg-slate-50 py-16">
         <div className="container-site">
           <Reveal>
             <div className="flex flex-wrap items-end justify-between gap-4">
@@ -557,18 +558,21 @@ export default function Home() {
       </section>
 
       {/* Where we work */}
-      <section className="py-16">
+      <section className="defer-render py-16">
         <div className="container-site">
           <Reveal>
             <p className="eyebrow">{t("Where we work")}</p>
             <h2 className="h2 mb-6 mt-2">{t("Our Field Presence")}</h2>
           </Reveal>
-          <IndiaNetworkMap />
+          {/* far down the page, with infinite SVG animations: only started when it is about to be seen */}
+          <LazyMount className="h-[34rem] md:h-[40rem]">
+            <IndiaNetworkMap />
+          </LazyMount>
         </div>
       </section>
 
       {/* Supporters & partners */}
-      <section className="bg-brand-light pb-6 pt-10 md:pb-8 md:pt-12">
+      <section className="defer-render bg-brand-light pb-6 pt-10 md:pb-8 md:pt-12">
         <div className="container-site text-center">
           <Reveal>
             <h2 className="h2 text-brand-dark">{t("Our Supporters & Partners")}</h2>
@@ -583,7 +587,7 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="mt-10 bg-gradient-to-br from-brand-dark to-brand py-16 text-center text-white md:mt-16">
+      <section className="defer-render mt-10 bg-gradient-to-br from-brand-dark to-brand py-16 text-center text-white md:mt-16">
         <div className="container-site">
           <Reveal>
             <p className="text-xs font-semibold uppercase tracking-widest text-white/80">{t("Take Action Today")}</p>

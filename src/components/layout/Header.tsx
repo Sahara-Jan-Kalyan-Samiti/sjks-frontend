@@ -38,6 +38,8 @@ export default function Header() {
           <Link href="/" aria-label={`${site.name} home`} className="flex h-12 shrink-0 items-center sm:h-14 xl:h-[60px]">
             <img
               src="/assets/images/logo.png"
+              width={520}
+              height={174}
               alt={`${site.name} logo`}
               className="h-11 w-auto max-w-[190px] object-contain sm:h-12 sm:max-w-[220px] xl:h-14 xl:max-w-[220px] 2xl:max-w-[260px]"
             />
@@ -120,6 +122,8 @@ export default function Header() {
               <Link href="/" onClick={() => setOpen(false)} aria-label={`${site.name} home`} className="flex h-12 items-center sm:h-14">
                 <img
                   src="/assets/images/logo.png"
+                  width={520}
+                  height={174}
                   alt={`${site.name} logo`}
                   className="h-11 w-auto max-w-[190px] object-contain sm:h-12 sm:max-w-[220px] xl:h-14 xl:max-w-[220px] 2xl:max-w-[260px]"
                 />

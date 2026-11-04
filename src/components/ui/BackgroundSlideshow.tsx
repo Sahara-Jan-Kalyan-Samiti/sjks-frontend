@@ -29,6 +29,9 @@ interface Props {
   overlayClassName?: string;
 }
 
+/** Pause between two photo downloads, in ms. */
+const LOAD_GAP = 2500;
+
 /** Loads one image; resolves to its path, or null if the file is missing. */
 const load = (src: string) =>
   new Promise<string | null>((resolve) => {
@@ -63,7 +66,7 @@ export default function BackgroundSlideshow({
   const mountedAt = useRef(performance.now());
   const key = images.join("|");
 
-  // preload every image first, so a slide is never shown half-loaded.
+  // load the images one by one (each is fully loaded before it is added, so a slide is never shown half-loaded).
   // When a `fallback` photo is shown first (the home page hero), the slides start loading a few seconds after the page has loaded, so five
   // more photos do not compete with that first photo for the connection (it is the largest thing on screen and decides how fast the page feels).
   useEffect(() => {
@@ -73,9 +76,21 @@ export default function BackgroundSlideshow({
     const start = () => {
       if (started) return;
       started = true;
-      Promise.all(images.map(load)).then((found) => {
-        if (alive) setSlides(found.filter((s): s is string => !!s));
-      });
+      // one photo at a time, with a pause between: the cycle shows a photo every few seconds, so there is no need to download them all
+      // at once (that would use up a phone's connection and processor while the page is still becoming usable)
+      (async () => {
+        const found: string[] = [];
+        for (const src of images) {
+          if (!alive) return;
+          const ok = await load(src);
+          if (!alive) return;
+          if (ok) {
+            found.push(ok);
+            setSlides([...found]);
+          }
+          await new Promise((r) => window.setTimeout(r, LOAD_GAP));
+        }
+      })();
     };
     let cleanup = () => {};
     if (fallback) {
@@ -115,7 +130,7 @@ export default function BackgroundSlideshow({
       cancelAnimationFrame(raf);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slides]);
+  }, [slides.length > 0]);
 
   // advance every `interval` ms (not for visitors who prefer reduced motion)
   useEffect(() => {
@@ -134,7 +149,7 @@ export default function BackgroundSlideshow({
     // Regular cycling with the standard interval
     const id = window.setInterval(() => setPos((p) => ({ prev: p.index, index: (p.index + 1) % slides.length })), interval);
     return () => window.clearInterval(id);
-  }, [slides, interval, initialInterval, index, hasStartedCycle]);
+  }, [slides.length, interval, initialInterval, index, hasStartedCycle]);
 
   // once the fade has finished, the slide underneath can be hidden
   useEffect(() => {
