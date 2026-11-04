@@ -18,6 +18,8 @@ const nextConfig = {
   output: "standalone",
   // ESLint runs as its own step in CI (npm run lint)
   eslint: { ignoreDuringBuilds: true },
+  // inline the critical CSS and load the rest without blocking the first paint (needs the `critters` package)
+  experimental: { optimizeCss: true },
 
   async rewrites() {
     const useDevProxy = process.env.NODE_ENV === "development" && !process.env.NEXT_PUBLIC_API_URL;
