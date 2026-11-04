@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { site } from "@/config/site";
 import { ticker } from "@/data/content/content";
-import { supabase, supabaseConfigured } from "@/services/supabase";
+import { getSupabase, supabaseConfigured } from "@/services/supabaseLazy";
 import LanguageToggle from "./LanguageToggle";
 import { useLang } from "@/i18n/LangContext";
 
@@ -14,16 +14,20 @@ import { useLang } from "@/i18n/LangContext";
 function useTicker(): string {
   const [text, setText] = useState(ticker);
   useEffect(() => {
-    if (!supabaseConfigured || !supabase) return;
+    if (!supabaseConfigured) return;
     let alive = true;
     const load = () =>
-      supabase!
-        .from("ticker_messages")
-        .select("message")
-        .eq("published", true)
-        .order("created_at", { ascending: false })
-        .order("id", { ascending: false })
-        .then(({ data, error }) => {
+      getSupabase()
+        .then((supabase) =>
+          supabase
+            ?.from("ticker_messages")
+            .select("message")
+            .eq("published", true)
+            .order("created_at", { ascending: false })
+            .order("id", { ascending: false })
+        )
+        .then((res) => {
+          const { data, error } = res ?? { data: null, error: true };
           if (alive && !error && data && data.length)
             setText(
               data

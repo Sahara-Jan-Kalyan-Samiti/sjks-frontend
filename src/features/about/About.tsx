@@ -178,7 +178,7 @@ export default function About() {
           </div>
 
           <div className="max-lg:order-first">
-            <div className="relative mx-auto w-full max-w-[300px] pb-16 sm:max-w-[340px] lg:ml-auto lg:mr-6 lg:max-w-[380px]">
+            <div className="relative mx-auto w-full max-w-[220px] pb-16 sm:max-w-[250px] lg:ml-auto lg:mr-6 lg:max-w-[280px]">
               <div
                 aria-hidden="true"
                 className="absolute -left-[26%] top-[14%] -z-10 h-[78%] w-[120%] rounded-[46%_54%_52%_48%/55%_45%_55%_45%] bg-gradient-to-br from-[#93c5fd] via-[#60a5fa] to-[#3b82f6] opacity-80"
@@ -515,7 +515,7 @@ export default function About() {
           <p className="justified mt-2 text-ink/70">{c("about.partners.text")}</p>
           <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {partners.map((x) => (
-              <div key={x.name} className="rounded-2xl border bg-white p-5">
+              <div key={x.name} className={`rounded-2xl border bg-white p-5 ${x.wide ? "md:col-span-2" : ""}`}>
                 <h3 className="font-semibold">{x.name}</h3>
                 <p className="justified mt-1 text-sm text-ink/70">{x.role}</p>
               </div>

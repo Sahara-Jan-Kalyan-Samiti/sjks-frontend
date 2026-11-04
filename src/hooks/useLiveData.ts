@@ -3,7 +3,7 @@ import { stats as defaultStats, statFromText, type Stat } from "@/data/content/c
 import { defaultMedicalFundings, type MedicalFunding } from "@/data/content/medicalFunding";
 import { defaultMemberOrganizations, type MemberOrganization } from "@/data/content/memberOrganizations";
 import { useSavedPageText } from "./usePageText";
-import { supabase, supabaseConfigured } from "@/services/supabase";
+import { getSupabase } from "@/services/supabaseLazy";
 import { env } from "@/lib/env";
 
 export interface Campaign {
@@ -56,7 +56,8 @@ async function fetchAdminEvents(): Promise<EventItem[]> {
   } catch {
     /* server not running: fall through to Supabase */
   }
-  if (!supabaseConfigured || !supabase) return [];
+  const supabase = await getSupabase();
+  if (!supabase) return [];
   try {
     const { data, error } = await supabase
       .from("events")
@@ -79,6 +80,33 @@ async function fetchAdminEvents(): Promise<EventItem[]> {
     return [];
   }
 }
+/**
+ * Campaigns published in the admin panel (Programmes -> Campaigns), in the order set there.
+ * null = the database could not be reached, so the caller falls back to the file; [] = none published (the section stays hidden).
+ */
+async function fetchAdminCampaigns(): Promise<Campaign[] | null> {
+  const supabase = await getSupabase();
+  if (!supabase) return null;
+  try {
+    const { data, error } = await supabase
+      .from("campaigns")
+      .select("id, title, description, cause, goal_amount, raised_offset")
+      .eq("published", true)
+      .order("sort_order")
+      .order("created_at", { ascending: false });
+    if (error || !data) return null;
+    return data.map((c) => ({
+      id: String(c.id),
+      title: c.title,
+      text: c.description || "",
+      goal: Number(c.goal_amount),
+      raised: Number(c.raised_offset),
+      cause: c.cause || undefined
+    }));
+  } catch {
+    return null;
+  }
+}
 async function fetchFile(): Promise<Partial<Live>> {
   try {
     const r = await fetch(URL_, { cache: "no-store" });
@@ -89,12 +117,22 @@ async function fetchFile(): Promise<Partial<Live>> {
 }
 /** The two sources are independent: if live.json fails, admin events still show (and the other way round). */
 async function loadAll(): Promise<Live> {
-  const [j, extra] = await Promise.all([fetchFile(), fetchAdminEvents()]);
+  const [j, extra, adminCampaigns] = await Promise.all([fetchFile(), fetchAdminEvents(), fetchAdminCampaigns()]);
   return {
     stats: Array.isArray(j.stats) && j.stats.length ? j.stats : defaultStats,
-    campaigns: visible<Campaign>(j.campaigns),
+    // the admin panel decides; the file only fills in when the database cannot be reached
+    campaigns: adminCampaigns ?? visible<Campaign>(j.campaigns),
     events: [...visible<EventItem>(j.events), ...extra]
   };
+}
+
+/** Several components on a page ask for the live data at the same moment; they share one request instead of sending one each. */
+let inflight: Promise<Live> | null = null;
+function loadShared(): Promise<Live> {
+  inflight ??= loadAll().finally(() => {
+    inflight = null;
+  });
+  return inflight;
 }
 
 /** Runs `fn` now, whenever the tab becomes visible again, and every minute, so admin changes appear without a manual reload. */
@@ -126,7 +164,7 @@ export function useLiveData(): Live & { loaded: boolean } {
   const [loaded, setLoaded] = useState(!!cache);
   const saved = useSavedPageText();
   useRefresh(() => {
-    loadAll()
+    loadShared()
       .then((next) => {
         cache = next;
         setData(next);
@@ -143,7 +181,8 @@ export function useLiveData(): Live & { loaded: boolean } {
 
 /** Hospitals and medical facilities funded, as published in the admin panel (Medical Funding): largest amount first. */
 async function fetchMedicalFundings(): Promise<MedicalFunding[] | null> {
-  if (!supabaseConfigured || !supabase) return null;
+  const supabase = await getSupabase();
+  if (!supabase) return null;
   try {
     const { data, error } = await supabase
       .from("medical_fundings")
@@ -174,7 +213,8 @@ export function useMedicalFundings(): MedicalFunding[] {
 
 /** Member organisations approved and published in the admin panel (Member Organizations), in the order set there. */
 async function fetchMemberOrganizations(): Promise<MemberOrganization[] | null> {
-  if (!supabaseConfigured || !supabase) return null;
+  const supabase = await getSupabase();
+  if (!supabase) return null;
   try {
     const { data, error } = await supabase
       .from("member_organizations")
@@ -225,7 +265,8 @@ async function fetchAdminProjects(): Promise<AdminProject[]> {
   } catch {
     /* server not running: fall through to Supabase */
   }
-  if (!supabaseConfigured || !supabase) return [];
+  const supabase = await getSupabase();
+  if (!supabase) return [];
   try {
     const { data, error } = await supabase.from("projects").select("*").eq("published", true).order("created_at", { ascending: false });
     if (error || !data) return [];

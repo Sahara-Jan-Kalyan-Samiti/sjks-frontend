@@ -179,7 +179,13 @@ export const portfolio: PortfolioItem[] = [
   }
 ];
 
-export const partners: { name: string; role: string }[] = [
+/** `wide` = the card spans two columns on larger screens (used for a featured partnership). */
+export const partners: { name: string; role: string; wide?: boolean }[] = [
+  {
+    name: "Tata Mumbai Marathon 2027 | with United Way Mumbai",
+    role: "In the tribal and forest-fringe villages of Sagar district, Madhya Pradesh, children under five still grow up stunted. Families are landless, work is seasonal, and the nearest anganwadi often lacks both supplies and space.",
+    wide: true
+  },
   {
     name: "JIV Daya Foundation (USA)",
     role: "Funding partner: preschool education, child nutrition, early childhood development and food support (2025 - present)"

@@ -39,16 +39,21 @@ export default function Footer() {
             aria-label={`${site.name} home`}
             className="inline-block self-start rounded-2xl bg-white px-4 py-3 shadow-lg shadow-black/20 transition hover:scale-[1.03]"
           >
-            <img src="/assets/images/logo.png" alt={`${site.name} logo`} className="h-14 w-auto max-w-[230px] object-contain" />
+            <img
+              src="/assets/images/logo.png"
+              width={520}
+              height={174}
+              alt={`${site.name} logo`}
+              className="h-14 w-auto max-w-[230px] object-contain"
+            />
           </Link>
           <p className="mt-3 text-xs">
             {site.name} · {site.location} · {site.regLine}
           </p>
           <p className="mt-4 text-xs">Society Reg: {societyReg}</p>
           <p className="text-xs">Darpan ID: {darpanId}</p>
-          <p className="text-xs">
-            12A: {reg12A.value} · 80G: {reg80G.value}
-          </p>
+          <p className="text-xs">12A: {reg12A.value}</p>
+          <p className="text-xs">80G: {reg80G.value}</p>
           <p className="text-xs">FCRA: {fcraReg.value}</p>
           <p className="text-xs">
             <Link href="/transparency?request=certificate#request" className="no-underline hover:text-white">
@@ -134,8 +139,8 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="container-site flex flex-col items-center justify-between gap-3 pb-24 pt-4 text-center text-xs md:flex-row md:pb-4 md:pr-24 md:text-left 2xl:pr-6">
-          <div className="grid w-full max-w-[17rem] grid-cols-1 gap-2 sm:w-auto sm:max-w-none sm:grid-cols-2 md:order-last">
+        <div className="container-site flex flex-col items-center gap-4 pb-24 pt-4 text-center text-xs md:pb-4 md:pl-44 md:pr-24 2xl:flex-row 2xl:justify-between 2xl:gap-8 2xl:pl-6 2xl:pr-6 2xl:text-left">
+          <div className="flex w-full max-w-[17rem] flex-col gap-2 sm:w-auto sm:max-w-none sm:flex-row md:order-last 2xl:shrink-0">
             <a
               href={site.googleBusiness}
               target="_blank"
@@ -159,11 +164,13 @@ export default function Footer() {
               Review us on Google
             </a>
           </div>
-          <p>
-            © <span suppressHydrationWarning>{new Date().getFullYear()}</span> {site.name}. All rights reserved.
-            <span className="mt-1 block text-white/70 md:mt-0 md:ml-3 md:inline">Developed by Scalric</span>
+          <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 2xl:flex-col 2xl:items-start 2xl:justify-start">
+            <span className="whitespace-nowrap">
+              © <span suppressHydrationWarning>{new Date().getFullYear()}</span> {site.name}. All rights reserved.
+            </span>
+            <span className="whitespace-nowrap text-white/70">Developed by Scalric</span>
           </p>
-          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 2xl:flex-nowrap 2xl:whitespace-nowrap">
             <Link href="/privacy" className="no-underline hover:text-white">
               Privacy Policy
             </Link>

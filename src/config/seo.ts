@@ -60,6 +60,16 @@ export const pageSeo = {
     description: "For each programme: the donations received, how they were spent, who they reached and the proof."
   },
   "/memberships": { title: "Memberships", description: pageTextDefaults["memberships.hero.text"] },
+  "/partner-with-us": {
+    title: "Partner With Us",
+    description:
+      "NGOs, foundations, CSR partners and community groups are welcome to partner with Sahara Jan Kalyan Samiti for education, nutrition and the welfare of children and families."
+  },
+  "/policies": {
+    title: "Our Policies",
+    description:
+      "The policies that guide Sahara Jan Kalyan Samiti: child protection, safeguarding, anti-fraud, code of conduct, and more. Copies are available on request."
+  },
   "/member-id": { title: "Member ID Card", description: "Apply for and download your Sahara Jan Kalyan Samiti member ID card." },
   "/donate": {
     title: "Donate",
