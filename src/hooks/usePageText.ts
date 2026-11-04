@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { pageTextDefaults } from "@/data/content/pageContent";
-import { supabase, supabaseConfigured } from "@/services/supabase";
+import { getSupabase, supabaseConfigured } from "@/services/supabaseLazy";
 import { useLang } from "@/i18n/LangContext";
 import { env } from "@/lib/env";
 
@@ -10,12 +10,12 @@ let asked = false;
 const listeners = new Set<() => void>();
 
 function load() {
-  if (asked || !supabaseConfigured || !supabase) return;
+  if (asked || !supabaseConfigured) return;
   asked = true;
-  supabase
-    .from("page_content")
-    .select("key, value")
-    .then(({ data, error }) => {
+  getSupabase()
+    .then((supabase) => supabase?.from("page_content").select("key, value"))
+    .then((res) => {
+      const { data, error } = res ?? { data: null, error: true };
       if (error || !data) return; // table missing or database not reachable: the original wording stays
       saved = Object.fromEntries(data.filter((r) => r.value.trim()).map((r) => [r.key, r.value]));
       listeners.forEach((fn) => fn());

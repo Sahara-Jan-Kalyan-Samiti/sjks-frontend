@@ -39,7 +39,13 @@ export default function Footer() {
             aria-label={`${site.name} home`}
             className="inline-block self-start rounded-2xl bg-white px-4 py-3 shadow-lg shadow-black/20 transition hover:scale-[1.03]"
           >
-            <img src="/assets/images/logo.png" alt={`${site.name} logo`} className="h-14 w-auto max-w-[230px] object-contain" />
+            <img
+              src="/assets/images/logo.png"
+              width={520}
+              height={174}
+              alt={`${site.name} logo`}
+              className="h-14 w-auto max-w-[230px] object-contain"
+            />
           </Link>
           <p className="mt-3 text-xs">
             {site.name} · {site.location} · {site.regLine}

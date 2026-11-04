@@ -23,7 +23,7 @@ export default function ProjectSlider() {
               key={p.slug}
               className="w-[min(300px,84vw)] flex shrink-0 snap-start flex-col overflow-hidden rounded-2xl border bg-white shadow-sm md:w-[330px]"
             >
-              <Img file={p.image} alt={`${c(`project.${p.slug}.title`)} project activity`} className="h-48 w-full shrink-0" />
+              <Img defer file={p.image} alt={`${c(`project.${p.slug}.title`)} project activity`} className="h-48 w-full shrink-0" />
               <div className="flex flex-1 flex-col p-5">
                 <p className="eyebrow">
                   0{i + 1} · {p.category}
