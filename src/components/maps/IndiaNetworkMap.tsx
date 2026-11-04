@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GLOBE, INDIA_BORDER, INDIA_DOTS, WORLD_BORDERS, WORLD_DOTS, project } from "@/data/geo/globeData";
 import { useLang } from "@/i18n/LangContext";
 
@@ -46,6 +46,16 @@ export default function IndiaNetworkMap() {
   const { t } = useLang();
   const [i, setI] = useState(0);
   const [zoomed, setZoomed] = useState(false);
+  // the map runs dozens of endless animations (pulses, rings, blurred glows); pause them all while it is off screen
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(true);
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { rootMargin: "100px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   // clicking a place zooms onto it; clicking the place you are already on zooms back out
   const pick = (n: number) => {
@@ -61,7 +71,7 @@ export default function IndiaNetworkMap() {
   const dot = Math.pow(k, 0.5);
 
   return (
-    <div className="relative flow-root">
+    <div ref={rootRef} className={`relative flow-root ${visible ? "" : "ngo-paused"}`}>
       {/* the box itself (background only) */}
       <div
         aria-hidden="true"
@@ -294,6 +304,7 @@ export default function IndiaNetworkMap() {
         .ngo-ring{transform-box:fill-box;transform-origin:center;animation:ngoRing 3.6s ease-out infinite;opacity:0}
         .ngo-breathe{transform-box:fill-box;transform-origin:center;animation:ngoBreathe 2.4s ease-in-out infinite}
         .ngo-fade{animation:ngoFade .5s ease both}
+        .ngo-paused *{animation-play-state:paused !important}
         @media (prefers-reduced-motion:no-preference){
           .ngo-node{animation:ngoNeon 3s ease-in-out infinite}
           .ngo-float{animation:ngoFloat 9s ease-in-out infinite}
