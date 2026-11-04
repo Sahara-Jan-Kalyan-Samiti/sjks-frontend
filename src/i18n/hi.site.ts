@@ -826,5 +826,7 @@ export const hiSite: Record<string, string> = {
   "Sahara Jan Kalyan Samiti welcomes NGOs, foundations, CSR partners and community groups who share our commitment to education, nutrition and the welfare of children and families. Together, we can reach more people and create a lasting impact.": "सहारा जन कल्याण समिति उन गैर-सरकारी संगठनों, फ़ाउंडेशनों, सीएसआर भागीदारों और सामुदायिक समूहों का स्वागत करती है जो शिक्षा, पोषण तथा बच्चों और परिवारों के कल्याण के प्रति हमारी प्रतिबद्धता साझा करते हैं। साथ मिलकर हम अधिक लोगों तक पहुँच सकते हैं और स्थायी प्रभाव बना सकते हैं।",
   "To partner with us, write to us or call us:": "हमारे साथ साझेदारी के लिए हमें लिखें या कॉल करें:",
   "Udyam Registration": "उद्यम पंजीकरण",
-  "Udyam Registration of the Samiti.": "समिति का उद्यम पंजीकरण।"
+  "Udyam Registration of the Samiti.": "समिति का उद्यम पंजीकरण।",
+  "Tata Mumbai Marathon 2027 | with United Way Mumbai": "टाटा मुंबई मैराथन 2027 | यूनाइटेड वे मुंबई के साथ",
+  "In the tribal and forest-fringe villages of Sagar district, Madhya Pradesh, children under five still grow up stunted. Families are landless, work is seasonal, and the nearest anganwadi often lacks both supplies and space.": "मध्य प्रदेश के सागर ज़िले के आदिवासी और वन-सीमावर्ती गाँवों में पाँच वर्ष से कम उम्र के बच्चे आज भी कुपोषण के कारण ठिगने रह जाते हैं। परिवारों के पास ज़मीन नहीं है, काम मौसमी है, और नज़दीकी आँगनवाड़ी में अक्सर सामग्री और जगह दोनों की कमी रहती है।"
 };
