@@ -79,6 +79,32 @@ async function fetchAdminEvents(): Promise<EventItem[]> {
     return [];
   }
 }
+/**
+ * Campaigns published in the admin panel (Programmes -> Campaigns), in the order set there.
+ * null = the database could not be reached, so the caller falls back to the file; [] = none published (the section stays hidden).
+ */
+async function fetchAdminCampaigns(): Promise<Campaign[] | null> {
+  if (!supabaseConfigured || !supabase) return null;
+  try {
+    const { data, error } = await supabase
+      .from("campaigns")
+      .select("id, title, description, cause, goal_amount, raised_offset")
+      .eq("published", true)
+      .order("sort_order")
+      .order("created_at", { ascending: false });
+    if (error || !data) return null;
+    return data.map((c) => ({
+      id: String(c.id),
+      title: c.title,
+      text: c.description || "",
+      goal: Number(c.goal_amount),
+      raised: Number(c.raised_offset),
+      cause: c.cause || undefined
+    }));
+  } catch {
+    return null;
+  }
+}
 async function fetchFile(): Promise<Partial<Live>> {
   try {
     const r = await fetch(URL_, { cache: "no-store" });
@@ -89,10 +115,11 @@ async function fetchFile(): Promise<Partial<Live>> {
 }
 /** The two sources are independent: if live.json fails, admin events still show (and the other way round). */
 async function loadAll(): Promise<Live> {
-  const [j, extra] = await Promise.all([fetchFile(), fetchAdminEvents()]);
+  const [j, extra, adminCampaigns] = await Promise.all([fetchFile(), fetchAdminEvents(), fetchAdminCampaigns()]);
   return {
     stats: Array.isArray(j.stats) && j.stats.length ? j.stats : defaultStats,
-    campaigns: visible<Campaign>(j.campaigns),
+    // the admin panel decides; the file only fills in when the database cannot be reached
+    campaigns: adminCampaigns ?? visible<Campaign>(j.campaigns),
     events: [...visible<EventItem>(j.events), ...extra]
   };
 }
