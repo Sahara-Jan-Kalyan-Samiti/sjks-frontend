@@ -1,18 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useInView } from "@/hooks/useInView";
 import type { Stat } from "@/data/content/content";
 
-/** Counts from 0 to the stat value when scrolled into view. Text-only stats are shown as-is. */
+const fmt = (n: number) => n.toLocaleString("en-IN");
+
+/**
+ * Counts from 0 to the stat value when scrolled into view. Text-only stats are shown as-is.
+ * Each frame writes the number straight into the text node: React renders "0" once and is not asked to redraw ~100 times per counter.
+ * React keeps comparing against the "0" it rendered, so it never overwrites the number shown.
+ */
 export default function CountUp({ stat }: { stat: Stat }) {
   const [ref, seen] = useInView<HTMLSpanElement>(0.4);
-  const [n, setN] = useState(0);
+  const num = useRef<HTMLSpanElement>(null);
   const target = stat.value ?? 0;
   useEffect(() => {
-    if (!seen || stat.value === undefined || stat.plain) return;
+    const text = num.current?.firstChild;
+    if (!seen || stat.value === undefined || stat.plain || !(text instanceof Text)) return;
+    const show = (n: number) => {
+      text.nodeValue = fmt(n);
+    };
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setN(target);
+      show(target);
       return;
     }
     const start = performance.now(),
@@ -20,7 +30,7 @@ export default function CountUp({ stat }: { stat: Stat }) {
     let raf = 0;
     const tick = (t: number) => {
       const p = Math.min((t - start) / dur, 1);
-      setN(Math.round(target * (1 - Math.pow(1 - p, 3))));
+      show(Math.round(target * (1 - Math.pow(1 - p, 3))));
       if (p < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -37,7 +47,7 @@ export default function CountUp({ stat }: { stat: Stat }) {
     );
   return (
     <span ref={ref}>
-      {(seen ? n : 0).toLocaleString("en-IN")}
+      <span ref={num}>{fmt(0)}</span>
       {stat.suffix}
     </span>
   );

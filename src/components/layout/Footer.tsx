@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { site, societyReg, darpanId, reg12A, reg80G, fcraReg } from "@/config/site";
-import { subscribeNewsletter, type NewsletterResult } from "@/services/forms";
+import type { NewsletterResult } from "@/services/forms";
 import { useLang } from "@/i18n/LangContext";
 import { quickNav } from "@/config/navigation";
 import { checkField } from "@/utils/validate";
@@ -22,6 +22,8 @@ export default function Footer() {
     if (m) return;
     setState("sending");
     try {
+      // the form code (and the Supabase client it uses) is downloaded only when someone subscribes, not on every page
+      const { subscribeNewsletter } = await import("@/services/forms");
       const r = await subscribeNewsletter(email);
       setState(r);
       if (r === "sent") setEmail("");
