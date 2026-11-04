@@ -3,7 +3,7 @@ import { stats as defaultStats, statFromText, type Stat } from "@/data/content/c
 import { defaultMedicalFundings, type MedicalFunding } from "@/data/content/medicalFunding";
 import { defaultMemberOrganizations, type MemberOrganization } from "@/data/content/memberOrganizations";
 import { useSavedPageText } from "./usePageText";
-import { supabase, supabaseConfigured } from "@/services/supabase";
+import { getSupabase } from "@/services/supabaseLazy";
 import { env } from "@/lib/env";
 
 export interface Campaign {
@@ -56,7 +56,8 @@ async function fetchAdminEvents(): Promise<EventItem[]> {
   } catch {
     /* server not running: fall through to Supabase */
   }
-  if (!supabaseConfigured || !supabase) return [];
+  const supabase = await getSupabase();
+  if (!supabase) return [];
   try {
     const { data, error } = await supabase
       .from("events")
@@ -143,7 +144,8 @@ export function useLiveData(): Live & { loaded: boolean } {
 
 /** Hospitals and medical facilities funded, as published in the admin panel (Medical Funding): largest amount first. */
 async function fetchMedicalFundings(): Promise<MedicalFunding[] | null> {
-  if (!supabaseConfigured || !supabase) return null;
+  const supabase = await getSupabase();
+  if (!supabase) return null;
   try {
     const { data, error } = await supabase
       .from("medical_fundings")
@@ -174,7 +176,8 @@ export function useMedicalFundings(): MedicalFunding[] {
 
 /** Member organisations approved and published in the admin panel (Member Organizations), in the order set there. */
 async function fetchMemberOrganizations(): Promise<MemberOrganization[] | null> {
-  if (!supabaseConfigured || !supabase) return null;
+  const supabase = await getSupabase();
+  if (!supabase) return null;
   try {
     const { data, error } = await supabase
       .from("member_organizations")
@@ -225,7 +228,8 @@ async function fetchAdminProjects(): Promise<AdminProject[]> {
   } catch {
     /* server not running: fall through to Supabase */
   }
-  if (!supabaseConfigured || !supabase) return [];
+  const supabase = await getSupabase();
+  if (!supabase) return [];
   try {
     const { data, error } = await supabase.from("projects").select("*").eq("published", true).order("created_at", { ascending: false });
     if (error || !data) return [];
