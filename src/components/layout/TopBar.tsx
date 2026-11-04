@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { site } from "@/config/site";
 import { ticker } from "@/data/content/content";
-import { getSupabase, supabaseConfigured } from "@/services/supabaseLazy";
+import { restSelect, supabaseConfigured } from "@/services/supabaseRest";
 import LanguageToggle from "./LanguageToggle";
 import { useLang } from "@/i18n/LangContext";
 
@@ -17,25 +17,19 @@ function useTicker(): string {
     if (!supabaseConfigured) return;
     let alive = true;
     const load = () =>
-      getSupabase()
-        .then((supabase) =>
-          supabase
-            ?.from("ticker_messages")
-            .select("message")
-            .eq("published", true)
-            .order("created_at", { ascending: false })
-            .order("id", { ascending: false })
-        )
-        .then((res) => {
-          const { data, error } = res ?? { data: null, error: true };
-          if (alive && !error && data && data.length)
-            setText(
-              data
-                .map((m) => m.message.trim())
-                .filter(Boolean)
-                .join(" · ")
-            );
-        });
+      restSelect<{ message: string }>("ticker_messages", {
+        select: "message",
+        published: "eq.true",
+        order: "created_at.desc,id.desc"
+      }).then(({ data }) => {
+        if (alive && data && data.length)
+          setText(
+            data
+              .map((m) => m.message.trim())
+              .filter(Boolean)
+              .join(" · ")
+          );
+      });
     load();
     // pick up a new broadcast without a reload: when the tab is looked at again, and every minute
     const onShow = () => {

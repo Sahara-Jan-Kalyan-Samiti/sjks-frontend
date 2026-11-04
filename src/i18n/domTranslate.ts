@@ -176,18 +176,30 @@ export function startDomTranslate(isHindi: () => boolean, ...dicts: Dict[]): Dom
   };
 
   // anything that appears or changes later (a new page, an opened form, a message) is handled as it arrives
-  new MutationObserver((list) => {
-    const on = isHindi();
-    if (!on) return;
-    for (const m of list) {
-      if (m.type === "characterData") walk(m.target, on);
-      else if (m.type === "attributes") {
-        if (!(m.target as Element).closest(SKIP)) doAttrs(m.target as Element, on);
-      } else m.addedNodes.forEach((n) => walk(n, on));
-    }
-  }).observe(document.documentElement, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
+  const watch = () =>
+    new MutationObserver((list) => {
+      const on = isHindi();
+      if (!on) return;
+      for (const m of list) {
+        if (m.type === "characterData") walk(m.target, on);
+        else if (m.type === "attributes") {
+          if (!(m.target as Element).closest(SKIP)) doAttrs(m.target as Element, on);
+        } else m.addedNodes.forEach((n) => walk(n, on));
+      }
+    }).observe(document.documentElement, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
 
-  const refresh = () => walk(document.body, isHindi());
+  // Until Hindi is switched on for the first time there is nothing to translate or restore, so the page is neither walked nor watched:
+  // in English the translator costs nothing.
+  let used = false;
+  const refresh = () => {
+    const on = isHindi();
+    if (!used) {
+      if (!on) return;
+      used = true;
+      watch();
+    }
+    walk(document.body, on);
+  };
   refresh();
   return {
     refresh,

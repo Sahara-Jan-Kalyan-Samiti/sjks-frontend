@@ -3,7 +3,7 @@ import { stats as defaultStats, statFromText, type Stat } from "@/data/content/c
 import { defaultMedicalFundings, type MedicalFunding } from "@/data/content/medicalFunding";
 import { defaultMemberOrganizations, type MemberOrganization } from "@/data/content/memberOrganizations";
 import { useSavedPageText } from "./usePageText";
-import { getSupabase } from "@/services/supabaseLazy";
+import { publicStorageUrl, restSelect, supabaseConfigured } from "@/services/supabaseRest";
 import { env } from "@/lib/env";
 
 export interface Campaign {
@@ -56,15 +56,22 @@ async function fetchAdminEvents(): Promise<EventItem[]> {
   } catch {
     /* server not running: fall through to Supabase */
   }
-  const supabase = await getSupabase();
-  if (!supabase) return [];
+  if (!supabaseConfigured) return [];
   try {
-    const { data, error } = await supabase
-      .from("events")
-      .select("id, title, event_date, event_time, place, description, event_images(storage_path, position)")
-      .eq("published", true)
-      .order("event_date");
-    if (error || !data) return [];
+    const { data } = await restSelect<{
+      id: number | string;
+      title: string;
+      event_date: string;
+      event_time: string | null;
+      place: string | null;
+      description: string | null;
+      event_images: { storage_path: string; position: number }[] | null;
+    }>("events", {
+      select: "id,title,event_date,event_time,place,description,event_images(storage_path,position)",
+      published: "eq.true",
+      order: "event_date"
+    });
+    if (!data) return [];
     return data.map((e) => ({
       id: String(e.id),
       title: e.title,
@@ -74,7 +81,7 @@ async function fetchAdminEvents(): Promise<EventItem[]> {
       text: e.description || "",
       images: (e.event_images || [])
         .sort((a, b) => a.position - b.position)
-        .map((img) => supabase!.storage.from("event-images").getPublicUrl(img.storage_path).data.publicUrl)
+        .map((img) => publicStorageUrl("event-images", img.storage_path))
     }));
   } catch {
     return [];
@@ -85,16 +92,21 @@ async function fetchAdminEvents(): Promise<EventItem[]> {
  * null = the database could not be reached, so the caller falls back to the file; [] = none published (the section stays hidden).
  */
 async function fetchAdminCampaigns(): Promise<Campaign[] | null> {
-  const supabase = await getSupabase();
-  if (!supabase) return null;
+  if (!supabaseConfigured) return null;
   try {
-    const { data, error } = await supabase
-      .from("campaigns")
-      .select("id, title, description, cause, goal_amount, raised_offset")
-      .eq("published", true)
-      .order("sort_order")
-      .order("created_at", { ascending: false });
-    if (error || !data) return null;
+    const { data } = await restSelect<{
+      id: number | string;
+      title: string;
+      description: string | null;
+      cause: string | null;
+      goal_amount: number | string;
+      raised_offset: number | string;
+    }>("campaigns", {
+      select: "id,title,description,cause,goal_amount,raised_offset",
+      published: "eq.true",
+      order: "sort_order,created_at.desc"
+    });
+    if (!data) return null;
     return data.map((c) => ({
       id: String(c.id),
       title: c.title,
@@ -181,16 +193,13 @@ export function useLiveData(): Live & { loaded: boolean } {
 
 /** Hospitals and medical facilities funded, as published in the admin panel (Medical Funding): largest amount first. */
 async function fetchMedicalFundings(): Promise<MedicalFunding[] | null> {
-  const supabase = await getSupabase();
-  if (!supabase) return null;
+  if (!supabaseConfigured) return null;
   try {
-    const { data, error } = await supabase
-      .from("medical_fundings")
-      .select("id, kind, name, location, purpose, amount, period")
-      .eq("published", true)
-      .order("amount", { ascending: false })
-      .order("name");
-    if (error || !data) return null;
+    const { data } = await restSelect<Omit<MedicalFunding, "id" | "amount"> & { id: number | string; amount: number | string }>(
+      "medical_fundings",
+      { select: "id,kind,name,location,purpose,amount,period", published: "eq.true", order: "amount.desc,name" }
+    );
+    if (!data) return null;
     return data.map((r) => ({ ...r, id: String(r.id), amount: Number(r.amount) || 0 }));
   } catch {
     return null;
@@ -213,17 +222,15 @@ export function useMedicalFundings(): MedicalFunding[] {
 
 /** Member organisations approved and published in the admin panel (Member Organizations), in the order set there. */
 async function fetchMemberOrganizations(): Promise<MemberOrganization[] | null> {
-  const supabase = await getSupabase();
-  if (!supabase) return null;
+  if (!supabaseConfigured) return null;
   try {
-    const { data, error } = await supabase
-      .from("member_organizations")
-      .select("id, name, location, description")
-      .eq("published", true)
-      .eq("status", "approved")
-      .order("sort_order")
-      .order("id");
-    if (error || !data) return null;
+    const { data } = await restSelect<Omit<MemberOrganization, "id"> & { id: number | string }>("member_organizations", {
+      select: "id,name,location,description",
+      published: "eq.true",
+      status: "eq.approved",
+      order: "sort_order,id"
+    });
+    if (!data) return null;
     return data.map((r) => ({ ...r, id: String(r.id) }));
   } catch {
     return null;
@@ -265,11 +272,14 @@ async function fetchAdminProjects(): Promise<AdminProject[]> {
   } catch {
     /* server not running: fall through to Supabase */
   }
-  const supabase = await getSupabase();
-  if (!supabase) return [];
+  if (!supabaseConfigured) return [];
   try {
-    const { data, error } = await supabase.from("projects").select("*").eq("published", true).order("created_at", { ascending: false });
-    if (error || !data) return [];
+    const { data } = await restSelect<AdminProject & { id: number | string }>("projects", {
+      select: "*",
+      published: "eq.true",
+      order: "created_at.desc"
+    });
+    if (!data) return [];
     return data.map((p) => ({
       ...p,
       id: String(p.id),
