@@ -35,6 +35,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     // the English / Hindi switch changes the lang attribute in the browser after the page has loaded
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* open the connections to the API and the database early, before the first request needs them */}
+        {env.apiUrl && <link rel="preconnect" href={env.apiUrl} crossOrigin="anonymous" />}
+        {env.supabaseUrl && <link rel="preconnect" href={env.supabaseUrl} crossOrigin="anonymous" />}
+      </head>
       <body className={fontVariables}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }} />
         <AppProviders>
