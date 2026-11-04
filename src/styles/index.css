@@ -358,7 +358,9 @@ body {
     background: linear-gradient(105deg, transparent 0%, rgb(56 189 248 / 0.35) 50%, transparent 100%);
     transform: translateX(-130%) skewX(-18deg);
   }
-  @media (prefers-reduced-motion: no-preference) {
+  /* Phones skip the always-running badge animation: animating --btn-angle (a conic-gradient) cannot run on the compositor,
+     so it re-styles and repaints the hero every frame, which dominated main-thread time in Lighthouse. */
+  @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
     .badge-live::before {
       animation: btn-spin 2.6s linear infinite;
     }
@@ -1077,4 +1079,11 @@ select[aria-invalid="true"] {
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+/* Sections far below the first screen: the browser skips their style, layout and paint (and so their animations) until they are close to
+   the viewport. The size hint keeps the scroll bar steady; "auto" remembers the real height once a section has been shown. */
+.defer-render {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 700px;
 }
