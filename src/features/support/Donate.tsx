@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { site, reg80G, reg12A, fcraReg } from "@/config/site";
 import { usePageText } from "@/hooks/usePageText";
 import { useLang } from "@/i18n/LangContext";
@@ -31,9 +30,13 @@ const label = "mb-1 block text-sm font-semibold text-ink";
 export default function Donate() {
   const { t } = useLang();
   const c = usePageText();
-  // amount picked in the impact calculator (/donate?amount=2500); anything that is not a sensible whole rupee amount is ignored
-  const picked = Number(useSearchParams().get("amount"));
-  const [amount, setAmount] = useState(Number.isInteger(picked) && picked >= 1 && picked <= 10000000 ? String(picked) : "1000");
+  const [amount, setAmount] = useState("1000");
+  // amount picked in the impact calculator (/donate?amount=2500); anything that is not a sensible whole rupee amount is ignored.
+  // Read after the page is shown instead of with useSearchParams, so the page is rendered on the server instead of only in the browser.
+  useEffect(() => {
+    const picked = Number(new URLSearchParams(window.location.search).get("amount"));
+    if (Number.isInteger(picked) && picked >= 1 && picked <= 10000000) setAmount(String(picked));
+  }, []);
   const [form, setForm] = useState({ name: "", email: "", pan: "" });
   const [err, setErr] = useState("");
   const [paid, setPaid] = useState<PaidDonation | null>(null);

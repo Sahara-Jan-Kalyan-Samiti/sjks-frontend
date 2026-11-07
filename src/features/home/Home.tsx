@@ -31,7 +31,6 @@ const Testimonials = dynamic(() => import("@/features/home/Testimonials"), { loa
 const SupportersStrip = dynamic(() => import("@/features/home/SupportersStrip"), { loading: () => <Skeleton className="h-24" /> });
 import { fmtDate } from "@/utils/date";
 import DonateButton from "@/components/ui/DonateButton";
-import { useIsMobile } from "@/hooks/useIsMobile";
 
 const heroWords = ["Communities", "Education", "Women", "Villages", "Students", "Environment"];
 /** Hero heading colour. Applied to each part separately (not to the whole <h1>) so the rotating word renders correctly in Safari. */
@@ -78,7 +77,6 @@ const WAY_LOOK: { tone: string; icon: JSX.Element }[] = [
 export default function Home() {
   const { t } = useLang();
   const c = usePageText();
-  const isMobile = useIsMobile();
   const { campaigns, events } = useLiveData();
   const today = todayLocal();
   const nextEvents = events
@@ -153,24 +151,22 @@ export default function Home() {
               )}
             </p>
             <div className="mt-8 flex max-w-xs flex-col gap-3 max-md:mx-auto max-md:mt-5 max-md:w-full max-md:max-w-sm min-[480px]:max-w-none min-[480px]:flex-row min-[480px]:flex-wrap min-[480px]:gap-4 sm:mt-9">
-              <DonateButton to="/donate" size="lg" full={isMobile} className="min-[480px]:order-first">
+              <DonateButton to="/donate" size="lg" className="max-md:w-full min-[480px]:order-first">
                 {t("Support Our Cause")}
               </DonateButton>
-              <Link href="/projects" className={`btn-light btn-light-lg ${isMobile ? "w-full" : ""}`}>
+              <Link href="/projects" className="btn-light btn-light-lg max-md:w-full">
                 {t("Explore Program")} <span aria-hidden="true">→</span>
               </Link>
             </div>
           </div>
         </div>
-        {!isMobile && (
-          <a
-            href="#impact"
-            aria-label="Scroll to impact numbers"
-            className="bounce-slow absolute bottom-24 left-1/2 hidden h-10 w-6 -translate-x-1/2 items-start justify-center rounded-full border-2 border-white/60 pt-2 md:flex"
-          >
-            <span className="h-2 w-1 rounded-full bg-white/90" />
-          </a>
-        )}
+        <a
+          href="#impact"
+          aria-label="Scroll to impact numbers"
+          className="bounce-slow absolute bottom-24 left-1/2 hidden h-10 w-6 -translate-x-1/2 items-start justify-center rounded-full border-2 border-white/60 pt-2 md:flex"
+        >
+          <span className="h-2 w-1 rounded-full bg-white/90" />
+        </a>
         <Wave fill="#e6f3fd" />
       </section>
 

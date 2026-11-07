@@ -496,17 +496,15 @@ body {
     @apply mx-auto w-full max-w-site px-4 md:px-6;
   }
   /* body paragraphs: both edges straight, the full width of their box. Words are never split with a hyphen at the end of a line. */
-  .justified {
+  /* A box too narrow for justified text gets "no-justify" (set by src/utils/justify.ts) and keeps whatever alignment it inherits,
+     so the spaces between words stay normal. */
+  .justified:where(:not(.no-justify)) {
     text-align: justify;
     hyphens: manual;
   }
-  /* a justified paragraph in a box too narrow for it (set by src/lib/justify.ts): left-aligned, so the spaces between words stay normal */
-  main .no-justify {
-    text-align: left !important;
-  }
   /* every paragraph of the page content is justified, unless it (or the block it is in) is centred or set to one side on purpose */
   main
-    p:not([class*="text-center"]):not([class*="text-right"]):not([class*="text-left"]):not([class*="text-center"] *):not(
+    p:not(.no-justify):not([class*="text-center"]):not([class*="text-right"]):not([class*="text-left"]):not([class*="text-center"] *):not(
       [class*="text-right"] *
     ) {
     text-align: justify;
@@ -874,21 +872,6 @@ button:not(.btn):not(.dbtn):not(.btn-light):not(:disabled):active {
   }
   to {
     transform: translateX(-50%);
-  }
-}
-
-/* ===== Donate: continuous vertical image scroll ===== */
-@media (prefers-reduced-motion: no-preference) {
-  .v-marquee {
-    animation: v-marquee calc(var(--n, 3) * 9s) linear infinite;
-  }
-}
-@keyframes v-marquee {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-50%);
   }
 }
 

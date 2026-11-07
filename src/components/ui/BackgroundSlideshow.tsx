@@ -165,12 +165,26 @@ export default function BackgroundSlideshow({
       style={{ ["--slide-fade" as string]: `${duration}ms` }}
     >
       {fallback && (
+        // preload the first photo (the largest thing on screen) as soon as the HTML is read, instead of when the <img> is reached
+        <>
+          {fallbackMobile ? (
+            <>
+              <link rel="preload" as="image" href={fallbackMobile} media="(max-width: 767px)" fetchPriority="high" />
+              <link rel="preload" as="image" href={fallback} media="(min-width: 768px)" fetchPriority="high" />
+            </>
+          ) : (
+            <link rel="preload" as="image" href={fallback} fetchPriority="high" />
+          )}
+        </>
+      )}
+      {fallback && (
         <picture>
           {fallbackMobile && <source media="(max-width: 767px)" srcSet={fallbackMobile} />}
           <img
             src={fallback}
             alt=""
             fetchPriority="high"
+            decoding="sync"
             className={`bg-slide ${effect === "shift" && index >= 0 ? "is-prev" : "is-base"} ${imgClassName} ${imgClassNames[fallback] ?? ""}`}
           />
         </picture>

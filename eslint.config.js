@@ -21,6 +21,8 @@ export default tseslint.config(
       "@next/next/no-img-element": "off",
       // Pages Router only (this site uses the App Router) and it crashes on ESLint 9
       "@next/next/no-duplicate-head": "off",
+      // it only checks Google Fonts links, and it crashes on ESLint 9 for any <link> element (preconnect / preload hints)
+      "@next/next/no-page-custom-font": "off",
       "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "@typescript-eslint/no-explicit-any": "warn",
       "no-empty": ["error", { allowEmptyCatch: true }]
