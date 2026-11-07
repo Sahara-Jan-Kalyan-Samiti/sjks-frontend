@@ -2,10 +2,12 @@
 # Runs as the project's "deployer" service account (see sjks-infra), one Google Cloud project per environment.
 # The defaults are for STAGING; the production trigger overrides them:
 #   _SERVICE          sjks-frontend-staging | sjks-frontend-prod
+#   _MIN_INSTANCES    0 on staging (saves money), 1 on production (no cold start for visitors)
 #   _SUPABASE_URL, _SUPABASE_KEY   the Supabase project and its PUBLISHABLE key (public by design, never the secret key)
 #   _SITE_URL, _API_URL, _ADMIN_URL   public addresses of the website, the backend and the admin panel
 substitutions:
   _SERVICE: sjks-frontend-staging
+  _MIN_INSTANCES: "0"
   _REGION: asia-south1
   _REPO: sjks
   _SUPABASE_URL: ""
@@ -42,7 +44,7 @@ steps:
       - --service-account=run-frontend@$PROJECT_ID.iam.gserviceaccount.com
       - --allow-unauthenticated
       - --port=8080
-      - --min-instances=0
+      - --min-instances=${_MIN_INSTANCES}
       - --max-instances=5
 
 images:

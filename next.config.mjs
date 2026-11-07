@@ -1,3 +1,5 @@
+import { buildRedirects } from "./redirects.mjs";
+
 /** @type {import('next').NextConfig} */
 
 // In development, forward /api to the local sjks-backend so NEXT_PUBLIC_API_URL can stay empty.
@@ -18,6 +20,11 @@ const nextConfig = {
   output: "standalone",
   // ESLint runs as its own step in CI (npm run lint)
   eslint: { ignoreDuringBuilds: true },
+
+  // bare domain -> www, and the old WordPress addresses -> their new pages (see redirects.mjs)
+  async redirects() {
+    return buildRedirects();
+  },
 
   async rewrites() {
     const useDevProxy = process.env.NODE_ENV === "development" && !process.env.NEXT_PUBLIC_API_URL;

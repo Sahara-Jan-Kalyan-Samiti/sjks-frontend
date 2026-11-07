@@ -77,5 +77,6 @@ export const quickNav = [
   { label: "Transparency & Financial Reports", href: "/transparency" },
   { label: "Volunteer & CSR Partnerships", href: "/get-involved" },
   { label: "Contact Us & Field Office", href: "/contact" },
-  { label: "Donate Now", href: "/donate" }
+  { label: "Donate Now", href: "/donate" },
+  { label: "Cancellation & Refund Policy", href: "/refund-policy" }
 ];

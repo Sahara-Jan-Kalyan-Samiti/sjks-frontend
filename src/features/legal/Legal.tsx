@@ -9,7 +9,8 @@ import PageHero from "@/components/layout/PageHero";
 const kinds: [LegalKind, string][] = [
   ["privacy", "/privacy"],
   ["terms", "/terms"],
-  ["dpdp", "/dpdp"]
+  ["dpdp", "/dpdp"],
+  ["refund", "/refund-policy"]
 ];
 
 function Tick() {
