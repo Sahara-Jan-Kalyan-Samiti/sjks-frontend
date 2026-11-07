@@ -20,6 +20,19 @@ const Pic = ({ file, alt, className }: { file: string; alt: string; className: s
     <Img file={file} alt={alt} className={className} />
   );
 
+/**
+ * The "All" view: photos that share a caption (several shots of the same event, uploaded together) are spread apart instead of sitting side by side.
+ * One photo of each caption comes first, then a second photo of each, and so on; the order inside a caption is kept.
+ */
+function spreadOut(photos: Photo[]): Photo[] {
+  const groups = new Map<string, Photo[]>();
+  photos.forEach((p) => groups.set(p.alt, [...(groups.get(p.alt) ?? []), p]));
+  const rows = Array.from(groups.values());
+  const out: Photo[] = [];
+  for (let round = 0; out.length < photos.length; round++) rows.forEach((g) => g[round] && out.push(g[round]));
+  return out;
+}
+
 /** Column spans for the tiles that stretch to fill the last row of a single-category view (written out in full so Tailwind finds them). */
 const SPAN_PHONE: Record<number, string> = { 1: "col-span-1", 2: "col-span-2" };
 const SPAN_TABLET: Record<number, string> = { 1: "md:col-span-1", 2: "md:col-span-2" };
@@ -33,7 +46,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
   // the open photo: its group and its place inside that group, so the slideshow only plays photos of the same group
   const [view, setView] = useState<{ cat: string; i: number } | null>(null);
   const [playing, setPlaying] = useState(true);
-  const list = cat === "All" ? photos : photos.filter((p) => p.cat === cat);
+  const list = cat === "All" ? spreadOut(photos) : photos.filter((p) => p.cat === cat);
   const slides = view ? photos.filter((p) => p.cat === view.cat) : [];
   const open = view ? view.i : null;
   const close = () => setView(null);

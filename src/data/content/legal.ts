@@ -5,7 +5,7 @@ import { site } from "@/config/site";
  * Every heading and paragraph can be changed in the admin panel (Website Pages); see src/data/pageContent.ts.
  * A paragraph that starts with "- " is shown as a bullet point.
  */
-export type LegalKind = "privacy" | "terms" | "dpdp";
+export type LegalKind = "privacy" | "terms" | "dpdp" | "refund";
 export interface LegalDoc {
   title: string;
   /** opening paragraph above the sections */ intro?: string;
@@ -179,6 +179,69 @@ export const legalDocs: Record<LegalKind, LegalDoc> = {
         h: "Grievance officer",
         p: [
           `Send requests or complaints to ${site.email} with the subject "Data Privacy". We will respond within a reasonable time. If you remain unsatisfied you may approach the Data Protection Board of India.`
+        ]
+      },
+      { h: "Contact", p: [contact] }
+    ]
+  },
+  refund: {
+    title: "Cancellation & Refund Policy",
+    updated,
+    intro: `${site.name} is a non-profit organisation. Every donation is a voluntary gift, and every rupee is used for our programmes. This policy explains when a donation, membership fee or registration can be cancelled and when a refund is given.`,
+    sections: [
+      {
+        h: "Donations",
+        p: [
+          "Donations are voluntary gifts and are, as a rule, not refundable once the payment is successful, because they are put to use for our programmes.",
+          "A refund is considered only in these cases:",
+          "- you were charged twice for the same donation (duplicate payment),",
+          "- the amount debited is different from the amount you entered, because of a technical error,",
+          "- the amount was debited but the donation was not completed and no receipt was issued.",
+          "To be considered, the request must reach us within 7 days of the payment date."
+        ]
+      },
+      {
+        h: "Cancelling a monthly or recurring donation",
+        p: [
+          "You may stop a monthly donation at any time by writing to us. The cancellation applies from the next payment date. Amounts already paid are not refunded.",
+          "Please write to us at least 3 working days before the next payment date so that we can stop it in time."
+        ]
+      },
+      {
+        h: "Memberships and registrations",
+        p: [
+          "Membership fees are not refundable once the membership has been issued.",
+          "If you registered for a paid event or programme, you can cancel before it starts by writing to us. A refund, if any, is given as announced for that event. If we cancel an event, we refund the full registration amount."
+        ]
+      },
+      {
+        h: "Failed or pending payments",
+        p: [
+          "If your money was debited but the payment shows as failed or pending, the bank or payment gateway normally returns it to your account automatically within 5 to 7 working days.",
+          "If it is not returned in that time, write to us with your transaction details and we will help you trace it."
+        ]
+      },
+      {
+        h: "How to ask for a refund or cancellation",
+        p: [
+          `Send an email to ${site.email}, or write to our office, with the subject "Refund request". Please include:`,
+          "- your full name, email address and phone number,",
+          "- the date and amount of the payment,",
+          "- the transaction or payment ID and the receipt number, if you have one,",
+          "- the reason for the request."
+        ]
+      },
+      {
+        h: "How a refund is made",
+        p: [
+          "We review each request and reply within 7 working days. An approved refund is sent to the same bank account, card or UPI ID that was used for the payment, and usually reaches you within 7 to 10 working days, depending on your bank.",
+          "If a refund is given, the donation receipt and any tax certificate issued for it are cancelled. You may not claim a tax benefit on a donation that has been refunded."
+        ]
+      },
+      {
+        h: "Changes to this policy",
+        p: [
+          "We may update this policy from time to time. The date at the bottom of this page shows when it was last changed. A refund request is handled under the policy in force on the date of the payment."
         ]
       },
       { h: "Contact", p: [contact] }

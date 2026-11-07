@@ -51,7 +51,7 @@ Requires **Node.js 20 or newer** (see `.nvmrc`).
 | **Media** | `/media` (photo and video gallery), `/news`, `/news/:slug`, `/events`, `/blog`, `/blog/:slug` |
 | **Transparency** | `/transparency`, `/transparency/annual-reports`, `/transparency/impact-report`, `/transparency/donor-transparency` |
 | **Get involved** | `/donate`, `/get-involved`, `/contact`, `/memberships`, `/member-id` |
-| **Legal** | `/privacy`, `/terms`, `/dpdp` |
+| **Legal** | `/privacy`, `/terms`, `/dpdp`, `/refund-policy` |
 
 Other behaviour worth knowing:
 

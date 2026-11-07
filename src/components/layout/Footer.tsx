@@ -93,7 +93,9 @@ export default function Footer() {
             </div>
             <p>Office Hours: {site.officeHours}</p>
             <p>
-              Chairman: {site.chairman} · Fax: {site.fax}
+              Chairman: {site.chairman}
+              <br />
+              Fax: {site.fax}
             </p>
           </div>
         </div>

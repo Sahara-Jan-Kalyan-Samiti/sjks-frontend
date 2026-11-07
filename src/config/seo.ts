@@ -92,6 +92,10 @@ export const pageSeo = {
   "/dpdp": {
     title: legalDocs.dpdp.title,
     description: "Our notice under India's Digital Personal Data Protection Act: your rights and how to use them."
+  },
+  "/refund-policy": {
+    title: legalDocs.refund.title,
+    description: "How to cancel a donation, membership or registration with Sahara Jan Kalyan Samiti, and when a refund is given."
   }
 } as const satisfies Record<string, PageSeo>;
 
