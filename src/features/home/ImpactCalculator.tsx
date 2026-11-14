@@ -62,10 +62,16 @@ export default function ImpactCalculator() {
           ))}
         </div>
 
-        <div className="relative mt-6 overflow-hidden rounded-2xl border border-brand/20 bg-gradient-to-br from-brand-light via-white to-brand-light p-4 shadow-sm sm:p-5" aria-live="polite">
+        <div
+          className="relative mt-6 overflow-hidden rounded-2xl border border-brand/20 bg-gradient-to-br from-brand-light via-white to-brand-light p-4 shadow-sm sm:p-5"
+          aria-live="polite"
+        >
           <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-sky-200/40" />
           <div className="relative flex items-center gap-4">
-            <span aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 to-brand text-white shadow-lg shadow-brand/30 ring-4 ring-white">
+            <span
+              aria-hidden="true"
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 to-brand text-white shadow-lg shadow-brand/30 ring-4 ring-white"
+            >
               <svg
                 viewBox="0 0 24 24"
                 className="h-6 w-6"

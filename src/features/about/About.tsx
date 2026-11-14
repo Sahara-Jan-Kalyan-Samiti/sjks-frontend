@@ -239,7 +239,15 @@ export default function About() {
                     aria-hidden="true"
                     className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${row.dark ? "bg-white/15 ring-1 ring-white/30" : "bg-white shadow-sm"}`}
                   >
-                    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-6 w-6"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
                       {row.icon}
                     </svg>
                   </span>

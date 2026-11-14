@@ -37,7 +37,6 @@ export const legacyPages = {
   "/thank-you": "/donate",
   "/subscription": "/donate",
   // getting involved and membership
-  "/volunteer": "/get-involved",
   "/faqs": "/get-involved",
   "/member-organization": "/memberships",
   "/member-id-card": "/member-id",

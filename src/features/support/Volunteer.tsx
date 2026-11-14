@@ -97,7 +97,10 @@ export default function Volunteer() {
       />
       <Faq
         items={[
-          ["Do I need prior experience to volunteer?", "No. Most field activities need willingness and time. Our team guides you on the day."],
+          [
+            "Do I need prior experience to volunteer?",
+            "No. Most field activities need willingness and time. Our team guides you on the day."
+          ],
           ["Can students volunteer?", "Yes. Students and young professionals are welcome. Contact us with your availability."],
           ["How soon will someone contact me?", "We aim to reply within a few working days. For something urgent, call or WhatsApp us."],
           [

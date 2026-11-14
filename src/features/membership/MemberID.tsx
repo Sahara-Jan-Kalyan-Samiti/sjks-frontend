@@ -242,8 +242,19 @@ export default function MemberID() {
               className="overflow-hidden rounded-3xl bg-white shadow-[0_24px_60px_-30px_rgba(11,79,156,.35)] ring-1 ring-ink/5"
             >
               <div className="flex items-center gap-4 border-b border-ink/5 bg-gradient-to-r from-brand-light to-white px-6 py-5 sm:px-8">
-                <span aria-hidden="true" className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand text-white shadow-md shadow-brand/30">
-                  <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <span
+                  aria-hidden="true"
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand text-white shadow-md shadow-brand/30"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <rect x="3" y="5" width="18" height="14" rx="2.5" />
                     <circle cx="9" cy="11" r="2" />
                     <path d="M6 16c.6-1.6 1.8-2.4 3-2.4s2.4.8 3 2.4M14.5 10h4M14.5 13h3" />
@@ -360,42 +371,42 @@ export default function MemberID() {
                 </div>
               </div>
               <div className="border-t border-ink/5 bg-slate-50/70 px-6 pb-6 pt-1 sm:px-8 sm:pb-8">
-              {err && (err !== FIX_FIELDS || FIELDS.some((k) => errors[k])) && (
-                <p role="alert" className="mt-4 rounded-xl bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
-                  {t(err)}
-                </p>
-              )}
-              {waiting && (
-                <p role="status" className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm font-medium text-amber-800">
-                  {t(
-                    "Your application has been sent and is waiting for approval. Come back later, enter the same phone number and press the button again to get your card."
-                  )}
-                </p>
-              )}
-              <button
-                type="submit"
-                className="mt-6 w-full rounded-xl bg-gradient-to-r from-brand-dark to-brand px-6 py-4 text-base font-semibold text-white shadow-lg shadow-brand/30 transition hover:brightness-110"
-              >
-                {busy ? t("Saving...") : ready ? t("Update Card") : waiting ? t("Check Approval Status") : t("Apply for ID Card")}
-              </button>
-              <div className="mt-3 grid grid-cols-2 gap-3">
+                {err && (err !== FIX_FIELDS || FIELDS.some((k) => errors[k])) && (
+                  <p role="alert" className="mt-4 rounded-xl bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
+                    {t(err)}
+                  </p>
+                )}
+                {waiting && (
+                  <p role="status" className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm font-medium text-amber-800">
+                    {t(
+                      "Your application has been sent and is waiting for approval. Come back later, enter the same phone number and press the button again to get your card."
+                    )}
+                  </p>
+                )}
                 <button
-                  type="button"
-                  disabled={!ready}
-                  onClick={downloadJpg}
-                  className="rounded-xl border border-ink/15 bg-white px-4 py-3 text-[15px] !text-ink font-semibold text-white transition hover:border-brand hover:bg-brand-light disabled:cursor-not-allowed disabled:opacity-40"
+                  type="submit"
+                  className="mt-6 w-full rounded-xl bg-gradient-to-r from-brand-dark to-brand px-6 py-4 text-base font-semibold text-white shadow-lg shadow-brand/30 transition hover:brightness-110"
                 >
-                  {t("Download JPG")}
+                  {busy ? t("Saving...") : ready ? t("Update Card") : waiting ? t("Check Approval Status") : t("Apply for ID Card")}
                 </button>
-                <button
-                  type="button"
-                  disabled={!ready}
-                  onClick={downloadPdf}
-                  className="rounded-xl border border-ink/15 bg-white px-4 py-3 text-[15px] !text-ink font-semibold text-white transition hover:border-brand hover:bg-brand-light disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  {t("Download PDF")}
-                </button>
-              </div>
+                <div className="mt-3 grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    disabled={!ready}
+                    onClick={downloadJpg}
+                    className="rounded-xl border border-ink/15 bg-white px-4 py-3 text-[15px] !text-ink font-semibold text-white transition hover:border-brand hover:bg-brand-light disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    {t("Download JPG")}
+                  </button>
+                  <button
+                    type="button"
+                    disabled={!ready}
+                    onClick={downloadPdf}
+                    className="rounded-xl border border-ink/15 bg-white px-4 py-3 text-[15px] !text-ink font-semibold text-white transition hover:border-brand hover:bg-brand-light disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    {t("Download PDF")}
+                  </button>
+                </div>
               </div>
             </form>
           </Reveal>
@@ -423,7 +434,9 @@ export default function MemberID() {
                   const done = ready ? i <= 2 : waiting ? i <= 1 : i === 0;
                   return (
                     <li key={step} className="flex flex-col items-center gap-1.5">
-                      <span className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${done ? "bg-white text-brand-dark" : "bg-white/15 text-white"}`}>
+                      <span
+                        className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${done ? "bg-white text-brand-dark" : "bg-white/15 text-white"}`}
+                      >
                         {i + 1}
                       </span>
                       {step}

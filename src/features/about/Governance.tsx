@@ -51,7 +51,10 @@ function Ticks({ items }: { items: React.ReactNode[] }) {
     <ul className="space-y-2.5">
       {items.map((x, i) => (
         <li key={i} className="flex gap-3">
-          <span aria-hidden="true" className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand/15 text-[10px] font-bold text-brand-dark">
+          <span
+            aria-hidden="true"
+            className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand/15 text-[10px] font-bold text-brand-dark"
+          >
             ✓
           </span>
           <span>{x}</span>
@@ -74,8 +77,8 @@ export default function Governance() {
       <section className="container-site py-12 md:py-16">
         <Reveal>
           <p className="mx-auto max-w-3xl text-center text-lg leading-relaxed text-ink/75">
-            At Sahara Jan Kalyan Samiti, good governance is the foundation of ethical and sustainable social development. We are committed to using
-            every resource responsibly and making every decision in the best interest of the communities we serve.
+            At Sahara Jan Kalyan Samiti, good governance is the foundation of ethical and sustainable social development. We are committed
+            to using every resource responsibly and making every decision in the best interest of the communities we serve.
           </p>
         </Reveal>
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -99,12 +102,18 @@ export default function Governance() {
 
       <div className="bg-brand-light/60 py-12 md:py-16">
         <div className="container-site grid items-start gap-8 lg:grid-cols-4 lg:gap-10">
-          <nav aria-label="On this page" className="hidden rounded-2xl border border-ink/10 bg-white p-5 shadow-sm lg:sticky lg:top-28 lg:block">
+          <nav
+            aria-label="On this page"
+            className="hidden rounded-2xl border border-ink/10 bg-white p-5 shadow-sm lg:sticky lg:top-28 lg:block"
+          >
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-ink/60">On this page</p>
             <ol className="mt-3 space-y-1">
               {toc.map(([id, label], i) => (
                 <li key={id}>
-                  <a href={`#${id}`} className="flex gap-3 rounded-lg px-2 py-1.5 text-sm text-ink/75 no-underline hover:bg-brand/10 hover:text-brand-dark">
+                  <a
+                    href={`#${id}`}
+                    className="flex gap-3 rounded-lg px-2 py-1.5 text-sm text-ink/75 no-underline hover:bg-brand/10 hover:text-brand-dark"
+                  >
                     <span className="font-semibold text-brand">{i + 1}.</span>
                     {label}
                   </a>
@@ -216,8 +225,8 @@ export default function Governance() {
 
             <Section id="conduct" n={4} title="Code of Conduct">
               <p>
-                All staff, volunteers and representatives are expected to treat every person with dignity, act without discrimination, and never
-                misuse the organisation&rsquo;s resources.
+                All staff, volunteers and representatives are expected to treat every person with dignity, act without discrimination, and
+                never misuse the organisation&rsquo;s resources.
               </p>
             </Section>
 

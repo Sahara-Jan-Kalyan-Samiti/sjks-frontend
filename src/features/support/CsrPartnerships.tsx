@@ -100,7 +100,10 @@ export default function CsrPartnerships() {
             "Is the Samiti eligible for CSR funding?",
             "Yes. We hold CSR-1 registration along with 12A, 80G and FCRA. Certificates are shared on request."
           ],
-          ["What reports will we receive?", "Field reports, photographs and documentation for your CSR records, as agreed for each project."],
+          [
+            "What reports will we receive?",
+            "Field reports, photographs and documentation for your CSR records, as agreed for each project."
+          ],
           [
             "Can my organisation partner with the Samiti?",
             "Yes. Companies can write to us here, and NPOs and institutions can apply to join our network from the Memberships page."
