@@ -84,7 +84,7 @@ export default function VolunteerWall() {
         ))}
         <Reveal delay={Math.min(list.length, 9) * 60} className="h-full">
           <Link
-            href="/get-involved"
+            href="/volunteer"
             className="group flex h-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-brand/40 bg-brand-light/50 p-5 text-center transition duration-300 hover:-translate-y-1.5 hover:border-brand hover:bg-brand-light"
           >
             <span

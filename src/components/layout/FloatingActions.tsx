@@ -23,11 +23,16 @@ export default function FloatingActions() {
     <>
       {pathname !== "/donate" && (
         <div
-          className={`fixed bottom-4 left-4 z-30 transition duration-300 sm:bottom-5 ${scrolled || (isMobile && pathname !== "/") ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"}`}
+          className={`fixed bottom-4 left-4 z-30 flex flex-col items-start gap-2 transition duration-300 sm:bottom-5 sm:flex-row sm:items-center sm:gap-3 ${scrolled || (isMobile && pathname !== "/") ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"}`}
         >
           <DonateButton to="/donate" className="dbtn-float">
             {t("Donate")}
           </DonateButton>
+          {!pathname.startsWith("/campaigns") && (
+            <DonateButton to="/campaigns" icon="thumb" className="dbtn-float">
+              {t("Support Fundraising")}
+            </DonateButton>
+          )}
         </div>
       )}
       <div className="fixed bottom-4 right-4 z-30 flex flex-col items-end gap-3 sm:bottom-5">

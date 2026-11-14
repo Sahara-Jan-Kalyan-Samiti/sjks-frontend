@@ -178,7 +178,7 @@ export default function About() {
           </div>
 
           <div className="max-lg:order-first">
-            <div className="relative mx-auto w-full max-w-[220px] pb-16 sm:max-w-[250px] lg:ml-auto lg:mr-6 lg:max-w-[280px]">
+            <div className="relative mx-auto w-full max-w-[280px] sm:max-w-[250px] sm:pb-16 lg:ml-auto lg:mr-6 lg:max-w-[280px]">
               <div
                 aria-hidden="true"
                 className="absolute -left-[26%] top-[14%] -z-10 h-[78%] w-[120%] rounded-[46%_54%_52%_48%/55%_45%_55%_45%] bg-gradient-to-br from-[#93c5fd] via-[#60a5fa] to-[#3b82f6] opacity-80"
@@ -188,7 +188,7 @@ export default function About() {
                 alt="Founder Chairman"
                 className="aspect-[4/5] w-full rounded-[28px] border-[5px] border-white shadow-[0_24px_50px_-20px_rgba(11,61,122,.45)]"
               />
-              <div className="absolute bottom-0 left-[-8%] right-[12%] rounded-2xl bg-white px-6 py-5 shadow-[0_18px_40px_-18px_rgba(11,61,122,.4)] max-sm:left-0 max-sm:right-[6%]">
+              <div className="relative -mt-8 rounded-2xl bg-white px-6 py-5 shadow-[0_18px_40px_-18px_rgba(11,61,122,.4)] sm:absolute sm:bottom-0 sm:left-[-8%] sm:right-[12%] sm:mt-0">
                 <h3 className="font-display text-xl font-bold text-ink">{site.chairman}</h3>
                 <p className="mt-0.5 font-medium text-brand">{c("about.founder.role")}</p>
                 <span aria-hidden="true" className="mt-3 block h-px w-6 bg-ink/25" />
@@ -203,75 +203,83 @@ export default function About() {
         <div className="container-site">
           <p className="eyebrow">Mission & Vision</p>
           <h2 className="h2 mt-2">{c("about.mission.title")}</h2>
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0b2a55] via-[#0d3b7a] to-[#1479d1] p-7 text-white shadow-xl sm:p-8">
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-14 -top-14 h-48 w-48 rounded-full bg-white/10 blur-2xl"
-              />
-              <span
-                aria-hidden="true"
-                className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-white/15 ring-1 ring-white/30"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+          {/* Vision and Mission as a two-row table */}
+          <div className="mt-8 overflow-hidden rounded-2xl bg-white shadow-[0_20px_50px_-30px_rgba(11,79,156,.4)] ring-1 ring-ink/5">
+            {[
+              {
+                label: "Our Vision",
+                title: c("about.vision.title"),
+                text: c("about.vision.text"),
+                dark: true,
+                icon: (
+                  <>
+                    <path d="M9 18h6M10 21h4" />
+                    <path d="M12 3a6 6 0 00-3.500 10.900c.6.500 1 1.200 1 2.100h5c0-.9.4-1.600 1-2.100A6 6 0 0012 3z" />
+                  </>
+                )
+              },
+              {
+                label: "Our Mission",
+                title: c("about.mission.cardTitle"),
+                text: c("about.mission.text"),
+                dark: false,
+                icon: (
+                  <>
+                    <path d="M5 21V3" />
+                    <path d="M5 4h12l-2.500 4L17 12H5" />
+                  </>
+                )
+              }
+            ].map((row) => (
+              <div key={row.label} className="grid border-b border-ink/5 last:border-b-0 md:grid-cols-[240px_1fr]">
+                <div
+                  className={`flex items-center gap-3 px-6 py-5 md:py-8 ${row.dark ? "bg-gradient-to-br from-[#0b2a55] to-[#1479d1] text-white" : "bg-brand-light text-brand-dark"}`}
                 >
-                  <path d="M2 12s3.600-7 10-7 10 7 10 7-3.600 7-10 7S2 12 2 12z" />
-                  <circle cx="12" cy="12" r="3" />
-                </svg>
-              </span>
-              <p className="relative mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-sky-200">Our Vision</p>
-              <h3 className="relative mt-2 font-serif text-xl font-bold leading-snug sm:text-2xl">{c("about.vision.title")}</h3>
-              <p className="relative mt-3 text-left leading-relaxed text-white/80">{c("about.vision.text")}</p>
-            </div>
-            <div className="relative overflow-hidden rounded-3xl border border-brand/10 bg-white p-7 shadow-sm sm:p-8">
-              <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-brand to-sky-400" />
-              <span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand/10 text-brand-dark">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="9" />
-                  <circle cx="12" cy="12" r="5" />
-                  <circle cx="12" cy="12" r="1.200" />
-                </svg>
-              </span>
-              <p className="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-brand">Our Mission</p>
-              <h3 className="mt-2 font-serif text-xl font-bold leading-snug text-ink sm:text-2xl">{c("about.mission.cardTitle")}</h3>
-              <p className="mt-3 text-left leading-relaxed text-ink/70">{c("about.mission.text")}</p>
-            </div>
+                  <span
+                    aria-hidden="true"
+                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${row.dark ? "bg-white/15 ring-1 ring-white/30" : "bg-white shadow-sm"}`}
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-6 w-6"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      {row.icon}
+                    </svg>
+                  </span>
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em]">{row.label}</p>
+                </div>
+                <div className="px-6 py-6 md:px-9 md:py-8">
+                  <h3 className="font-display text-lg font-bold leading-snug text-ink sm:text-xl">{row.title}</h3>
+                  <p className="mt-2 text-left leading-relaxed text-ink/70">{row.text}</p>
+                </div>
+              </div>
+            ))}
           </div>
+
+          {/* Core values as a table */}
           <div className="mt-12 flex items-center gap-4">
-            <h3 className="font-serif text-2xl font-bold">{c("about.values.title")}</h3>
+            <h3 className="font-display text-xl font-bold text-ink sm:text-2xl">{c("about.values.title")}</h3>
             <span aria-hidden="true" className="h-px flex-1 bg-brand/20" />
           </div>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-5 overflow-hidden rounded-2xl bg-white shadow-[0_20px_50px_-30px_rgba(11,79,156,.4)] ring-1 ring-ink/5">
+            <div className="hidden grid-cols-[80px_260px_1fr] bg-gradient-to-r from-[#0b2a55] to-[#1479d1] px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white md:grid">
+              <span>No.</span>
+              <span>Value</span>
+              <span>What it means</span>
+            </div>
             {values.map(([name], i) => (
               <div
                 key={name}
-                className="group relative overflow-hidden rounded-2xl border border-ink/5 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-lg"
+                className="grid gap-1 border-b border-ink/5 px-6 py-4 transition-colors last:border-b-0 odd:bg-white even:bg-slate-50/70 hover:bg-brand-light md:grid-cols-[80px_260px_1fr] md:items-center md:gap-0 md:py-5"
               >
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-brand to-sky-400 transition-transform duration-300 group-hover:scale-x-100"
-                />
-                <span className="font-serif text-3xl font-bold text-brand/25 transition-colors group-hover:text-brand">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h4 className="mt-2 text-lg font-semibold text-ink">{c(`about.values.${i + 1}.title`)}</h4>
-                <span aria-hidden="true" className="mt-2 block h-px w-8 bg-brand/40 transition-all duration-300 group-hover:w-14" />
-                <p className="mt-3 text-left text-sm leading-relaxed text-ink/65">{c(`about.values.${i + 1}.text`)}</p>
+                <span className="font-display text-xl font-bold text-brand">{String(i + 1).padStart(2, "0")}</span>
+                <h4 className="font-display text-[15px] font-bold leading-snug text-ink md:pr-6">{c(`about.values.${i + 1}.title`)}</h4>
+                <p className="text-left text-sm leading-relaxed text-ink/70">{c(`about.values.${i + 1}.text`)}</p>
               </div>
             ))}
           </div>

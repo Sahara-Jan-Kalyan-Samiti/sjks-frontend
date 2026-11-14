@@ -13,6 +13,7 @@ import { homeHeroSlides, homeHeroOpening } from "@/data/content/slideshows";
 import BackgroundSlideshow from "@/components/ui/BackgroundSlideshow";
 import RotatingWords from "@/components/ui/RotatingWords";
 import Wave from "@/components/ui/Wave";
+import VerifiedShield from "@/components/ui/VerifiedShield";
 import CornerRibbons from "@/components/ui/CornerRibbons";
 import Reveal from "@/components/ui/Reveal";
 import LazyMount from "@/components/ui/LazyMount";
@@ -160,6 +161,12 @@ export default function Home() {
             </div>
           </div>
         </div>
+        {/* same width as the header, so the seal sits straight under the Donate button */}
+        <div className="pointer-events-none absolute inset-x-0 top-2 z-10">
+          <div className="mx-auto flex w-full max-w-[1480px] justify-end px-4 md:px-6">
+            <VerifiedShield />
+          </div>
+        </div>
         <a
           href="#impact"
           aria-label="Scroll to impact numbers"
@@ -171,7 +178,36 @@ export default function Home() {
       </section>
 
       {/* Impact dashboard */}
-      <section id="impact" className="bg-brand-light py-12 md:py-14">
+      <section id="impact" className="relative isolate overflow-hidden bg-brand-light py-14 md:py-20">
+        {/* faded photo of the children we work with, fading out at the top and bottom so the section joins the wave above and the next section below */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-20 [mask-image:linear-gradient(to_bottom,transparent,black_30%,black_70%,transparent)]"
+        >
+          <img
+            src="/assets/images/media/media-03.jpg"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover object-[center_60%] opacity-[.6]"
+          />
+        </div>
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 [background-image:radial-gradient(ellipse_55%_40%_at_50%_24%,rgba(230,243,253,.92),transparent),linear-gradient(to_right,rgba(230,243,253,.72),rgba(230,243,253,.12)_50%,rgba(230,243,253,.72))]"
+        />
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10 opacity-60 [background-image:radial-gradient(rgba(20,121,209,.18)_1.2px,transparent_1.2px)] [background-size:22px_22px] [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)]"
+        />
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-24 top-1/3 -z-10 h-72 w-72 rounded-full bg-sky-300/30 blur-3xl"
+        />
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-24 bottom-0 -z-10 h-72 w-72 rounded-full bg-teal-200/40 blur-3xl"
+        />
         <ImpactDashboard />
       </section>
 
@@ -209,7 +245,7 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={120} className="max-lg:order-first">
-              <div className="relative mx-auto w-full max-w-[240px] pb-14 sm:max-w-[270px] lg:ml-auto lg:mr-10 lg:max-w-[300px]">
+              <div className="relative mx-auto w-full max-w-[280px] sm:max-w-[270px] sm:pb-14 lg:ml-auto lg:mr-10 lg:max-w-[300px]">
                 <div
                   aria-hidden="true"
                   className="absolute -left-[26%] top-[14%] -z-10 h-[78%] w-[120%] rounded-[46%_54%_52%_48%/55%_45%_55%_45%] bg-gradient-to-br from-[#93c5fd] via-[#60a5fa] to-[#3b82f6] opacity-80"
@@ -219,7 +255,7 @@ export default function Home() {
                   alt="Founder Chairman & CEO"
                   className="aspect-[4/5] w-full rounded-[28px] border-[5px] object-top border-white shadow-[0_24px_50px_-20px_rgba(11,61,122,.45)]"
                 />
-                <div className="absolute bottom-0 left-[-8%] right-[12%] rounded-xl bg-white px-4 py-3 shadow-[0_18px_40px_-18px_rgba(11,61,122,.4)] max-sm:left-0 max-sm:right-[6%]">
+                <div className="relative -mt-8 rounded-xl bg-white px-4 py-3 shadow-[0_18px_40px_-18px_rgba(11,61,122,.4)] sm:absolute sm:bottom-0 sm:left-[-8%] sm:right-[12%] sm:mt-0">
                   <h3 className="font-display text-base font-bold text-ink">{site.chairman}</h3>
                   <p className="mt-0.5 text-sm font-medium text-brand">{t("Founder Chairman & CEO")}</p>
                   <span aria-hidden="true" className="mt-2 block h-px w-6 bg-ink/25" />
@@ -582,24 +618,6 @@ export default function Home() {
           <LazyMount className="h-24">
             <SupportersStrip />
           </LazyMount>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="defer-render mt-10 bg-gradient-to-br from-brand-dark to-brand py-16 text-center text-white md:mt-16">
-        <div className="container-site">
-          <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-widest text-white/80">{t("Take Action Today")}</p>
-            <h2 className="h2 mx-auto mt-2 max-w-3xl">{t("Together, we can create stronger and more self-reliant communities.")}</h2>
-            <div className="mx-auto mt-6 flex max-w-xs flex-col justify-center gap-3 min-[480px]:max-w-none min-[480px]:flex-row min-[480px]:flex-wrap">
-              <DonateButton to="/donate" size="lg">
-                {t("Support Us (Donate)")}
-              </DonateButton>
-              <Link href="/get-involved" className="btn-light btn-light-lg">
-                {t("Get Involved")}
-              </Link>
-            </div>
-          </Reveal>
         </div>
       </section>
     </>

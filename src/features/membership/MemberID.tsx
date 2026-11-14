@@ -54,8 +54,8 @@ function check(field: Field, form: { name: string; role: string; phone: string; 
 }
 
 const input =
-  "w-full rounded-2xl border border-brand/15 bg-white px-5 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-ink/65 focus:border-brand focus:ring-4 focus:ring-brand/15";
-const label = "mb-1.5 block text-sm font-semibold text-ink";
+  "w-full rounded-xl border border-transparent bg-slate-100/80 px-4 py-3.5 text-[15px] text-ink outline-none transition placeholder:text-ink/45 hover:bg-slate-100 focus:border-brand focus:bg-white focus:ring-4 focus:ring-brand/15";
+const label = "mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink/70";
 
 export default function MemberID() {
   const { t } = useLang();
@@ -233,16 +233,39 @@ export default function MemberID() {
         title={t("Member ID Card")}
         text={t("Apply with your details and a photo. Once our team approves your application, download your ID card as a JPG or PDF.")}
       />
-      <section className="bg-gradient-to-b from-[#f3f8fe] via-white to-[#eef5fd] py-12 md:py-16">
+      <section className="bg-[#f4f7fb] py-12 md:py-20">
         <div className="container-site grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-12">
           <Reveal>
             <form
               onSubmit={generate}
               noValidate
-              className="rounded-3xl border border-brand/10 bg-white p-6 shadow-[0_20px_50px_-30px_rgba(11,79,156,.45)] sm:p-8"
+              className="overflow-hidden rounded-3xl bg-white shadow-[0_24px_60px_-30px_rgba(11,79,156,.35)] ring-1 ring-ink/5"
             >
-              <h2 className="text-xl font-bold text-ink">{t("Your details")}</h2>
-              <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              <div className="flex items-center gap-4 border-b border-ink/5 bg-gradient-to-r from-brand-light to-white px-6 py-5 sm:px-8">
+                <span
+                  aria-hidden="true"
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand text-white shadow-md shadow-brand/30"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="3" y="5" width="18" height="14" rx="2.5" />
+                    <circle cx="9" cy="11" r="2" />
+                    <path d="M6 16c.6-1.6 1.8-2.4 3-2.4s2.4.8 3 2.4M14.5 10h4M14.5 13h3" />
+                  </svg>
+                </span>
+                <div>
+                  <h2 className="text-lg font-bold leading-tight text-ink">{t("Your details")}</h2>
+                  <p className="text-xs text-ink/60">* {t("Required")}</p>
+                </div>
+              </div>
+              <div className="grid gap-5 p-6 sm:grid-cols-2 sm:p-8">
                 <div className="sm:col-span-2">
                   <label className={label} htmlFor="mid-name">
                     {t("Full Name")} *
@@ -339,7 +362,7 @@ export default function MemberID() {
                     accept="image/jpeg,image/png,image/webp"
                     onChange={onPhoto}
                     {...aria("photo")}
-                    className={`${cls("photo")} cursor-pointer p-2.5 file:mr-4 file:cursor-pointer file:rounded-full file:border-0 file:bg-brand file:px-5 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-brand-dark`}
+                    className={`${cls("photo")} cursor-pointer !border-2 !border-dashed !border-brand/30 !bg-brand-light/50 p-4 file:mr-4 file:cursor-pointer file:rounded-full file:border-0 file:bg-brand file:px-5 file:py-2 file:text-sm file:font-semibold file:text-white hover:!border-brand hover:file:bg-brand-dark`}
                   />
                   {problem("photo")}
                   <p className="mt-1.5 text-xs text-ink/65">
@@ -347,56 +370,81 @@ export default function MemberID() {
                   </p>
                 </div>
               </div>
-              {err && (err !== FIX_FIELDS || FIELDS.some((k) => errors[k])) && (
-                <p role="alert" className="mt-4 rounded-xl bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
-                  {t(err)}
-                </p>
-              )}
-              {waiting && (
-                <p role="status" className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm font-medium text-amber-800">
-                  {t(
-                    "Your application has been sent and is waiting for approval. Come back later, enter the same phone number and press the button again to get your card."
-                  )}
-                </p>
-              )}
-              <button
-                type="submit"
-                className="mt-6 w-full rounded-2xl bg-gradient-to-r from-brand-dark to-brand px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-brand/30 transition hover:brightness-110"
-              >
-                {busy ? t("Saving...") : ready ? t("Update Card") : waiting ? t("Check Approval Status") : t("Apply for ID Card")}
-              </button>
-              <div className="mt-3 grid grid-cols-2 gap-3">
+              <div className="border-t border-ink/5 bg-slate-50/70 px-6 pb-6 pt-1 sm:px-8 sm:pb-8">
+                {err && (err !== FIX_FIELDS || FIELDS.some((k) => errors[k])) && (
+                  <p role="alert" className="mt-4 rounded-xl bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
+                    {t(err)}
+                  </p>
+                )}
+                {waiting && (
+                  <p role="status" className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm font-medium text-amber-800">
+                    {t(
+                      "Your application has been sent and is waiting for approval. Come back later, enter the same phone number and press the button again to get your card."
+                    )}
+                  </p>
+                )}
                 <button
-                  type="button"
-                  disabled={!ready}
-                  onClick={downloadJpg}
-                  className="rounded-2xl bg-ink px-4 py-3 text-[15px] font-semibold text-white transition hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-40"
+                  type="submit"
+                  className="mt-6 w-full rounded-xl bg-gradient-to-r from-brand-dark to-brand px-6 py-4 text-base font-semibold text-white shadow-lg shadow-brand/30 transition hover:brightness-110"
                 >
-                  {t("Download JPG")}
+                  {busy ? t("Saving...") : ready ? t("Update Card") : waiting ? t("Check Approval Status") : t("Apply for ID Card")}
                 </button>
-                <button
-                  type="button"
-                  disabled={!ready}
-                  onClick={downloadPdf}
-                  className="rounded-2xl bg-ink px-4 py-3 text-[15px] font-semibold text-white transition hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  {t("Download PDF")}
-                </button>
+                <div className="mt-3 grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    disabled={!ready}
+                    onClick={downloadJpg}
+                    className="rounded-xl border border-ink/15 bg-white px-4 py-3 text-[15px] !text-ink font-semibold text-white transition hover:border-brand hover:bg-brand-light disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    {t("Download JPG")}
+                  </button>
+                  <button
+                    type="button"
+                    disabled={!ready}
+                    onClick={downloadPdf}
+                    className="rounded-xl border border-ink/15 bg-white px-4 py-3 text-[15px] !text-ink font-semibold text-white transition hover:border-brand hover:bg-brand-light disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    {t("Download PDF")}
+                  </button>
+                </div>
               </div>
             </form>
           </Reveal>
 
           <Reveal>
-            <div className="lg:sticky lg:top-28">
-              <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand-dark">{t("Live preview")}</p>
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0a2f5c] via-[#0b4f9c] to-[#1479d1] p-5 shadow-[0_30px_60px_-30px_rgba(6,26,54,.7)] sm:p-8 lg:sticky lg:top-28">
+              <span aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/10" />
+              <span aria-hidden="true" className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-sky-300/10" />
+              <div className="relative mb-5 flex items-center justify-between">
+                <p className="text-sm font-semibold uppercase tracking-widest text-white">{t("Live preview")}</p>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white">
+                  <span aria-hidden="true" className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-300" />
+                  {ready ? t("Ready") : waiting ? t("Pending") : t("Draft")}
+                </span>
+              </div>
               <canvas
                 ref={canvas}
                 role="img"
                 aria-label="Member ID card preview"
-                className="block h-auto w-full rounded-[22px] shadow-[0_30px_60px_-25px_rgba(6,26,54,.65)] ring-1 ring-black/5"
+                className="relative block h-auto w-full rounded-[22px] shadow-[0_30px_60px_-20px_rgba(0,0,0,.55)]"
                 style={{ aspectRatio: `${W} / ${H}` }}
               />
-              <p className="mt-4 text-center text-sm text-ink/65">
+              <ol className="relative mt-6 grid grid-cols-3 gap-2 text-center text-xs text-white/80">
+                {[t("Apply"), t("Approval"), t("Download")].map((step, i) => {
+                  const done = ready ? i <= 2 : waiting ? i <= 1 : i === 0;
+                  return (
+                    <li key={step} className="flex flex-col items-center gap-1.5">
+                      <span
+                        className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${done ? "bg-white text-brand-dark" : "bg-white/15 text-white"}`}
+                      >
+                        {i + 1}
+                      </span>
+                      {step}
+                    </li>
+                  );
+                })}
+              </ol>
+              <p className="relative mt-5 text-center text-sm text-white/85">
                 {ready
                   ? t("Your card is ready. Download it from the buttons on the form.")
                   : t("Fill the form and apply. Your ID number and the downloads are enabled once our team approves your application.")}

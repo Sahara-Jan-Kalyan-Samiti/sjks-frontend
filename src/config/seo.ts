@@ -25,6 +25,11 @@ export const pageSeo = {
     title: "Our Journey",
     description: "How Sahara Jan Kalyan Samiti grew from its registration in 2004 into a community-led organisation across Madhya Pradesh."
   },
+  "/about/governance": {
+    title: "Good Governance",
+    description:
+      "How Sahara Jan Kalyan Samiti is governed: governing body, financial management and audit, code of conduct, safeguarding and grievances."
+  },
   "/about/awards": {
     title: "Awards & Recognition",
     description: "Awards, appreciation and recommendation letters received by Sahara Jan Kalyan Samiti."
@@ -32,6 +37,11 @@ export const pageSeo = {
   "/projects": {
     title: "Our Projects",
     description: "The core programmes and the complete project portfolio of Sahara Jan Kalyan Samiti since 2004."
+  },
+  "/campaigns": {
+    title: "Fundraising Campaigns",
+    description:
+      "Fundraising campaigns of Sahara Jan Kalyan Samiti: each shows its goal, the amount raised and exactly how much is still needed."
   },
   "/crowdfunding": {
     title: "How Crowdfunding Helps",
@@ -79,6 +89,14 @@ export const pageSeo = {
   "/get-involved": {
     title: "Get Involved",
     description: "Volunteer, partner or support Sahara Jan Kalyan Samiti as an individual, a student or a company."
+  },
+  "/volunteer": {
+    title: "Volunteer Support",
+    description: "Volunteer with Sahara Jan Kalyan Samiti at field camps, learning centres and plantation drives in Madhya Pradesh."
+  },
+  "/csr-partnerships": {
+    title: "CSR Partnerships",
+    description: "Partner with Sahara Jan Kalyan Samiti (CSR-1, 12A, 80G, FCRA registered) for verified, reportable community impact."
   },
   "/contact": {
     title: "Contact Us",

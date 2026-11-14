@@ -1,3 +1,4 @@
+import path from "node:path";
 import { buildRedirects } from "./redirects.mjs";
 
 /** @type {import('next').NextConfig} */
@@ -20,6 +21,16 @@ const nextConfig = {
   output: "standalone",
   // ESLint runs as its own step in CI (npm run lint)
   eslint: { ignoreDuringBuilds: true },
+
+  // Next adds ~11 KB of polyfills (Array.at, flat, Object.hasOwn ...) that every browser in package.json "browserslist" already has: leave them out
+  webpack(config, { webpack, isServer }) {
+    if (!isServer) {
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(/build[\/]polyfills[\/]polyfill-module/, path.join(process.cwd(), "src/lib/noPolyfills.js"))
+      );
+    }
+    return config;
+  },
 
   // bare domain -> www, and the old WordPress addresses -> their new pages (see redirects.mjs)
   async redirects() {

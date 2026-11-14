@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import DonateBanner from "@/components/sections/DonateBanner";
 import FloatingActions from "./FloatingActions";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -19,6 +20,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       <main id="main">
         <PageTransition>{children}</PageTransition>
       </main>
+      <DonateBanner />
       <Footer />
       <FloatingActions />
     </>

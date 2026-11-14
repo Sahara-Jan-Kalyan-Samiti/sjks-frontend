@@ -27,26 +27,26 @@ export const featuredImages = [
  */
 export const homeHeroSlides = [
   // illustrated slides and real field photos alternate (the newer photos are the .webp files)
-  { src: "/assets/images/home/hero-slide-02.jpg", focus: "object-[90%_center] md:object-[center_65%]" },
-  { src: "/assets/images/home/hero-real-01.jpg", focus: "object-[70%_center] md:object-[center_55%]" },
-  { src: "/assets/images/home/hero-slide-03.jpg", focus: "object-[58%_center] md:object-[center_40%]" },
+  { src: "/assets/images/home/hero-slide-02.webp", focus: "object-[90%_center] md:object-[center_65%]" },
+  { src: "/assets/images/home/hero-real-01.webp", focus: "object-[70%_center] md:object-[center_55%]" },
+  { src: "/assets/images/home/hero-slide-03.webp", focus: "object-[58%_center] md:object-[center_40%]" },
   { src: "/assets/images/home/school-bag-distribution.webp", focus: "object-[50%_center] md:object-[center_60%]" },
-  { src: "/assets/images/home/hero-real-02.jpg", focus: "object-[55%_center] md:object-[center_60%]" },
-  { src: "/assets/images/home/hero-slide-04.jpg", focus: "object-[100%_center] md:object-[center_50%]" },
+  { src: "/assets/images/home/hero-real-02.webp", focus: "object-[55%_center] md:object-[center_60%]" },
+  { src: "/assets/images/home/hero-slide-04.webp", focus: "object-[100%_center] md:object-[center_50%]" },
   { src: "/assets/images/home/sahara-ratona-children.webp", focus: "object-[50%_center] md:object-[center_45%]" },
-  { src: "/assets/images/home/hero-real-03.jpg", focus: "object-[50%_center] md:object-[center_65%]" },
-  { src: "/assets/images/home/hero-slide-05.jpg", focus: "object-[80%_center] md:object-[center_20%]" },
+  { src: "/assets/images/home/hero-real-03.webp", focus: "object-[50%_center] md:object-[center_65%]" },
+  { src: "/assets/images/home/hero-slide-05.webp", focus: "object-[80%_center] md:object-[center_20%]" },
   { src: "/assets/images/home/centre-meal-children.webp", focus: "object-[50%_center] md:object-[center_55%]" },
-  { src: "/assets/images/home/hero-real-04.jpg", focus: "object-[60%_center] md:object-[center_45%]" },
+  { src: "/assets/images/home/hero-real-04.webp", focus: "object-[60%_center] md:object-[center_45%]" },
   { src: "/assets/images/home/field-tarp-shelter-children.webp", focus: "object-[55%_center] md:object-[center_65%]" },
-  { src: "/assets/images/home/hero-slide-01.jpg", focus: "object-[88%_center] md:object-[100%_60%]" },
+  { src: "/assets/images/home/hero-slide-01.webp", focus: "object-[88%_center] md:object-[100%_60%]" },
   { src: "/assets/images/home/sahara-school-banner.webp", focus: "object-[40%_center] md:object-[center_50%]" }
 ];
 
 export const homeHeroOpening = {
-  src: "/assets/images/home/hero-slide-opening.jpg",
-  /** the same photo cropped for phones (public/assets/images/home/hero-slide-opening-sm.jpg) */
-  mobile: "/assets/images/home/hero-slide-opening-sm.jpg",
+  src: "/assets/images/home/hero-slide-opening.webp",
+  /** the same photo cropped for phones (public/assets/images/home/hero-slide-opening-sm.webp) */
+  mobile: "/assets/images/home/hero-slide-opening-sm.webp",
   focus: "object-[88%_center] md:object-[100%_60%]"
 };
 

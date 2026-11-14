@@ -17,6 +17,7 @@ export const nav: NavItem[] = [
       { label: "Partners & Supporters", href: "/about#partners" },
       { label: "Awards & Recognition", href: "/about/awards" },
       { label: "Legal & Registration", href: "/about#legal" },
+      { label: "Governance Policy", href: "/about/governance" },
       { label: "Our Policies", href: "/policies" }
     ]
   },
@@ -27,6 +28,7 @@ export const nav: NavItem[] = [
       { label: "Women Empowerment", href: "/projects/women-empowerment" },
       { label: "Upcoming Projects", href: "/projects#upcoming" },
       { label: "Medical Facilities", href: "/projects/medical-facilities" },
+      { label: "Fundraising Campaigns", href: "/campaigns" },
       { label: "How Crowdfunding Helps", href: "/crowdfunding" },
       { label: "Child Education", href: "/projects/child-education" },
       { label: "Environment & Tree Plantation", href: "/projects/environment" },
@@ -56,14 +58,14 @@ export const nav: NavItem[] = [
       { label: "Request Certificates", href: "/transparency?request=certificate#request" }
     ]
   },
-  { label: "Blogs", href: "/blog" },
+  { label: "Resource Center", href: "/blog" },
   {
-    label: "Membership",
+    label: "Partners & Membership",
     href: "/memberships",
     children: [
+      { label: "Partner With Us", href: "/partner-with-us" },
       { label: "Member ID Card", href: "/member-id" },
-      { label: "Memberships", href: "/memberships" },
-      { label: "Partner With Us", href: "/partner-with-us" }
+      { label: "Memberships", href: "/memberships" }
     ]
   },
   { label: "Contact Us", href: "/contact" }
@@ -75,7 +77,8 @@ export const quickNav = [
   { label: "Latest News", href: "/news" },
   { label: "Events Calendar", href: "/events" },
   { label: "Transparency & Financial Reports", href: "/transparency" },
-  { label: "Volunteer & CSR Partnerships", href: "/get-involved" },
+  { label: "Volunteer Support", href: "/volunteer" },
+  { label: "CSR Partnerships", href: "/csr-partnerships" },
   { label: "Contact Us & Field Office", href: "/contact" },
   { label: "Donate Now", href: "/donate" },
   { label: "Cancellation & Refund Policy", href: "/refund-policy" }

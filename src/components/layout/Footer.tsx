@@ -12,7 +12,7 @@ import { env } from "@/lib/env";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const [emailErr, setEmailErr] = useState("");
   const [state, setState] = useState<"idle" | "sending" | NewsletterResult | "error">("idle");
   const submit = async (e: FormEvent) => {
@@ -42,9 +42,9 @@ export default function Footer() {
             className="inline-block self-start rounded-2xl bg-white px-4 py-3 shadow-lg shadow-black/20 transition hover:scale-[1.03]"
           >
             <img
-              src="/assets/images/logo.png"
-              width={520}
-              height={174}
+              src="/assets/images/logo-sm.png"
+              width={340}
+              height={114}
               alt={`${site.name} logo`}
               className="h-14 w-auto max-w-[230px] object-contain"
             />
@@ -68,7 +68,7 @@ export default function Footer() {
           <h3 className="mb-3 font-semibold text-white">{t("Quick Navigation")}</h3>
           <ul className="space-y-2 lg:flex lg:flex-1 lg:flex-col lg:justify-between">
             {quickNav.map((l) => (
-              <li key={l.href}>
+              <li key={l.label}>
                 <Link href={l.href} className="no-underline hover:text-white">
                   {t(l.label)}
                 </Link>
@@ -172,7 +172,19 @@ export default function Footer() {
             <span className="whitespace-nowrap">
               © <span suppressHydrationWarning>{new Date().getFullYear()}</span> {site.name}. All rights reserved.
             </span>
-            <span className="whitespace-nowrap text-white/70">Developed by Scalric</span>
+            <span className="whitespace-nowrap text-white/70">
+              {lang === "hi" ? null : "Developed by "}
+              <a
+                href="https://www.scalric.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-no-translate
+                className="font-bold text-white no-underline hover:underline"
+              >
+                Scalric
+              </a>
+              {lang === "hi" ? " द्वारा विकसित" : null}
+            </span>
           </p>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 2xl:flex-nowrap 2xl:whitespace-nowrap">
             <Link href="/privacy" className="no-underline hover:text-white">
