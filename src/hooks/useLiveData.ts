@@ -13,6 +13,9 @@ export interface Campaign {
   goal: number;
   raised: number;
   cause?: string;
+  /** the campaign's own page is /campaigns/<slug>; the sample campaigns in live.json have none */
+  slug?: string;
+  cover?: string;
   sample?: boolean;
 }
 export interface EventItem {
@@ -94,15 +97,18 @@ async function fetchAdminEvents(): Promise<EventItem[]> {
 async function fetchAdminCampaigns(): Promise<Campaign[] | null> {
   if (!supabaseConfigured) return null;
   try {
+    // "*" on purpose: slug and cover_url come with the latest migration, and the Home section must also work before it is applied
     const { data } = await restSelect<{
       id: number | string;
+      slug?: string | null;
       title: string;
       description: string | null;
       cause: string | null;
       goal_amount: number | string;
       raised_offset: number | string;
+      cover_url?: string | null;
     }>("campaigns", {
-      select: "id,title,description,cause,goal_amount,raised_offset",
+      select: "*",
       published: "eq.true",
       order: "sort_order,created_at.desc"
     });
@@ -113,7 +119,9 @@ async function fetchAdminCampaigns(): Promise<Campaign[] | null> {
       text: c.description || "",
       goal: Number(c.goal_amount),
       raised: Number(c.raised_offset),
-      cause: c.cause || undefined
+      cause: c.cause || undefined,
+      slug: c.slug || undefined,
+      cover: c.cover_url && /^(\/(?!\/)|https:\/\/)/.test(c.cover_url) ? c.cover_url : undefined
     }));
   } catch {
     return null;

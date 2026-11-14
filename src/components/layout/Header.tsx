@@ -46,12 +46,12 @@ export default function Header() {
           </Link>
 
           <nav aria-label="Main" className="hidden min-w-0 flex-1 items-center justify-between gap-4 xl:flex">
-            <div className="flex flex-1 items-center justify-center gap-0.5 2xl:gap-1">
+            <div className="flex min-w-0 flex-1 items-center justify-center gap-0.5">
               {nav.map((item) => (
                 <div key={item.label} className="group relative">
                   <Link
                     href={item.href}
-                    className={`flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2 text-[14px] font-medium transition-colors 2xl:px-4 2xl:text-[15px] ${isActivePath(pathname, item.href) || item.children?.some((c) => c.href === pathname) ? "bg-brand text-white" : "text-ink hover:bg-brand-light hover:text-brand-dark"}`}
+                    className={`flex items-center gap-1 whitespace-nowrap rounded-full px-1.5 py-2 text-[12.5px] font-medium transition-colors min-[1400px]:px-2 min-[1400px]:text-[13.5px] 2xl:px-2.5 2xl:text-[14.5px] ${isActivePath(pathname, item.href) || item.children?.some((c) => c.href === pathname) ? "bg-brand text-white" : "text-ink hover:bg-brand-light hover:text-brand-dark"}`}
                   >
                     {t(item.label)}
                     {item.children && (

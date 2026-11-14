@@ -33,6 +33,11 @@ export const pageSeo = {
     title: "Our Projects",
     description: "The core programmes and the complete project portfolio of Sahara Jan Kalyan Samiti since 2004."
   },
+  "/campaigns": {
+    title: "Fundraising Campaigns",
+    description:
+      "Fundraising campaigns of Sahara Jan Kalyan Samiti: each shows its goal, the amount raised and exactly how much is still needed."
+  },
   "/crowdfunding": {
     title: "How Crowdfunding Helps",
     description: "How medical crowdfunding works and how Sahara Jan Kalyan Samiti makes sure every gift reaches the patient."

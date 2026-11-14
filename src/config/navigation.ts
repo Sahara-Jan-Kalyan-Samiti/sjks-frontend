@@ -27,6 +27,7 @@ export const nav: NavItem[] = [
       { label: "Women Empowerment", href: "/projects/women-empowerment" },
       { label: "Upcoming Projects", href: "/projects#upcoming" },
       { label: "Medical Facilities", href: "/projects/medical-facilities" },
+      { label: "Fundraising Campaigns", href: "/campaigns" },
       { label: "How Crowdfunding Helps", href: "/crowdfunding" },
       { label: "Child Education", href: "/projects/child-education" },
       { label: "Environment & Tree Plantation", href: "/projects/environment" },
@@ -56,14 +57,14 @@ export const nav: NavItem[] = [
       { label: "Request Certificates", href: "/transparency?request=certificate#request" }
     ]
   },
-  { label: "Blogs", href: "/blog" },
+  { label: "Resource Center", href: "/blog" },
   {
-    label: "Membership",
+    label: "Partners & Membership",
     href: "/memberships",
     children: [
+      { label: "Partner With Us", href: "/partner-with-us" },
       { label: "Member ID Card", href: "/member-id" },
-      { label: "Memberships", href: "/memberships" },
-      { label: "Partner With Us", href: "/partner-with-us" }
+      { label: "Memberships", href: "/memberships" }
     ]
   },
   { label: "Contact Us", href: "/contact" }

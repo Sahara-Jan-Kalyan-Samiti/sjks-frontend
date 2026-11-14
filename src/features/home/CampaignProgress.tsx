@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useInView } from "@/hooks/useInView";
 import type { Campaign } from "@/hooks/useLiveData";
 import { useLang } from "@/i18n/LangContext";
@@ -74,6 +75,18 @@ export default function CampaignProgress({ c }: { c: Campaign }) {
   const { tone, bar, chip, icon } = look(c);
   return (
     <article className="group relative h-full overflow-hidden rounded-3xl border border-ink/10 bg-white p-6 shadow-[0_18px_40px_-26px_rgba(11,61,122,.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_50px_-24px_rgba(11,61,122,.5)] sm:p-7">
+      {/* the campaign's cover photo, when it has one */}
+      {c.cover && (
+        <div className="relative -mx-6 -mt-6 mb-5 aspect-[16/8] overflow-hidden sm:-mx-7 sm:-mt-7">
+          <img
+            src={c.cover}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+          />
+        </div>
+      )}
       {/* soft coloured corner */}
       <span
         aria-hidden="true"
@@ -145,9 +158,16 @@ export default function CampaignProgress({ c }: { c: Campaign }) {
         {t("Goal")} {fmt(c.goal)}
       </p>
 
-      <DonateButton to={`/donate?cause=${encodeURIComponent(c.cause ?? "")}`} size="sm" className="relative mt-5">
-        {t("Give to this cause")}
-      </DonateButton>
+      <div className="relative mt-5 flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+        <DonateButton to={`/donate?cause=${encodeURIComponent(c.cause ?? "")}`} size="sm">
+          {t("Give to this cause")}
+        </DonateButton>
+        {c.slug && (
+          <Link href={`/campaigns/${c.slug}`} className="text-sm font-semibold text-brand hover:text-brand-dark">
+            {t("Read full story")} <span aria-hidden="true">→</span>
+          </Link>
+        )}
+      </div>
     </article>
   );
 }

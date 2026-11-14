@@ -135,15 +135,43 @@ export function ImpactDashboard() {
   return (
     <div className="container-site">
       <Reveal>
-        <p className="eyebrow">{t("Live impact dashboard")}</p>
-        <h2 className="h2 h2-gradient mt-3 max-w-2xl">{t("A quick view of the people, communities and green spaces moving forward.")}</h2>
-        <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-gradient-to-r from-emerald-50 to-teal-50 px-4 py-1.5 text-xs font-semibold text-emerald-700 shadow-sm">
-          <span aria-hidden="true" className="relative flex h-2.5 w-2.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60" />
-            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+        <div className="relative isolate mx-auto flex max-w-3xl flex-col items-center text-center">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-4 -z-10 h-44 w-[min(34rem,100%)] -translate-x-1/2 rounded-full bg-gradient-to-r from-sky-300/40 via-blue-300/30 to-teal-200/40 blur-3xl"
+          />
+          <p className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-[.18em] text-brand shadow-sm ring-1 ring-brand/15">
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />
+            </svg>
+            {t("Live impact dashboard")}
+          </p>
+          <h2 className="h2 h2-gradient mt-4 text-[2rem] leading-tight sm:text-4xl md:text-5xl">{t("Our Impact at a Glance")}</h2>
+          <span aria-hidden="true" className="mt-4 flex items-center gap-1.5">
+            <span className="h-1 w-3 rounded-full bg-sky-400/70" />
+            <span className="h-1 w-16 rounded-full bg-gradient-to-r from-brand to-sky-400" />
+            <span className="h-1 w-3 rounded-full bg-sky-400/70" />
           </span>
-          {t("Field reports active")}
-        </p>
+          <p className="mt-5 max-w-xl leading-relaxed text-ink/70 md:text-lg">
+            {t("A quick view of the people, communities and green spaces moving forward.")}
+          </p>
+          <p className="mt-5 inline-flex items-center gap-2.5 rounded-full border border-emerald-500/30 bg-white px-4 py-2 text-xs font-semibold text-emerald-700 shadow-sm">
+            <span aria-hidden="true" className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+            </span>
+            {t("Field reports active")}
+          </p>
+        </div>
       </Reveal>
       <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-3 lg:grid-cols-6 lg:gap-x-0 lg:px-0">
         {stats.map((s, i) => (

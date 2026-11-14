@@ -6,8 +6,10 @@
  */
 const partners: { file: string; name: string; url?: string }[] = [
   { file: "vani.png", name: "VANI", url: "https://www.vaniindia.org/" },
+  { file: "united-way-mumbai.jpg", name: "United Way Mumbai" },
   { file: "sap.svg", name: "SAP", url: "https://www.sap.com/" },
   { file: "mpvha.png", name: "MPVHA", url: "https://www.mpvha.org/" },
+  { file: "participate-mumbai.png", name: "Participate Mumbai" },
   { file: "jan-abhiyan-parishad.png", name: "Jan Abhiyan Parishad" },
   { file: "kone.svg", name: "KONE", url: "https://www.kone.in/" },
   { file: "jiv-daya-foundation.png", name: "Jiv Daya Foundation", url: "https://www.jivdayafound.org/" },
