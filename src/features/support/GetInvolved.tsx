@@ -10,7 +10,12 @@ export default function GetInvolved() {
   const c = usePageText();
   return (
     <>
-      <PageHero eyebrow={t("Get Involved")} title={c("involved.hero.title")} text={c("involved.hero.text")} />
+      <PageHero
+        eyebrow={t("Get Involved")}
+        title={c("involved.hero.title")}
+        text={c("involved.hero.text")}
+        images={["/assets/images/gallery/csr-volunteering/sap-volunteers-group.jpg"]}
+      />
       <Steps
         eyebrow="How it works"
         title="From first hello to your first field day"

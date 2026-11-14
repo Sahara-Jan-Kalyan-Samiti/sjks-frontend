@@ -17,6 +17,7 @@ export const nav: NavItem[] = [
       { label: "Partners & Supporters", href: "/about#partners" },
       { label: "Awards & Recognition", href: "/about/awards" },
       { label: "Legal & Registration", href: "/about#legal" },
+      { label: "Governance Policy", href: "/about/governance" },
       { label: "Our Policies", href: "/policies" }
     ]
   },
@@ -76,7 +77,8 @@ export const quickNav = [
   { label: "Latest News", href: "/news" },
   { label: "Events Calendar", href: "/events" },
   { label: "Transparency & Financial Reports", href: "/transparency" },
-  { label: "Volunteer & CSR Partnerships", href: "/get-involved" },
+  { label: "Volunteer Support", href: "/volunteer" },
+  { label: "CSR Partnerships", href: "/csr-partnerships" },
   { label: "Contact Us & Field Office", href: "/contact" },
   { label: "Donate Now", href: "/donate" },
   { label: "Cancellation & Refund Policy", href: "/refund-policy" }

@@ -245,7 +245,7 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={120} className="max-lg:order-first">
-              <div className="relative mx-auto w-full max-w-[240px] pb-14 sm:max-w-[270px] lg:ml-auto lg:mr-10 lg:max-w-[300px]">
+              <div className="relative mx-auto w-full max-w-[280px] sm:max-w-[270px] sm:pb-14 lg:ml-auto lg:mr-10 lg:max-w-[300px]">
                 <div
                   aria-hidden="true"
                   className="absolute -left-[26%] top-[14%] -z-10 h-[78%] w-[120%] rounded-[46%_54%_52%_48%/55%_45%_55%_45%] bg-gradient-to-br from-[#93c5fd] via-[#60a5fa] to-[#3b82f6] opacity-80"
@@ -255,7 +255,7 @@ export default function Home() {
                   alt="Founder Chairman & CEO"
                   className="aspect-[4/5] w-full rounded-[28px] border-[5px] object-top border-white shadow-[0_24px_50px_-20px_rgba(11,61,122,.45)]"
                 />
-                <div className="absolute bottom-0 left-[-8%] right-[12%] rounded-xl bg-white px-4 py-3 shadow-[0_18px_40px_-18px_rgba(11,61,122,.4)] max-sm:left-0 max-sm:right-[6%]">
+                <div className="relative -mt-8 rounded-xl bg-white px-4 py-3 shadow-[0_18px_40px_-18px_rgba(11,61,122,.4)] sm:absolute sm:bottom-0 sm:left-[-8%] sm:right-[12%] sm:mt-0">
                   <h3 className="font-display text-base font-bold text-ink">{site.chairman}</h3>
                   <p className="mt-0.5 text-sm font-medium text-brand">{t("Founder Chairman & CEO")}</p>
                   <span aria-hidden="true" className="mt-2 block h-px w-6 bg-ink/25" />
@@ -618,24 +618,6 @@ export default function Home() {
           <LazyMount className="h-24">
             <SupportersStrip />
           </LazyMount>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="defer-render mt-10 bg-gradient-to-br from-brand-dark to-brand py-16 text-center text-white md:mt-16">
-        <div className="container-site">
-          <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-widest text-white/80">{t("Take Action Today")}</p>
-            <h2 className="h2 mx-auto mt-2 max-w-3xl">{t("Together, we can create stronger and more self-reliant communities.")}</h2>
-            <div className="mx-auto mt-6 flex max-w-xs flex-col justify-center gap-3 min-[480px]:max-w-none min-[480px]:flex-row min-[480px]:flex-wrap">
-              <DonateButton to="/donate" size="lg">
-                {t("Support Us (Donate)")}
-              </DonateButton>
-              <Link href="/get-involved" className="btn-light btn-light-lg">
-                {t("Get Involved")}
-              </Link>
-            </div>
-          </Reveal>
         </div>
       </section>
     </>

@@ -209,8 +209,8 @@ export const testimonials: Testimonial[] = [
 ];
 export const ways = [
   { title: "Donate", text: "Fund education kits, health camps and relief drives.", href: "/donate", cta: "Donate now" },
-  { title: "Volunteer", text: "Give your time at field camps and learning centers.", href: "/get-involved", cta: "Volunteer" },
-  { title: "Corporate CSR", text: "Partner with us for verified, reportable impact.", href: "/get-involved", cta: "Partner with us" },
+  { title: "Volunteer", text: "Give your time at field camps and learning centers.", href: "/volunteer", cta: "Volunteer" },
+  { title: "Corporate CSR", text: "Partner with us for verified, reportable impact.", href: "/csr-partnerships", cta: "Partner with us" },
   { title: "Sponsor a Cause", text: "Sponsor a child, a tree drive or a family kit.", href: "/donate", cta: "Sponsor" }
 ];
 export const committee = [

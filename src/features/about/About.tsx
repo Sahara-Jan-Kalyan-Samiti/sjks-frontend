@@ -178,7 +178,7 @@ export default function About() {
           </div>
 
           <div className="max-lg:order-first">
-            <div className="relative mx-auto w-full max-w-[220px] pb-16 sm:max-w-[250px] lg:ml-auto lg:mr-6 lg:max-w-[280px]">
+            <div className="relative mx-auto w-full max-w-[280px] sm:max-w-[250px] sm:pb-16 lg:ml-auto lg:mr-6 lg:max-w-[280px]">
               <div
                 aria-hidden="true"
                 className="absolute -left-[26%] top-[14%] -z-10 h-[78%] w-[120%] rounded-[46%_54%_52%_48%/55%_45%_55%_45%] bg-gradient-to-br from-[#93c5fd] via-[#60a5fa] to-[#3b82f6] opacity-80"
@@ -188,7 +188,7 @@ export default function About() {
                 alt="Founder Chairman"
                 className="aspect-[4/5] w-full rounded-[28px] border-[5px] border-white shadow-[0_24px_50px_-20px_rgba(11,61,122,.45)]"
               />
-              <div className="absolute bottom-0 left-[-8%] right-[12%] rounded-2xl bg-white px-6 py-5 shadow-[0_18px_40px_-18px_rgba(11,61,122,.4)] max-sm:left-0 max-sm:right-[6%]">
+              <div className="relative -mt-8 rounded-2xl bg-white px-6 py-5 shadow-[0_18px_40px_-18px_rgba(11,61,122,.4)] sm:absolute sm:bottom-0 sm:left-[-8%] sm:right-[12%] sm:mt-0">
                 <h3 className="font-display text-xl font-bold text-ink">{site.chairman}</h3>
                 <p className="mt-0.5 font-medium text-brand">{c("about.founder.role")}</p>
                 <span aria-hidden="true" className="mt-3 block h-px w-6 bg-ink/25" />
