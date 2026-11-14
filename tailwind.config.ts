@@ -13,10 +13,10 @@ const config: Config = {
       // the CSS variables come from next/font in src/styles/fonts.ts
       fontFamily: {
         sans: ["var(--font-poppins)", "var(--font-devanagari)", "system-ui", "sans-serif"],
-        hero: ["var(--font-inter)", "var(--font-devanagari)", "system-ui", "sans-serif"],
+        hero: ["var(--font-poppins)", "var(--font-devanagari)", "system-ui", "sans-serif"],
         serif: ["var(--font-poppins)", "var(--font-devanagari)", "system-ui", "sans-serif"],
-        quote: ["var(--font-lora)", "var(--font-devanagari)", "Georgia", "serif"],
-        display: ["var(--font-merriweather)", "Georgia", "serif"]
+        quote: ["var(--font-poppins)", "var(--font-devanagari)", "system-ui", "sans-serif"],
+        display: ["var(--font-poppins)", "var(--font-devanagari)", "system-ui", "sans-serif"]
       },
       maxWidth: { site: "1200px" },
       keyframes: { slideprogress: { from: { transform: "scaleX(0)" }, to: { transform: "scaleX(1)" } } }

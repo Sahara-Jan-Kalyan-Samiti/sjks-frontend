@@ -77,6 +77,7 @@ export default function DonateButton({
   if (to) {
     return (
       <Link
+        prefetch={false}
         href={to}
         className={cls}
         onClick={(e) => {
