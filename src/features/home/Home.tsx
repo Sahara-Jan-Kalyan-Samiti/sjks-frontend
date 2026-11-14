@@ -155,7 +155,7 @@ export default function Home() {
               <DonateButton to="/donate" size="lg" className="max-md:w-full min-[480px]:order-first">
                 {t("Support Our Cause")}
               </DonateButton>
-              <Link href="/projects" className="btn-light btn-light-lg max-md:w-full">
+              <Link href="/projects" prefetch={false} className="btn-light btn-light-lg max-md:w-full">
                 {t("Explore Program")} <span aria-hidden="true">→</span>
               </Link>
             </div>
@@ -184,13 +184,7 @@ export default function Home() {
           aria-hidden="true"
           className="absolute inset-0 -z-20 [mask-image:linear-gradient(to_bottom,transparent,black_30%,black_70%,transparent)]"
         >
-          <img
-            src="/assets/images/media/media-03.jpg"
-            alt=""
-            loading="lazy"
-            decoding="async"
-            className="h-full w-full object-cover object-[center_60%] opacity-[.6]"
-          />
+          <Img file="media/media-03.webp" alt="" defer className="h-full w-full object-cover object-[center_60%] opacity-[.6]" />
         </div>
         <div
           aria-hidden="true"
@@ -252,6 +246,7 @@ export default function Home() {
                 />
                 <Img
                   file="founder-chairman.jpeg"
+                  defer
                   alt="Founder Chairman & CEO"
                   className="aspect-[4/5] w-full rounded-[28px] border-[5px] object-top border-white shadow-[0_24px_50px_-20px_rgba(11,61,122,.45)]"
                 />
