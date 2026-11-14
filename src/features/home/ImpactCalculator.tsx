@@ -12,8 +12,9 @@ export default function ImpactCalculator() {
   const outcome = [...impactTiers].reverse().find((t) => amount >= t.min) ?? impactTiers[0];
   const pct = ((amount - MIN) / (MAX - MIN)) * 100;
   return (
-    <div className="mx-auto max-w-xl overflow-hidden rounded-2xl bg-white text-ink shadow-xl">
-      <div className="p-5 sm:p-6">
+    <div className="ic-card relative mx-auto max-w-xl overflow-hidden rounded-3xl bg-white text-ink shadow-2xl ring-1 ring-white/40">
+      <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-brand to-sky-400" />
+      <div className="p-6 sm:p-8">
         <div className="flex items-center justify-between gap-3">
           <p className="text-xs font-semibold uppercase tracking-wider text-ink/65">Select contribution</p>
           <span className="rounded-full bg-brand/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-dark">
@@ -21,14 +22,14 @@ export default function ImpactCalculator() {
           </span>
         </div>
 
-        <div className="mt-4 flex items-baseline justify-between gap-3 border-b border-ink/10 pb-4">
-          <p className="text-sm font-medium text-ink/65">Contribution amount</p>
-          <p key={amount} className="ic-pop text-3xl font-bold tabular-nums text-brand-dark">
+        <div className="mt-5 flex items-center justify-between gap-3 rounded-2xl bg-brand-light/70 px-5 py-4">
+          <p className="text-sm font-medium text-ink/70">Contribution amount</p>
+          <p key={amount} className="ic-pop text-4xl font-extrabold tabular-nums text-brand-dark sm:text-5xl">
             ₹{fmt(amount)}
           </p>
         </div>
 
-        <div className="mt-5">
+        <div className="mt-7 px-1">
           <input
             type="range"
             min={MIN}
@@ -47,27 +48,27 @@ export default function ImpactCalculator() {
           </div>
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Quick amounts">
+        <div className="mt-5 grid grid-cols-3 gap-2 sm:grid-cols-6" role="group" aria-label="Quick amounts">
           {QUICK.map((q) => (
             <button
               key={q}
               type="button"
               aria-pressed={amount === q}
               onClick={() => setAmount(q)}
-              className={`!min-h-0 rounded-full border px-3 py-1 text-xs font-semibold transition ${amount === q ? "border-[#1170c4] bg-[#1170c4] text-white" : "border-ink/15 bg-white text-ink/70 hover:border-brand/50 hover:bg-brand-light hover:text-brand-dark"}`}
+              className={`!min-h-0 rounded-full border px-2 py-2 text-sm font-semibold tabular-nums transition ${amount === q ? "border-[#1170c4] bg-[#1170c4] text-white shadow-md shadow-brand/30" : "border-ink/15 bg-white text-ink/70 hover:border-brand/50 hover:bg-brand-light hover:text-brand-dark"}`}
             >
               ₹{fmt(q)}
             </button>
           ))}
         </div>
 
-        <div className="relative mt-5 overflow-hidden rounded-xl border border-brand/15 bg-brand-light/60 p-4" aria-live="polite">
-          <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-brand to-sky-400" />
-          <div className="flex items-start gap-3 pl-2">
-            <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand text-white">
+        <div className="relative mt-6 overflow-hidden rounded-2xl border border-brand/20 bg-gradient-to-br from-brand-light via-white to-brand-light p-4 shadow-sm sm:p-5" aria-live="polite">
+          <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-sky-200/40" />
+          <div className="relative flex items-center gap-4">
+            <span aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 to-brand text-white shadow-lg shadow-brand/30 ring-4 ring-white">
               <svg
                 viewBox="0 0 24 24"
-                className="h-5 w-5"
+                className="h-6 w-6"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.8"
@@ -79,14 +80,14 @@ export default function ImpactCalculator() {
             </span>
             <div className="min-w-0 text-left">
               <p className="text-[11px] font-semibold uppercase tracking-widest text-brand-dark">Direct impact outcome</p>
-              <p key={outcome.text} className="ic-pop mt-0.5 text-sm font-semibold leading-snug sm:text-base">
+              <p key={outcome.text} className="ic-pop mt-1 text-base font-semibold leading-snug text-ink sm:text-lg">
                 {outcome.text}
               </p>
             </div>
           </div>
         </div>
 
-        <DonateButton to={`/donate?amount=${amount}`} full size="lg" className="mt-5">
+        <DonateButton to={`/donate?amount=${amount}`} full size="lg" className="mt-6">
           Donate ₹{fmt(amount)} Now
         </DonateButton>
       </div>
@@ -97,6 +98,9 @@ export default function ImpactCalculator() {
         .ic-range::-moz-range-thumb{height:14px;width:14px;border-radius:50%;background:#fff;border:3px solid #1479d1;box-shadow:0 2px 8px rgba(20,121,209,.4)}
         .ic-range:hover::-webkit-slider-thumb,.ic-range:active::-webkit-slider-thumb{transform:scale(1.15)}
         .ic-range:focus-visible{outline:3px solid rgba(20,121,209,.35);outline-offset:6px}
+        .ic-card.ic-card .dbtn-solid{color:#fff;background-image:linear-gradient(135deg,#2e9cf0 0%,#1479d1 55%,#0b5cb0 100%);background-color:transparent;box-shadow:0 10px 22px -8px rgba(20,121,209,.7);--dot-a:#7dd3fc;--dot-b:#fff}
+        .ic-card.ic-card .dbtn-solid .dbtn-ico{background-color:rgba(255,255,255,.22)}
+        .ic-card.ic-card .dbtn-solid:hover{background-color:transparent;box-shadow:0 14px 26px -8px rgba(20,121,209,.75),0 0 0 4px rgba(56,189,248,.25)}
         .ic-pop{animation:icPop .35s ease both}
         @keyframes icPop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
         @media (prefers-reduced-motion:reduce){.ic-pop{animation:none}}

@@ -35,6 +35,22 @@ function Speaker({ item }: { item: Testimonial }) {
   );
 }
 
+/** programme photo banner with a gradient and the programme name on it */
+function Photo({ src, label, tall = false }: { src: string; label: string; tall?: boolean }) {
+  const { t } = useLang();
+  return (
+    <div className={`relative w-full overflow-hidden ${tall ? "h-48 sm:h-56" : "h-40 sm:h-44"}`}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt="" loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+      <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
+      <span className="absolute bottom-3 left-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold text-brand-dark shadow">
+        <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-brand" />
+        {t(label)}
+      </span>
+    </div>
+  );
+}
+
 function QuoteMark({ className = "" }: { className?: string }) {
   return (
     <svg aria-hidden="true" viewBox="0 0 32 32" fill="currentColor" className={className}>
@@ -96,13 +112,6 @@ export default function Testimonials() {
 
   return (
     <section id="testimonials" className="relative overflow-hidden bg-white py-16 md:py-24" aria-labelledby="testimonials-title">
-      {/* soft background glow so the header area does not feel empty */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(ellipse_at_top,rgba(14,116,224,0.10),transparent_70%)]"
-      />
-      <QuoteMark className="pointer-events-none absolute left-[6%] top-24 hidden h-20 w-20 text-brand/10 lg:block" />
-      <QuoteMark className="pointer-events-none absolute right-[6%] top-40 hidden h-14 w-14 rotate-180 text-brand/10 lg:block" />
       <div className="container-site relative">
         <Reveal className="mx-auto max-w-3xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-ink/10 bg-white px-4 py-1.5 text-sm font-medium text-ink/80 shadow-sm">
@@ -111,12 +120,11 @@ export default function Testimonials() {
           </span>
           <h2
             id="testimonials-title"
-            className="mt-5 text-[1.7rem] font-semibold sm:text-3xl leading-tight tracking-tight text-ink md:text-5xl md:leading-[1.1]"
+            className="mt-4 text-[1.7rem] font-semibold sm:text-3xl leading-tight tracking-tight text-ink md:text-5xl md:leading-[1.1]"
           >
             {t("Stories of Hope, Empowerment & Transformation")}
           </h2>
-          <span aria-hidden="true" className="mx-auto mt-5 block h-1 w-16 rounded-full bg-gradient-to-r from-brand to-sky-400" />
-          <p className="mx-auto mt-5 max-w-xl text-base text-ink/65 md:text-lg">
+          <p className="mx-auto mt-4 max-w-xl text-base text-ink/65 md:text-lg">
             {t("Hear from the families and communities our programmes have reached.")}
           </p>
         </Reveal>
@@ -128,11 +136,10 @@ export default function Testimonials() {
             return (
               <figure
                 key={f.name}
-                className="group relative flex flex-col justify-between gap-8 overflow-hidden rounded-[28px] border border-brand/10 bg-gradient-to-br from-[#eef4fb] via-[#f3f6fa] to-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl sm:min-h-[22rem] sm:gap-10 sm:p-7 md:p-10"
+                className="group relative flex flex-col justify-between gap-8 overflow-hidden rounded-[28px] border border-brand/10 bg-gradient-to-br from-[#eef4fb] via-[#f3f6fa] to-white pb-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl sm:gap-8 sm:pb-7 md:pb-9"
               >
-                <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-brand to-sky-400" />
-                <QuoteMark className="pointer-events-none absolute -right-2 top-6 h-24 w-24 text-brand/10 md:h-32 md:w-32" />
-                <div className="relative">
+                {f.image && <Photo src={f.image} label={f.program} tall />}
+                <div className="relative px-6 sm:px-7 md:px-10">
                   {stat && (
                     <>
                       <p className="text-5xl font-semibold leading-none tracking-tight text-brand sm:text-6xl md:text-7xl">
@@ -147,7 +154,9 @@ export default function Testimonials() {
                     “{f.quote}”
                   </blockquote>
                 </div>
-                <Speaker item={f} />
+                <div className="px-6 sm:px-7 md:px-10">
+                  <Speaker item={f} />
+                </div>
               </figure>
             );
           })}
@@ -166,12 +175,16 @@ export default function Testimonials() {
             {slides.map((s) => (
               <figure
                 key={s.name}
-                className="relative flex shrink-0 basis-full snap-start flex-col justify-between gap-6 overflow-hidden rounded-3xl border border-ink/10 bg-white p-6 shadow-sm transition duration-300 hover:border-brand/30 hover:shadow-lg sm:p-7 md:basis-[calc(50%-10px)]"
+                className="group relative flex shrink-0 basis-full snap-start flex-col justify-between gap-5 overflow-hidden rounded-3xl border border-ink/10 bg-white pb-6 shadow-sm transition duration-300 hover:border-brand/30 hover:shadow-lg md:basis-[calc(50%-10px)]"
               >
-                <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-brand to-sky-400" />
-                <QuoteMark className="h-8 w-8 text-brand/30" />
-                <blockquote className="font-quote text-base italic leading-relaxed text-ink/85 md:text-lg">“{s.quote}”</blockquote>
-                <Speaker item={s} />
+                {s.image && <Photo src={s.image} label={s.program} />}
+                <div className="px-6 sm:px-7">
+                  <QuoteMark className="h-8 w-8 text-brand/30" />
+                  <blockquote className="mt-3 font-quote text-base italic leading-relaxed text-ink/85 md:text-lg">“{s.quote}”</blockquote>
+                </div>
+                <div className="px-6 sm:px-7">
+                  <Speaker item={s} />
+                </div>
               </figure>
             ))}
           </div>

@@ -65,52 +65,68 @@ export function draw(canvas: HTMLCanvasElement, d: CardData, logo: HTMLImageElem
   c.fillStyle = "#fff";
   c.fillRect(0, 0, W, H);
 
-  // body
+  // body: light card with a blue header band and a blue footer strip
   c.save();
   rr(c, 0, 0, W, H, 36);
   c.clip();
   const bg = c.createLinearGradient(0, 0, W, H);
-  bg.addColorStop(0, "#08305f");
-  bg.addColorStop(0.55, "#0b4f9c");
-  bg.addColorStop(1, "#1479d1");
+  bg.addColorStop(0, "#ffffff");
+  bg.addColorStop(1, "#eaf3fd");
   c.fillStyle = bg;
   c.fillRect(0, 0, W, H);
-  c.fillStyle = "rgba(255,255,255,.06)";
+  // soft decoration behind the details
+  c.fillStyle = "rgba(20,121,209,.06)";
   c.beginPath();
-  c.arc(W - 40, 250, 230, 0, 7);
+  c.arc(W - 30, H - 120, 210, 0, 7);
   c.fill();
-  c.fillStyle = "rgba(56,189,248,.14)";
+  c.fillStyle = "rgba(56,189,248,.10)";
   c.beginPath();
-  c.arc(W - 170, H - 20, 170, 0, 7);
+  c.arc(W - 150, H - 10, 130, 0, 7);
   c.fill();
 
-  // header band with the logo
-  c.fillStyle = "#fff";
-  c.fillRect(0, 0, W, 128);
-  if (logo) {
-    const h = 88,
-      w = (h * logo.width) / logo.height;
-    c.drawImage(logo, 40, 20, w, h);
-  }
+  // header band
+  const hb = c.createLinearGradient(0, 0, W, 0);
+  hb.addColorStop(0, "#08305f");
+  hb.addColorStop(0.6, "#0b4f9c");
+  hb.addColorStop(1, "#1479d1");
+  c.fillStyle = hb;
+  c.fillRect(0, 0, W, 150);
+  c.fillStyle = "rgba(255,255,255,.07)";
+  c.beginPath();
+  c.arc(W - 60, 20, 140, 0, 7);
+  c.fill();
   c.fillStyle = "#38bdf8";
-  c.fillRect(0, 128, W, 6);
+  c.fillRect(0, 150, W, 5);
+  if (logo) {
+    const h = 74,
+      w = (h * logo.width) / logo.height;
+    c.fillStyle = "#fff";
+    rr(c, 30, 22, w + 36, h + 28, 22);
+    c.fill();
+    c.drawImage(logo, 48, 35, w, h);
+  }
   c.textAlign = "right";
   c.textBaseline = "middle";
-  c.fillStyle = "#0b4f9c";
-  c.font = `700 30px ${F}`;
-  c.fillText("MEMBER ID CARD", W - 40, 54);
-  c.fillStyle = "#5b6b82";
+  c.fillStyle = "#fff";
+  c.font = `700 32px ${F}`;
+  c.fillText("MEMBER ID CARD", W - 40, 62);
+  c.fillStyle = "rgba(255,255,255,.8)";
   c.font = `500 18px ${F}`;
-  c.fillText(site.regLine, W - 40, 90);
+  c.fillText(site.regLine, W - 40, 100);
 
-  // photo
-  const px = 44,
-    py = 176,
-    pw = 232,
-    ph = 290;
+  // photo, overlapping the header
+  const px = 52,
+    py = 112,
+    pw = 226,
+    ph = 282;
+  c.save();
+  c.shadowColor = "rgba(6,26,54,.35)";
+  c.shadowBlur = 24;
+  c.shadowOffsetY = 8;
   c.fillStyle = "#fff";
   rr(c, px - 8, py - 8, pw + 16, ph + 16, 28);
   c.fill();
+  c.restore();
   c.save();
   rr(c, px, py, pw, ph, 22);
   c.clip();
@@ -124,39 +140,49 @@ export function draw(canvas: HTMLCanvasElement, d: CardData, logo: HTMLImageElem
     c.fillRect(px, py, pw, ph);
     c.fillStyle = "#9db6d3";
     c.beginPath();
-    c.arc(px + pw / 2, py + 110, 54, 0, 7);
+    c.arc(px + pw / 2, py + 108, 52, 0, 7);
     c.fill();
     c.beginPath();
-    c.ellipse(px + pw / 2, py + 250, 92, 82, 0, 0, 7);
+    c.ellipse(px + pw / 2, py + 245, 90, 80, 0, 0, 7);
     c.fill();
   }
   c.restore();
-  c.textAlign = "center";
-  c.textBaseline = "alphabetic";
-  c.fillStyle = "rgba(255,255,255,.9)";
+  // id pill under the photo
+  const idText = d.id || "ID: ----";
   c.font = `600 17px ${F}`;
-  c.fillText(d.id || "ID: ----", px + pw / 2, py + ph + 40);
+  const iw2 = Math.min(c.measureText(idText).width + 36, pw + 16);
+  c.fillStyle = "#0b4f9c";
+  rr(c, px + pw / 2 - iw2 / 2, py + ph + 30, iw2, 40, 20);
+  c.fill();
+  c.textAlign = "center";
+  c.textBaseline = "middle";
+  c.fillStyle = "#fff";
+  c.fillText(idText, px + pw / 2, py + ph + 51);
 
   // details
-  const tx = 324,
+  const tx = 330,
     tw = W - tx - 44;
   c.textAlign = "left";
   c.textBaseline = "alphabetic";
-  c.fillStyle = "#fff";
-  fit(c, d.name || "Your Name", 700, 54, 28, tw, F);
-  c.fillText(d.name || "Your Name", tx, 222);
+  c.fillStyle = "#08305f";
+  fit(c, d.name || "Your Name", 700, 52, 28, tw, F);
+  c.fillText(d.name || "Your Name", tx, 224);
   const role = d.role || "Role";
-  c.font = `600 24px ${F}`;
+  c.font = `600 22px ${F}`;
   const rw = Math.min(c.measureText(role).width + 44, tw);
-  c.fillStyle = "#38bdf8";
-  rr(c, tx, 246, rw, 46, 23);
+  c.fillStyle = "#e3f1fd";
+  rr(c, tx, 246, rw, 44, 22);
   c.fill();
-  c.fillStyle = "#06264d";
-  fit(c, role, 600, 24, 14, rw - 44, F);
+  c.strokeStyle = "#38bdf8";
+  c.lineWidth = 2;
+  rr(c, tx, 246, rw, 44, 22);
+  c.stroke();
+  c.fillStyle = "#0b4f9c";
+  fit(c, role, 600, 22, 14, rw - 44, F);
   c.textBaseline = "middle";
-  c.fillText(role, tx + 22, 270);
+  c.fillText(role, tx + 22, 269);
 
-  c.strokeStyle = "rgba(255,255,255,.25)";
+  c.strokeStyle = "rgba(11,79,156,.18)";
   c.lineWidth = 2;
   c.beginPath();
   c.moveTo(tx, 322);
@@ -172,19 +198,27 @@ export function draw(canvas: HTMLCanvasElement, d: CardData, logo: HTMLImageElem
         ["BLOOD GROUP", d.blood || "-"],
         ["VALID TILL", d.valid ? fmtDate(d.valid) : "-"]
       ];
+  const colW = tw / 2;
   rows.forEach(([k, v], i) => {
-    const y = 360 + i * 62;
+    const x = tx + (i % 2) * colW,
+      y = 366 + Math.floor(i / 2) * 92;
+    c.fillStyle = "#1479d1";
+    rr(c, x, y - 18, 5, 62, 2.5);
+    c.fill();
     c.textBaseline = "alphabetic";
-    c.fillStyle = "rgba(255,255,255,.65)";
+    c.fillStyle = "#5b6b82";
     c.font = `600 15px ${F}`;
-    c.fillText(k, tx, y);
-    c.fillStyle = "#fff";
-    fit(c, v, 600, 28, 16, tw, F);
-    c.fillText(v, tx, y + 32);
+    c.fillText(k, x + 18, y);
+    c.fillStyle = "#08305f";
+    fit(c, v, 600, 28, 16, colW - 30, F);
+    c.fillText(v, x + 18, y + 36);
   });
 
   // footer
-  c.fillStyle = "rgba(4,22,48,.55)";
+  const fb = c.createLinearGradient(0, 0, W, 0);
+  fb.addColorStop(0, "#08305f");
+  fb.addColorStop(1, "#1479d1");
+  c.fillStyle = fb;
   c.fillRect(0, H - 56, W, 56);
   c.textBaseline = "middle";
   c.textAlign = "left";
@@ -192,7 +226,7 @@ export function draw(canvas: HTMLCanvasElement, d: CardData, logo: HTMLImageElem
   c.font = `600 19px ${F}`;
   c.fillText(site.name, 40, H - 28);
   c.textAlign = "right";
-  c.fillStyle = "rgba(255,255,255,.8)";
+  c.fillStyle = "rgba(255,255,255,.85)";
   c.font = `500 17px ${F}`;
   c.fillText(site.website, W - 40, H - 28);
   c.restore();

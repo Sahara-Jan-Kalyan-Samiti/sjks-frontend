@@ -170,6 +170,8 @@ export interface Testimonial {
   program: string;
   quote: string;
   statLabel?: string;
+  /** programme photo from our own gallery (not a portrait of the speaker) */
+  image?: string;
 }
 export const testimonials: Testimonial[] = [
   {
@@ -177,6 +179,7 @@ export const testimonials: Testimonial[] = [
     name: "Parent of a Beneficiary Student",
     program: "Education Support Programme",
     statLabel: "Children in education programmes",
+    image: "/assets/images/gallery/education/school-bags-children-teacher.jpg",
     quote:
       "Thanks to Sahara Jan Kalyan Samiti, my daughter got the supplies and support to keep learning. Her confidence and grades soared!"
   },
@@ -185,12 +188,14 @@ export const testimonials: Testimonial[] = [
     name: "SHG Member & Rural Entrepreneur",
     program: "Women Empowerment & Self Help Groups",
     statLabel: "Women in SHGs & livelihoods",
+    image: "/assets/images/gallery/skill-development/kaushal-workshop-group.jpg",
     quote: "This group boosted my self-confidence and taught me money skills that have really helped out."
   },
   {
     initial: "H",
     name: "Healthcare Support Beneficiary",
     program: "Medical Treatment Assistance",
+    image: "/assets/images/gallery/health-nutrition/health-checkup-bp.jpg",
     quote:
       "When our family faced a serious medical emergency, Sahara Jan Kalyan Samiti stepped in. Their timely aid gave us hope in a tough time."
   },
@@ -198,12 +203,14 @@ export const testimonials: Testimonial[] = [
     initial: "C",
     name: "Community Volunteer",
     program: "Nutrition & Child Welfare",
+    image: "/assets/images/gallery/health-nutrition/mothers-children-nutrition-session.jpg",
     quote: "Parents learned about healthy habits, and the kids look healthier and happier. This has been fantastic for our community."
   },
   {
     initial: "C",
     name: "Community Leader",
     program: "Awareness, Health & Education",
+    image: "/assets/images/gallery/environment/plantation-volunteers-with-saplings.jpg",
     quote: "Because of their dedication to social progress, they inspire positive changes around the area."
   }
 ];
