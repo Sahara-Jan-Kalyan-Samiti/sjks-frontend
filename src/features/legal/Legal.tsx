@@ -45,7 +45,7 @@ export default function Legal({ kind }: { kind: LegalKind }) {
 
   return (
     <>
-      <PageHero eyebrow="Legal" title={title} />
+      <PageHero eyebrow="Legal" title={title} images={["/assets/images/transparency/transparency-hero.jpg"]} />
       <section className="bg-white py-10 text-ink/80 md:py-16">
         <div className="container-site">
           {/* small screens: a scrolling row of section buttons that stays under the site header */}
@@ -66,7 +66,7 @@ export default function Legal({ kind }: { kind: LegalKind }) {
             ))}
           </nav>
 
-          <div className="grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-16 xl:grid-cols-[17rem_minmax(0,1fr)]">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-16 xl:grid-cols-[17rem_minmax(0,1fr)]">
             {/* large screens: contents list beside the text */}
             <aside className="hidden lg:block">
               <div className="sticky top-[104px]">
@@ -87,7 +87,7 @@ export default function Legal({ kind }: { kind: LegalKind }) {
               </div>
             </aside>
 
-            <article className="min-w-0 max-w-3xl">
+            <article className="min-w-0 max-w-3xl [overflow-wrap:anywhere]">
               <p className="text-sm text-ink/60">Last updated: {c(`legal.${kind}.updated`)}.</p>
               {doc.intro && (
                 <p className="mt-4 border-b border-ink/10 pb-9 text-lg leading-[1.85] text-ink/90 md:text-xl md:leading-[1.8]">

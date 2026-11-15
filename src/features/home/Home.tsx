@@ -43,36 +43,64 @@ const heroImages = homeHeroSlides.map((s) => s.src);
 const heroFocus = Object.fromEntries([homeHeroOpening, ...homeHeroSlides].map((s) => [s.src, s.focus]));
 
 /** Icon + colour for the four "ways to help" cards (Donate, Volunteer, Corporate CSR, Sponsor). */
-const WAY_LOOK: { tone: string; icon: JSX.Element }[] = [
-  { tone: "from-rose-500 to-pink-600", icon: <path d="M12 20s-7-4.400-7-9.600A4 4 0 0112 8a4 4 0 017 2.400C19 15.600 12 20 12 20z" /> },
+const WAY_LOOK: { tone: string; text: string; icon: JSX.Element }[] = [
   {
-    tone: "from-sky-500 to-blue-600",
+    tone: "from-rose-500 to-pink-600",
+    text: "text-rose-600",
     icon: (
       <>
-        <circle cx="9" cy="8" r="3" />
-        <path d="M3 19c0-3 2.700-5 6-5s6 2 6 5" />
-        <path d="M16 5.200a3 3 0 010 5.600M17.500 14.300c2 .6 3.500 2.300 3.500 4.700" />
+        <path d="M11 14h2a2 2 0 100-4h-3c-.6 0-1.1.2-1.4.6L3 16" />
+        <path d="M7 20l1.6 1.4c.3.4.8.6 1.4.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 00-2.75-2.91l-4.2 3.9" />
+        <path d="M2 15l6 6" />
+        <path d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0016 4a2.78 2.78 0 00-5 1.8c0 1.2.8 2 1.5 2.8L16 12z" />
+      </>
+    )
+  },
+  {
+    tone: "from-sky-500 to-blue-600",
+    text: "text-sky-600",
+    icon: (
+      <>
+        <path d="M18 11V6a2 2 0 00-2-2 2 2 0 00-2 2" />
+        <path d="M14 10V4a2 2 0 00-2-2 2 2 0 00-2 2v2" />
+        <path d="M10 10.5V6a2 2 0 00-2-2 2 2 0 00-2 2v8" />
+        <path d="M18 8a2 2 0 114 0v6a8 8 0 01-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 012.83-2.82L7 15" />
       </>
     )
   },
   {
     tone: "from-indigo-500 to-violet-600",
+    text: "text-violet-600",
     icon: (
       <>
-        <path d="M4 21V5a1 1 0 011-1h8a1 1 0 011 1v16" />
-        <path d="M14 10h5a1 1 0 011 1v10M2.500 21h19M8 8h2M8 12h2M8 16h2" />
+        <path d="M11 17l2 2a1 1 0 103-3" />
+        <path d="M14 14l2.5 2.5a1 1 0 103-3l-3.88-3.88a3 3 0 00-4.24 0l-.88.88a1 1 0 11-3-3l2.81-2.81a5.79 5.79 0 017.06-.87l.47.28a2 2 0 001.42.25L21 4" />
+        <path d="M21 3l1 11h-2" />
+        <path d="M3 3L2 14l6.5 6.5a1 1 0 103-3" />
+        <path d="M3 4h8" />
       </>
     )
   },
   {
     tone: "from-emerald-500 to-green-600",
+    text: "text-emerald-600",
     icon: (
       <>
-        <rect x="3.500" y="9" width="17" height="5" rx="1" />
-        <path d="M5 14v6h14v-6M12 9v11M12 9c-2.500 0-4-1-4-2.500S9.500 4 12 9zM12 9c2.500 0 4-1 4-2.500S14.500 4 12 9z" />
+        <path d="M7 20h10" />
+        <path d="M10 20c5.5-2.5.8-6.4 3-10" />
+        <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z" />
+        <path d="M14.1 6a7 7 0 00-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z" />
       </>
     )
   }
+];
+
+/** Photo at the top of each "ways to help" card, same order as WAY_LOOK (from the gallery in public/assets/images/gallery). */
+const WAY_PHOTO = [
+  "/assets/images/gallery/education/children-learning-kits.jpg",
+  "/assets/images/gallery/csr-volunteering/sap-volunteers-group.jpg",
+  "/assets/images/gallery/csr-volunteering/employee-volunteers-sahara-banner.jpg",
+  "/assets/images/gallery/education/school-bags-children-teacher.jpg"
 ];
 
 export default function Home() {
@@ -182,9 +210,14 @@ export default function Home() {
         {/* faded photo of the children we work with, fading out at the top and bottom so the section joins the wave above and the next section below */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-20 [mask-image:linear-gradient(to_bottom,transparent,black_30%,black_70%,transparent)]"
+          className="absolute inset-0 -z-20 hidden [mask-image:linear-gradient(to_bottom,transparent,black_30%,black_70%,transparent)] md:block"
         >
-          <Img file="media/media-03.webp" alt="" defer className="h-full w-full object-cover object-[center_60%] opacity-[.6]" />
+          <Img
+            file="gallery/environment/women-in-green-village-forest.jpg"
+            alt=""
+            defer
+            className="h-full w-full object-cover object-[center_35%] opacity-100"
+          />
         </div>
         <div
           aria-hidden="true"
@@ -388,47 +421,47 @@ export default function Home() {
               <Reveal key={w.title} delay={i * 90} className="h-full">
                 <Link
                   href={w.href}
-                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink/10 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-xl"
+                  className="group relative flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-[0_18px_40px_-26px_rgba(11,79,156,.5)] ring-1 ring-ink/5 transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_50px_-24px_rgba(11,79,156,.6)]"
                 >
+                  <div className="relative h-40 w-full overflow-hidden">
+                    <img
+                      src={WAY_PHOTO[i % 4]}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    />
+                    <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
+                  </div>
                   <span
                     aria-hidden="true"
-                    className={`absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r ${WAY_LOOK[i % 4].tone} transition-transform duration-300 group-hover:scale-x-100`}
-                  />
-                  <span
-                    aria-hidden="true"
-                    className={`pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gradient-to-br ${WAY_LOOK[i % 4].tone} opacity-[.08] transition duration-500 group-hover:scale-150 group-hover:opacity-[.16]`}
-                  />
-                  <span
-                    aria-hidden="true"
-                    className={`relative flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${WAY_LOOK[i % 4].tone} text-white shadow-md transition duration-300 group-hover:-rotate-6 group-hover:scale-110`}
+                    className={`absolute left-5 top-[8.5rem] z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white ${WAY_LOOK[i % 4].text} shadow-lg ring-4 ring-white transition duration-300 group-hover:scale-110`}
                   >
                     <svg
                       viewBox="0 0 24 24"
                       className="h-6 w-6"
                       fill="none"
                       stroke="currentColor"
-                      strokeWidth="1.7"
+                      strokeWidth="1.8"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     >
                       {WAY_LOOK[i % 4].icon}
                     </svg>
                   </span>
-                  <h3 className="relative mt-4 font-serif text-lg font-bold text-ink">{c(`involved.way.${i + 1}.title`)}</h3>
-                  <span
-                    aria-hidden="true"
-                    className="relative mt-2 block h-px w-8 bg-brand/40 transition-all duration-300 group-hover:w-14"
-                  />
-                  <p className="relative mt-3 text-left text-sm leading-relaxed text-ink/65">{c(`involved.way.${i + 1}.text`)}</p>
-                  <span className="relative mt-auto flex items-center justify-between pt-5 text-sm font-semibold text-brand">
-                    {w.cta}
-                    <span
-                      aria-hidden="true"
-                      className="flex h-8 w-8 items-center justify-center rounded-full bg-brand/10 transition duration-300 group-hover:translate-x-1 group-hover:bg-brand group-hover:text-white"
-                    >
-                      →
+                  <div className="flex flex-1 flex-col px-5 pb-5 pt-9">
+                    <h3 className="font-serif text-lg font-bold text-ink">{c(`involved.way.${i + 1}.title`)}</h3>
+                    <p className="mt-2 mb-5 text-left text-sm leading-relaxed text-ink/65">{c(`involved.way.${i + 1}.text`)}</p>
+                    <span className="mt-auto flex items-center justify-between border-t border-ink/10 pt-4 text-sm font-semibold text-brand">
+                      {w.cta}
+                      <span
+                        aria-hidden="true"
+                        className={`flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br ${WAY_LOOK[i % 4].tone} text-white shadow-md transition duration-300 group-hover:translate-x-1`}
+                      >
+                        →
+                      </span>
                     </span>
-                  </span>
+                  </div>
                 </Link>
               </Reveal>
             ))}
@@ -440,9 +473,38 @@ export default function Home() {
       <section className="defer-render bg-brand-light py-16">
         <div className="container-site">
           <Reveal>
-            <p className="eyebrow">{t("Health Care")}</p>
+            <p className="eyebrow flex items-center gap-3">
+              {t("Health Care")}
+              <span aria-hidden="true" className="h-px w-12 bg-brand/40" />
+            </p>
             <h2 className="h2 mt-2">Helping Mumbai's Cooper Hospital Care for More Patients</h2>
-            <p className="mt-3 max-w-3xl text-ink/70">
+            <div className="mt-5 flex flex-wrap gap-2.5">
+              {[
+                ["13 August 2026", "M8 2v4M16 2v4M3 10h18M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"],
+                ["Juhu, Mumbai", "M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11zM12 12a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"],
+                ["With KONE India CSR", "M4 21V5a1 1 0 011-1h8a1 1 0 011 1v16M14 10h5a1 1 0 011 1v10M2.5 21h19M8 8h2M8 12h2M8 16h2"]
+              ].map(([label, icon]) => (
+                <span
+                  key={label}
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-sm font-semibold text-brand-dark shadow-sm ring-1 ring-brand/15"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-4 w-4 text-brand"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d={icon} />
+                  </svg>
+                  {label}
+                </span>
+              ))}
+            </div>
+            <p className="mt-5 max-w-4xl !text-left text-base leading-relaxed text-ink/75 md:border-l-4 md:border-brand/40 md:pl-5 md:text-lg">
               With KONE India's CSR support, the Samiti handed over a renovated room with an ultrasound machine, wheelchairs and a stretcher
               trolley to the Dr. R. N. Cooper Municipal General Hospital in Juhu, Mumbai, on 13 August 2026, so patients can be examined
               sooner and the many families who depend on the hospital for affordable care are served better.

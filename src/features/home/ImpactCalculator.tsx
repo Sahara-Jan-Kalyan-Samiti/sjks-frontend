@@ -6,6 +6,15 @@ import DonateButton from "@/components/ui/DonateButton";
 const fmt = (n: number) => n.toLocaleString("en-IN");
 const MIN = 500,
   MAX = 25000;
+/** Short, warm headline for each tier (keyed by the tier's minimum amount); the original sentence is shown under it. */
+const HEADLINE: Record<number, string> = {
+  500: "Send a child to school, ready to learn",
+  1500: "Nourish 3 families for a whole month",
+  2500: "Give 5 children a full year of learning",
+  6000: "Change one child's future for good",
+  12500: "Bring health care to an entire village",
+  20000: "Grow a greener tomorrow for a community"
+};
 const QUICK = [500, 1000, 2500, 5000, 10000, 25000];
 export default function ImpactCalculator() {
   const [amount, setAmount] = useState(2500);
@@ -63,33 +72,42 @@ export default function ImpactCalculator() {
         </div>
 
         <div
-          className="relative mt-6 overflow-hidden rounded-2xl border border-brand/20 bg-gradient-to-br from-brand-light via-white to-brand-light p-4 shadow-sm sm:p-5"
+          className="relative mt-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0a2f5c] via-[#0b4f9c] to-[#1479d1] p-5 text-white shadow-lg shadow-brand/25 sm:p-6"
           aria-live="polite"
         >
-          <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-sky-200/40" />
-          <div className="relative flex items-center gap-4">
+          <span aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full bg-white/10" />
+          <span aria-hidden="true" className="pointer-events-none absolute -bottom-12 -left-6 h-28 w-28 rounded-full bg-sky-300/10" />
+          <div className="relative flex items-start gap-4">
             <span
               aria-hidden="true"
-              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 to-brand text-white shadow-lg shadow-brand/30 ring-4 ring-white"
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-brand shadow-lg ring-4 ring-white/25"
             >
-              <svg
-                viewBox="0 0 24 24"
-                className="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M12 20s-7-4.4-7-9.6A4 4 0 0112 8a4 4 0 017 2.4C19 15.6 12 20 12 20z" />
+              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
               </svg>
             </span>
             <div className="min-w-0 text-left">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-brand-dark">Direct impact outcome</p>
-              <p key={outcome.text} className="ic-pop mt-1 text-base font-semibold leading-snug text-ink sm:text-lg">
-                {outcome.text}
+              <p className="text-[11px] font-semibold uppercase tracking-[.2em] text-sky-200">Your ₹{fmt(amount)} can</p>
+              <p key={outcome.text} className="ic-pop mt-1 text-lg font-bold leading-snug sm:text-xl">
+                {HEADLINE[outcome.min] ?? outcome.text}
               </p>
+              {HEADLINE[outcome.min] && (
+                <p key={`d-${outcome.text}`} className="ic-pop mt-1.5 text-sm leading-relaxed text-white/80">
+                  {outcome.text}
+                </p>
+              )}
             </div>
+          </div>
+          <div className="relative mt-4 flex items-center gap-3 border-t border-white/15 pt-3">
+            <div className="flex gap-1.5" aria-hidden="true">
+              {impactTiers.map((tier) => (
+                <span
+                  key={tier.min}
+                  className={`h-1.5 w-6 rounded-full transition-colors ${tier.min <= outcome.min ? "bg-sky-300" : "bg-white/20"}`}
+                />
+              ))}
+            </div>
+            <p className="text-xs text-white/70">Every rupee goes further when we give together.</p>
           </div>
         </div>
 

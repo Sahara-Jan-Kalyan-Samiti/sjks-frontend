@@ -40,7 +40,6 @@ function Photo({ src, label, tall = false }: { src: string; label: string; tall?
   const { t } = useLang();
   return (
     <div className={`relative w-full overflow-hidden ${tall ? "h-48 sm:h-56" : "h-40 sm:h-44"}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={src} alt="" loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
       <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
       <span className="absolute bottom-3 left-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold text-brand-dark shadow">
@@ -212,23 +211,56 @@ export default function Testimonials() {
           )}
         </div>
 
-        {/* summary bar */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-6 rounded-[28px] bg-[#f3f6fa] px-6 py-6 text-center md:flex-row md:px-10 md:text-left">
-          <p className="flex flex-col items-center gap-1 md:flex-row md:gap-4">
-            {total && (
-              <strong className="text-3xl font-semibold tracking-tight text-brand md:text-4xl">
-                <CountUp stat={total} />
-              </strong>
-            )}
-            <span className="max-w-xs text-sm text-ink/65 md:text-base">{t("people reached through our programmes")}</span>
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link href="/news" className="btn border border-ink/15 bg-white text-ink">
-              {t("Read more stories")}
-            </Link>
-            <Link href="/donate" className="btn btn-primary">
-              {t("Support our work")}
-            </Link>
+        {/* summary banner */}
+        <div className="relative mt-10 overflow-hidden rounded-[28px] bg-gradient-to-br from-[#0a2f5c] via-[#0b4f9c] to-[#1479d1] px-6 py-8 text-white shadow-[0_24px_60px_-30px_rgba(11,79,156,.7)] md:px-10 md:py-9">
+          <span aria-hidden="true" className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full bg-white/10" />
+          <span aria-hidden="true" className="pointer-events-none absolute -bottom-24 left-1/3 h-56 w-56 rounded-full bg-sky-300/10" />
+          <div className="relative flex flex-col items-center justify-between gap-7 text-center lg:flex-row lg:text-left">
+            <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-5">
+              <span
+                aria-hidden="true"
+                className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/30"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-8 w-8"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="9" cy="8" r="3" />
+                  <path d="M3 19c0-3 2.7-5 6-5s6 2 6 5" />
+                  <path d="M16 5.2a3 3 0 010 5.6M17.5 14.3c2 .6 3.5 2.3 3.5 4.7" />
+                </svg>
+              </span>
+              <div>
+                {total && (
+                  <strong className="block text-4xl font-bold leading-none tracking-tight md:text-5xl">
+                    <CountUp stat={total} />
+                  </strong>
+                )}
+                <span className="mt-2 block max-w-sm text-sm text-white/80 md:text-base">{t("people reached through our programmes")}</span>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/news"
+                className="inline-flex items-center justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                {t("Read more stories")}
+              </Link>
+              <Link
+                href="/donate"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-brand-dark shadow-lg transition hover:-translate-y-0.5 hover:bg-brand-light"
+              >
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 text-rose-500" fill="currentColor">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+                {t("Support our work")}
+              </Link>
+            </div>
           </div>
         </div>
       </div>

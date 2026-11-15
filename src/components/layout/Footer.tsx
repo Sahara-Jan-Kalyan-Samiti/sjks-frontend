@@ -143,7 +143,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="container-site flex flex-col items-center gap-4 pb-24 pt-4 text-center text-xs md:pb-4 md:pl-44 md:pr-24 2xl:flex-row 2xl:justify-between 2xl:gap-8 2xl:pl-6 2xl:pr-6 2xl:text-left">
+        <div className="container-site flex flex-col items-center gap-4 pb-32 pt-4 text-center text-xs md:pb-4 md:pl-44 md:pr-24 2xl:flex-row 2xl:justify-between 2xl:gap-8 2xl:pl-6 2xl:pr-6 2xl:text-left">
           <div className="flex w-full max-w-[17rem] flex-col gap-2 sm:w-auto sm:max-w-none sm:flex-row md:order-last 2xl:shrink-0">
             <a
               href={site.googleBusiness}
