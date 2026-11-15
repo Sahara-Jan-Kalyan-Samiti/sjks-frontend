@@ -12,9 +12,14 @@ export default function FloatingActions() {
   const { t } = useLang();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  // at the very end of the page (the footer links) the pills would sit on top of the links, so on phones they step aside
+  const [atEnd, setAtEnd] = useState(false);
   const isMobile = useIsMobile();
   useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 600);
+    const on = () => {
+      setScrolled(window.scrollY > 600);
+      setAtEnd(window.innerHeight + window.scrollY > document.documentElement.scrollHeight - 260);
+    };
     on();
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
@@ -23,7 +28,7 @@ export default function FloatingActions() {
     <>
       {pathname !== "/donate" && (
         <div
-          className={`fixed bottom-4 left-4 z-30 flex flex-col items-start gap-2 transition duration-300 sm:bottom-5 sm:flex-row sm:items-center sm:gap-3 ${scrolled || (isMobile && pathname !== "/") ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"}`}
+          className={`fixed bottom-4 left-4 z-30 flex flex-col items-start gap-2 transition duration-300 sm:bottom-5 sm:flex-row sm:items-center sm:gap-3 ${(scrolled || (isMobile && pathname !== "/")) && !(isMobile && atEnd) ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"}`}
         >
           <DonateButton to="/donate" className="dbtn-float">
             {t("Donate")}
