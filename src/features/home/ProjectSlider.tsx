@@ -26,7 +26,7 @@ export default function ProjectSlider() {
               <Img defer file={p.image} alt={`${c(`project.${p.slug}.title`)} project activity`} className="h-48 w-full shrink-0" />
               <div className="flex flex-1 flex-col p-5">
                 <p className="eyebrow">
-                  0{i + 1} · {p.category}
+                  {String(i + 1).padStart(2, "0")} · {p.category}
                 </p>
                 <h3 className="mt-2 font-serif text-lg font-bold">{c(`project.${p.slug}.title`)}</h3>
                 <p className="mt-2 text-sm text-ink/70">{c(`project.${p.slug}.text`)}</p>
