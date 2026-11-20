@@ -93,7 +93,7 @@ export default function Projects() {
             <Img file={p.image} alt={c(`project.${p.slug}.title`)} className="h-52 w-full shrink-0" />
             <div className="flex flex-1 flex-col p-5">
               <p className="eyebrow">
-                0{i + 1} · {p.category}
+                {String(i + 1).padStart(2, "0")} · {p.category}
               </p>
               <h2 className="mt-2 font-serif text-xl font-bold">{c(`project.${p.slug}.title`)}</h2>
               <p className="justified mt-2 text-sm text-ink/70">{c(`project.${p.slug}.text`)}</p>
@@ -214,7 +214,7 @@ export default function Projects() {
             </p>
           </div>
           <div className="mt-8 flex flex-wrap justify-center gap-2.5">
-            {(["all", ...core.map((c) => c.slug)] as (Area | "all")[]).map((a) => {
+            {(["all", ...core.map((c) => c.slug).filter((slug) => slug in areaLook)] as (Area | "all")[]).map((a) => {
               const on = a === area;
               return (
                 <button

@@ -11,6 +11,14 @@ export interface ProjectDetailBlock {
   report?: { label: string; href: string };
   donateCause?: string;
   tagline?: string;
+  /** Programmes written up as "What we do / Who we serve / How you can help": a list of activities, then two short notes. */
+  whatWeDo?: string[];
+  whoWeServe?: string;
+  howToHelp?: string;
+  /** Short highlighted notes (a title and a sentence each), e.g. "Our impact so far". */
+  callouts?: { title: string; text: string }[];
+  /** Words on the donate button; when set, a "Partner With Us" button is shown beside it. */
+  donateLabel?: string;
 }
 export interface Project {
   slug: string;
@@ -124,6 +132,160 @@ export const projects: Project[] = [
       ],
       report: { label: "Read the full Solar Lantern Impact Report (PDF)", href: "/documents/SJKS-Solar-Lantern-Impact-Report.pdf" },
       donateCause: "Solar Lanterns for Tribal Families"
+    }
+  },
+  {
+    slug: "healthcare",
+    category: "Healthcare",
+    title: "Community Healthcare & Medical Support",
+    image: "programmes/healthcare.webp",
+    text: "Free health check-up camps, preventive healthcare awareness, medical assistance for underprivileged families, and support for patients in need.",
+    detail: {
+      paragraphs: [
+        "Good health is the foundation of a dignified life. Yet for many poor families, a doctor’s visit, a diagnostic test or a simple medicine can be out of reach. Sahara Jan Kalyan Samiti works to bring healthcare closer to those who need it most."
+      ],
+      whatWeDo: [
+        "Free health check-up camps in villages and urban slums",
+        "Awareness on nutrition, hygiene, maternal and child health",
+        "Medical assistance for patients who cannot afford treatment",
+        "Medical equipment for public hospitals, including a renovated ultrasound room at Dr. R. N. Cooper General Hospital, Mumbai, with CSR support from KONE India, now serving 25–35 patients every day"
+      ],
+      whoWeServe: "Economically weaker families, women, children and elderly patients who depend on public healthcare.",
+      howToHelp: "Your donation can support a health camp, a patient’s treatment, or equipment for a public hospital.",
+      donateCause: "Healthcare",
+      donateLabel: "Donate for Healthcare"
+    }
+  },
+  {
+    slug: "skill-development",
+    category: "Skill Development",
+    title: "Youth Skill Development & Livelihood Training",
+    image: "programmes/skill-development.webp",
+    text: "Vocational training, computer education, practical job skills, entrepreneurship guidance, and career development opportunities for youth.",
+    detail: {
+      paragraphs: [
+        "Many young people in rural and semi-urban areas finish school without the skills that employers need. Our skill development programme helps them build practical abilities and the confidence to earn a living."
+      ],
+      whatWeDo: [
+        "Vocational and job-oriented skill training",
+        "Basic computer and digital literacy courses",
+        "Guidance on starting small businesses and self-employment",
+        "Career counselling and support in finding job opportunities"
+      ],
+      whoWeServe: "Young men and women from economically weaker families, especially school leavers and unemployed youth.",
+      howToHelp:
+        "Your support can fund a training course, computer lab equipment, or a toolkit for a young person starting their own work.",
+      donateCause: "Skill Development",
+      donateLabel: "Donate for Skill Development"
+    }
+  },
+  {
+    slug: "soil-testing",
+    category: "Farmer Support",
+    title: "Krishi Sahara: Soil Testing & Farmer Support Centre",
+    image: "programmes/soil-testing.webp",
+    text: "Soil testing facility for farmers, soil health guidance, balanced fertiliser advice and awareness on water conservation, helping farmers improve soil fertility and crop yield.",
+    detail: {
+      paragraphs: [
+        "Healthy soil is the foundation of a good harvest. Yet many small and marginal farmers have never had their soil tested. Without knowing what their soil needs, they often use too much or the wrong fertiliser, which raises costs, harms the soil and lowers yields over time.",
+        "To help farmers make better decisions, Sahara Jan Kalyan Samiti runs a Soil Testing Facility Centre for farmers in Sagar district."
+      ],
+      whatWeDo: [
+        "Test soil samples using a modern portable soil testing laboratory",
+        "Check key soil parameters such as pH, organic carbon, nitrogen, phosphorus, potassium and micronutrients",
+        "Explain the results to farmers in simple language",
+        "Advise on balanced fertiliser use and ways to improve soil fertility",
+        "Help farmers understand and use their Soil Health Card",
+        "Spread awareness on water conservation and sustainable farming"
+      ],
+      callouts: [
+        {
+          title: "Reaching farmers where they are",
+          text: "Our team takes soil testing directly to villages and farmer gatherings, including government outreach camps such as the Viksit Bharat Sankalp Yatra, so that farmers can get their soil tested close to home."
+        }
+      ],
+      whoWeServe: "Small and marginal farmers in Sagar district, Madhya Pradesh.",
+      howToHelp: "Your support can help us test soil for more farmers, hold farmer awareness camps, and reach more villages.",
+      donateCause: "Farmer Support",
+      donateLabel: "Donate for Farmers"
+    }
+  },
+  {
+    slug: "water-conservation",
+    category: "Water Conservation",
+    title: "Jal Sanrakshan & Rural Water Initiative",
+    image: "programmes/water-conservation.webp",
+    text: "Rainwater harvesting awareness, water conservation campaigns, village-level water stewardship, and community participation in protecting local water resources.",
+    detail: {
+      paragraphs: [
+        "Water scarcity affects farming, health and daily life in many villages of Bundelkhand and central India. Protecting local water resources is essential for the future of rural communities."
+      ],
+      whatWeDo: [
+        "Awareness on rainwater harvesting and saving water",
+        "Community campaigns to clean and protect ponds, wells and other water sources",
+        "Encouraging village-level participation in caring for local water resources",
+        "Promoting responsible water use in homes and farms"
+      ],
+      whoWeServe: "Rural communities, farmers and families who depend on local water sources.",
+      howToHelp: "Your support can fund awareness campaigns and community efforts to protect water resources in villages.",
+      donateCause: "Water Conservation",
+      donateLabel: "Donate for Water Conservation"
+    }
+  },
+  {
+    slug: "art-culture",
+    category: "Art & Culture",
+    title: "Bhartiya Kala, Sangeet & Sanskriti Promotion",
+    image: "programmes/art-culture.webp",
+    text: "Guru-Shishya training, traditional music and dance education, cultural workshops, and opportunities for talented children and youth to learn Indian art forms.",
+    detail: {
+      paragraphs: [
+        "India’s art, music and cultural traditions are a precious heritage. Many talented children from poor families never get the chance to learn them. We aim to keep these traditions alive and open them to every child."
+      ],
+      whatWeDo: [
+        "Guru-Shishya style training in traditional art forms",
+        "Classes in Indian classical and folk music and dance",
+        "Cultural workshops and events for children and youth",
+        "Platforms for talented young artists to perform and grow"
+      ],
+      whoWeServe:
+        "Children and young people, especially those from economically weaker families, who have an interest in Indian art and culture.",
+      howToHelp: "Your donation can support a child’s training, musical instruments, or a cultural workshop.",
+      donateCause: "Art & Culture",
+      donateLabel: "Donate for Art & Culture"
+    }
+  },
+  {
+    slug: "menstrual-hygiene",
+    category: "Girls’ Health",
+    title: "Menstrual Health & Hygiene in Schools",
+    image: "gallery/health-nutrition/menstrual-hygiene-inauguration.jpg",
+    text: "Sanitary napkin vending machines, incinerators, free sanitary pads and menstrual hygiene awareness for adolescent girls, reaching 3,797 girls in 14 government schools with CSR support from KONE India.",
+    detail: {
+      partner: "With CSR support from KONE India",
+      paragraphs: [
+        "For many adolescent girls in government schools, managing their period at school is a real challenge. Pads are not always within reach, safe disposal is often missing, and menstruation is rarely discussed openly."
+      ],
+      stats: [
+        { value: "14", label: "Government schools" },
+        { value: "3,797", label: "Adolescent girls" },
+        { value: "98,000", label: "Sanitary pads" }
+      ],
+      whatWeDo: [
+        "Install sanitary napkin vending machines in schools",
+        "Install sanitary napkin incinerators for safe disposal",
+        "Provide free sanitary pads to schoolgirls",
+        "Conduct menstrual hygiene and health awareness sessions"
+      ],
+      callouts: [
+        {
+          title: "Our impact so far",
+          text: "With CSR support from KONE India, we reached 14 government schools in Hyderabad and 3,797 adolescent girls, and provided 98,000 sanitary pads."
+        }
+      ],
+      howToHelp: "Your support can bring a vending machine, safe disposal and awareness to girls in another school.",
+      donateCause: "Girls’ Health",
+      donateLabel: "Donate for Girls’ Health"
     }
   }
 ];

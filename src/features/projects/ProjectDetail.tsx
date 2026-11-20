@@ -62,7 +62,12 @@ export default function ProjectDetail({ slug }: { slug: string }) {
             </ul>
           )}
           <div className="mt-6 flex flex-wrap gap-3">
-            <DonateButton to={donateTo}>{d ? "Fund a lantern" : "Sponsor"}</DonateButton>
+            <DonateButton to={donateTo}>{d?.donateLabel ?? (d ? "Fund a lantern" : "Sponsor")}</DonateButton>
+            {d?.donateLabel && (
+              <Link href="/partner-with-us" className="btn btn-brand">
+                Partner With Us
+              </Link>
+            )}
             {d?.report && (
               <a href={d.report.href} target="_blank" rel="noreferrer" className="btn btn-brand">
                 {d.report.label}
@@ -87,7 +92,9 @@ export default function ProjectDetail({ slug }: { slug: string }) {
 
       {d?.stats && (
         <section className="bg-brand-light py-10">
-          <dl className="container-site grid grid-cols-2 gap-3 text-center sm:gap-4 md:grid-cols-4">
+          <dl
+            className={`container-site grid grid-cols-2 gap-3 text-center sm:gap-4 ${d.stats.length === 3 ? "md:grid-cols-3" : "md:grid-cols-4"}`}
+          >
             {d.stats.map((s) => (
               <div key={s.label} className="rounded-2xl bg-white p-4 sm:p-5">
                 <dt className="font-serif text-2xl font-bold text-brand-dark sm:text-3xl">{s.value}</dt>
@@ -95,6 +102,64 @@ export default function ProjectDetail({ slug }: { slug: string }) {
               </div>
             ))}
           </dl>
+        </section>
+      )}
+
+      {d?.whatWeDo && (
+        <section className="container-site py-14 md:py-16">
+          <p className="eyebrow">What we do</p>
+          <h2 className="h2 mt-2">How we make a difference</h2>
+          <ul className="mt-8 grid gap-4 md:grid-cols-2">
+            {d.whatWeDo.map((x, i) => (
+              <li key={x} className="flex gap-4 rounded-2xl border border-ink/10 bg-white p-5 shadow-sm">
+                <span
+                  aria-hidden="true"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand/10 text-sm font-bold text-brand-dark"
+                >
+                  {i + 1}
+                </span>
+                <p className="leading-relaxed text-ink/80">{x}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {d?.callouts && (
+        <section className="container-site pb-4">
+          <div className="grid gap-4">
+            {d.callouts.map((x) => (
+              <div key={x.title} className="rounded-2xl border border-brand/15 bg-brand-light p-6 md:p-7">
+                <p className="text-xs font-bold uppercase tracking-widest text-brand">{x.title}</p>
+                <p className="mt-2 leading-relaxed text-ink/80">{x.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {(d?.whoWeServe || d?.howToHelp) && (
+        <section className="container-site py-14 md:py-16">
+          <div className="grid gap-5 md:grid-cols-2">
+            {d?.whoWeServe && (
+              <div className="rounded-2xl border border-ink/10 bg-white p-6 shadow-sm md:p-8">
+                <p className="eyebrow">Who we serve</p>
+                <p className="mt-3 leading-relaxed text-ink/80">{d.whoWeServe}</p>
+              </div>
+            )}
+            {d?.howToHelp && (
+              <div className="rounded-2xl bg-gradient-to-br from-brand-dark to-brand p-6 text-white md:p-8">
+                <p className="text-xs font-bold uppercase tracking-widest text-sky-200">How you can help</p>
+                <p className="mt-3 leading-relaxed text-white/90">{d.howToHelp}</p>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <DonateButton to={donateTo}>{d.donateLabel ?? "Sponsor"}</DonateButton>
+                  <Link href="/partner-with-us" className="btn-light btn-light-lg">
+                    Partner With Us
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
         </section>
       )}
 
