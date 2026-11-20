@@ -58,7 +58,15 @@ export const nav: NavItem[] = [
       { label: "Request Certificates", href: "/transparency?request=certificate#request" }
     ]
   },
-  { label: "Resource Center", href: "/blog" },
+  {
+    label: "Resource Center",
+    href: "/blog",
+    children: [
+      { label: "Blogs", href: "/blog" },
+      { label: "Latest News", href: "/news" },
+      { label: "In the News", href: "/in-the-news" }
+    ]
+  },
   {
     label: "Partners & Membership",
     href: "/memberships",

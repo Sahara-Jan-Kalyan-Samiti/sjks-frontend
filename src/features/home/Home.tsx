@@ -29,6 +29,7 @@ const IndiaNetworkMap = dynamic(() => import("@/components/maps/IndiaNetworkMap"
 const ProjectSlider = dynamic(() => import("@/features/home/ProjectSlider"), { loading: () => <Skeleton className="h-80" /> });
 const ImpactCalculator = dynamic(() => import("@/features/home/ImpactCalculator"), { loading: () => <Skeleton className="h-96" /> });
 const Testimonials = dynamic(() => import("@/features/home/Testimonials"), { loading: () => <SectionSkeleton /> });
+const HealthcareImpact = dynamic(() => import("@/features/home/HealthcareImpact"), { loading: () => <Skeleton className="h-96" /> });
 const SupportersStrip = dynamic(() => import("@/features/home/SupportersStrip"), { loading: () => <Skeleton className="h-24" /> });
 import { fmtDate } from "@/utils/date";
 import DonateButton from "@/components/ui/DonateButton";
@@ -543,6 +544,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Healthcare impact: patients supported 2023-2026 */}
+      <HealthcareImpact />
 
       {/* News & events */}
       <section className="defer-render bg-slate-50 py-16">

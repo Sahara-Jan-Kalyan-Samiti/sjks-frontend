@@ -96,6 +96,7 @@ export const hi: Record<string, string> = {
   "Help us reach a goal. Every campaign shows what is needed, what has been raised and how much is still needed.":
     "हमारे साथ लक्ष्य तक पहुँचें। हर अभियान बताता है कि क्या चाहिए, कितना एकत्र हुआ और अभी कितना आवश्यक है।",
   "Support Fundraising": "फंडरेज़िंग का समर्थन करें",
+  "View all": "सभी देखें",
   "Verified Nonprofit": "सत्यापित गैर-लाभकारी संस्था",
   "Google for Nonprofits": "गूगल फॉर नॉनप्रॉफिट्स",
   "Verified & Registered": "सत्यापित एवं पंजीकृत",

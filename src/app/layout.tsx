@@ -6,6 +6,7 @@ import { site } from "@/config/site";
 import { env } from "@/lib/env";
 import { DEFAULT_SHARE_IMAGE, organizationJsonLd } from "@/lib/seo";
 import AppProviders from "@/providers/AppProviders";
+import GoogleTag from "@/components/analytics/GoogleTag";
 import { fontVariables } from "@/styles/fonts";
 import "@/styles/index.css";
 
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <AppProviders>
           <SiteShell>{children}</SiteShell>
         </AppProviders>
+        <GoogleTag />
         {env.plausibleDomain && (
           <Script defer data-domain={env.plausibleDomain} src="https://plausible.io/js/script.js" strategy="afterInteractive" />
         )}

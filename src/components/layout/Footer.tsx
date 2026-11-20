@@ -196,6 +196,9 @@ export default function Footer() {
             <Link href="/dpdp" className="no-underline hover:text-white">
               DPDP Compliance Notice
             </Link>
+            <a href="https://old.saharangosag.com/" target="_blank" rel="noopener noreferrer" className="no-underline hover:text-white">
+              Old Website
+            </a>
             {env.adminUrl && (
               <a href={env.adminUrl} rel="nofollow" className="no-underline hover:text-white">
                 Admin
