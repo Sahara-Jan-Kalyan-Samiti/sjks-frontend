@@ -4,7 +4,7 @@
  * `url` = the website the logo opens (leave it out for a logo that should not be a link).
  * Use an .svg, or a .png at least 400px tall, so the logo stays sharp on large / high-density screens.
  */
-const partners: { file: string; name: string; url?: string }[] = [
+const partners: { file: string; name: string; url?: string; zoom?: number }[] = [
   { file: "vani.png", name: "VANI", url: "https://www.vaniindia.org/" },
   { file: "united-way-mumbai.jpg", name: "United Way Mumbai" },
   { file: "sap.svg", name: "SAP", url: "https://www.sap.com/" },
@@ -30,14 +30,18 @@ const partners: { file: string; name: string; url?: string }[] = [
   { file: "give-do.png", name: "Give.do", url: "https://www.give.do/" },
   { file: "vfs-global.png", name: "VFS Global", url: "https://www.vfsglobal.com/" },
   { file: "google.png", name: "Google", url: "https://www.google.com/" },
-  { file: "partner-15.png", name: "Supporter" }
+  { file: "partner-15.png", name: "Supporter" },
+  { file: "guide-star.jpeg", name: "GuideStar India", url: "https://guidestarindia.org/" },
+  // the HSBC file has wide white margins: `zoom` enlarges the picture inside its card so the logo is as big as the others
+  { file: "hsbc.jpeg", name: "HSBC", url: "https://www.hsbc.co.in/", zoom: 1.9 },
+  { file: "soil-health.jpeg", name: "Soil Health Card", url: "https://soilhealth.dac.gov.in/" }
 ];
 
 // two copies so the strip is always longer than the screen and loops without a gap
 const loop = [...partners, ...partners];
 // card width is a share of the strip's width (cqw): 2 logos on screen at a time on phones, 3 from sm, 5 from lg, 6 from xl
 const card =
-  "mr-4 flex aspect-[5/2] w-[calc(50cqw-1rem)] shrink-0 items-center justify-center rounded-2xl bg-white px-5 py-4 shadow-[0_10px_30px_-14px_rgba(11,79,156,.45)] ring-1 ring-brand/10 sm:mr-7 sm:w-[calc(33.333cqw-1.75rem)] sm:px-6 sm:py-5 lg:w-[calc(20cqw-1.4rem)] xl:w-[calc(16.666cqw-1.45rem)]";
+  "mr-4 flex overflow-hidden aspect-[5/2] w-[calc(50cqw-1rem)] shrink-0 items-center justify-center rounded-2xl bg-white px-5 py-4 shadow-[0_10px_30px_-14px_rgba(11,79,156,.45)] ring-1 ring-brand/10 sm:mr-7 sm:w-[calc(33.333cqw-1.75rem)] sm:px-6 sm:py-5 lg:w-[calc(20cqw-1.4rem)] xl:w-[calc(16.666cqw-1.45rem)]";
 
 /** Logos glide right-to-left in one straight line; the strip pauses while the pointer is on it. Each logo opens the partner's website. */
 export default function SupportersStrip() {
@@ -60,6 +64,7 @@ export default function SupportersStrip() {
               loading="lazy"
               draggable={false}
               className="h-full w-full object-contain"
+              style={p.zoom ? { transform: `scale(${p.zoom})` } : undefined}
             />
           );
           return p.url ? (

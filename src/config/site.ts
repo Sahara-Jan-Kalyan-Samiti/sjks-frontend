@@ -37,7 +37,7 @@ export const site = {
     facebook: "https://www.facebook.com/profile.php?id=61550890041187",
     instagram: "https://www.instagram.com/sahara_rehli/",
     youtube: "https://www.youtube.com/channel/UCr2i8fA8YLC0JKYTFV45ukQ",
-    linkedin: "https://www.linkedin.com/in/sahara-jan-kalyan-samiti-ngos-6a650025b/",
+    linkedin: "https://www.linkedin.com/company/saharangosag/",
     x: "https://x.com/saharasagn9997",
     /** Google Business profile (opens the Google search panel for the Samiti). */
     google:

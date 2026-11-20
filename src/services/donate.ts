@@ -1,4 +1,5 @@
 import { API_BASE } from "@/hooks/useLiveData";
+import { trackDonationConversion } from "@/lib/gtag";
 
 /** What Razorpay Checkout hands back after a successful payment. */
 export interface PaymentProof {
@@ -107,7 +108,11 @@ export async function startDonation(input: DonationInput, orgName: string): Prom
       handler: (r) => {
         const proof = { order_id: r.razorpay_order_id, payment_id: r.razorpay_payment_id, signature: r.razorpay_signature };
         post("/api/public/donations/verify", proof)
-          .then(() => resolve({ ...proof, amount: input.amount, name: input.name, email: input.email }))
+          .then(() => {
+            // only real money counts as a conversion: a payment made with the test keys is never reported to Google
+            if (order.keyId.startsWith("rzp_live_")) trackDonationConversion({ paymentId: proof.payment_id, amount: input.amount });
+            resolve({ ...proof, amount: input.amount, name: input.name, email: input.email });
+          })
           .catch(() =>
             reject(
               new DonateError(

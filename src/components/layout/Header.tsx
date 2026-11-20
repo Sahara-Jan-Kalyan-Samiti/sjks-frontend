@@ -8,6 +8,7 @@ import { site } from "@/config/site";
 import { isActivePath } from "@/utils/navigation";
 import { useLang } from "@/i18n/LangContext";
 import DonateButton from "@/components/ui/DonateButton";
+import MenuIcon from "./menuIcons";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -71,18 +72,50 @@ export default function Header() {
                   </Link>
                   {/* open on hover, and for keyboard users on focus; a mouse click must not leave it open after the pointer has moved away */}
                   {item.children && (
-                    <div className="invisible absolute left-1/2 top-full min-w-[230px] -translate-x-1/2 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-has-[:focus-visible]:visible group-has-[:focus-visible]:opacity-100">
-                      <div className="rounded-2xl border bg-white py-3 shadow-xl">
-                        {item.children.map((c) => (
+                    <div className="invisible absolute left-1/2 top-full min-w-[270px] -translate-x-1/2 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-has-[:focus-visible]:visible group-has-[:focus-visible]:opacity-100">
+                      <div className="min-w-[270px] overflow-hidden rounded-2xl bg-white shadow-[0_18px_44px_-18px_rgba(11,61,122,.28)] ring-1 ring-ink/[.06]">
+                        {/* a light title line: the section name, and a link to its main page */}
+                        <div className="flex items-center justify-between gap-6 border-b border-ink/[.06] px-5 pb-2.5 pt-3.5">
+                          <p className="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-ink/45">{t(item.label)}</p>
                           <Link
-                            key={c.href}
-                            href={c.href}
+                            href={item.href}
                             onClick={() => setSub(null)}
-                            className="block px-5 py-2 text-center text-sm text-ink transition hover:bg-brand-light hover:text-brand-dark"
+                            className="whitespace-nowrap text-[11.5px] font-semibold text-brand transition-colors hover:text-brand-dark"
                           >
-                            {t(c.label)}
+                            {t("View all")} <span aria-hidden="true">→</span>
                           </Link>
-                        ))}
+                        </div>
+                        <ul className="p-1.5">
+                          {item.children.map((c) => (
+                            <li key={c.href}>
+                              <Link
+                                href={c.href}
+                                onClick={() => setSub(null)}
+                                className={`group/item flex items-center gap-3 whitespace-nowrap rounded-xl px-3 py-[7px] text-[13.5px] font-medium transition-colors hover:bg-brand-light/70 hover:text-brand-dark ${pathname === c.href ? "bg-brand-light/70 text-brand-dark" : "text-ink/85"}`}
+                              >
+                                <span
+                                  aria-hidden="true"
+                                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-light text-brand transition-colors group-hover/item:bg-white"
+                                >
+                                  <MenuIcon label={c.label} />
+                                </span>
+                                <span className="flex-1">{t(c.label)}</span>
+                                <svg
+                                  aria-hidden="true"
+                                  viewBox="0 0 24 24"
+                                  className="h-4 w-4 shrink-0 -translate-x-1 text-brand opacity-0 transition duration-200 group-hover/item:translate-x-0 group-hover/item:opacity-100"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2.4"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                >
+                                  <path d="M9 6l6 6-6 6" />
+                                </svg>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
                   )}
