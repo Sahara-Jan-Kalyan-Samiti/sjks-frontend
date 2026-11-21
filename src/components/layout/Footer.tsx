@@ -8,7 +8,6 @@ import { useLang } from "@/i18n/LangContext";
 import { quickNav } from "@/config/navigation";
 import { checkField } from "@/utils/validate";
 import SocialIcons from "@/components/ui/SocialIcons";
-import { env } from "@/lib/env";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -199,11 +198,6 @@ export default function Footer() {
             <a href="https://old.saharangosag.com/" target="_blank" rel="noopener noreferrer" className="no-underline hover:text-white">
               Old Website
             </a>
-            {env.adminUrl && (
-              <a href={env.adminUrl} rel="nofollow" className="no-underline hover:text-white">
-                Admin
-              </a>
-            )}
           </div>
         </div>
       </div>
