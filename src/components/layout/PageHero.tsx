@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { bannerFor } from "@/data/content/slideshows";
 import Wave from "@/components/ui/Wave";
@@ -18,6 +19,7 @@ export default function PageHero({
   text,
   images,
   compact,
+  badge,
   imgClassName = "object-[center_35%]"
 }: {
   eyebrow: string;
@@ -25,6 +27,8 @@ export default function PageHero({
   text?: string;
   images?: string[];
   compact?: boolean;
+  /** a small badge shown at the top right of the banner (under the header); on phones it goes under the text */
+  badge?: ReactNode;
   imgClassName?: string;
 }) {
   const pathname = usePathname();
@@ -49,7 +53,15 @@ export default function PageHero({
         </p>
         <h1 className="mt-4 max-w-3xl text-[1.7rem] font-bold leading-tight sm:text-3xl md:text-5xl">{title}</h1>
         {text && <p className="mt-4 max-w-2xl text-white/90 md:text-lg">{text}</p>}
+        {badge && <div className="mt-6 md:hidden">{badge}</div>}
       </div>
+      {badge && (
+        <div className="pointer-events-none absolute inset-x-0 top-5 z-10 hidden md:block">
+          <div className="mx-auto flex w-full max-w-[1480px] justify-end px-4 md:px-6">
+            <div className="pointer-events-auto">{badge}</div>
+          </div>
+        </div>
+      )}
       <Wave />
     </section>
   );

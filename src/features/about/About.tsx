@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Img from "@/components/ui/Img";
 import PageHero from "@/components/layout/PageHero";
+import MitrBadge from "@/components/ui/MitrBadge";
 import dynamic from "next/dynamic";
 import Skeleton from "@/components/ui/Skeleton";
 const VolunteerWall = dynamic(() => import("@/components/sections/VolunteerWall"), { loading: () => <Skeleton className="h-96" /> });
@@ -140,7 +141,13 @@ export default function About() {
   const management = people.filter((m) => m.team === "management");
   return (
     <>
-      <PageHero images={aboutImages} eyebrow={`About ${site.name}`} title={c("about.hero.title")} text={c("about.hero.text")} />
+      <PageHero
+        images={aboutImages}
+        eyebrow={`About ${site.name}`}
+        title={c("about.hero.title")}
+        text={c("about.hero.text")}
+        badge={<MitrBadge />}
+      />
       {/* Founder: same look as the Chairman's message on the Home page (message left, portrait card right over a blue shape and a faded field photo) */}
       <section
         id="founder"

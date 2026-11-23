@@ -14,6 +14,7 @@ import BackgroundSlideshow from "@/components/ui/BackgroundSlideshow";
 import RotatingWords from "@/components/ui/RotatingWords";
 import Wave from "@/components/ui/Wave";
 import VerifiedShield from "@/components/ui/VerifiedShield";
+import MitrBadge from "@/components/ui/MitrBadge";
 import CornerRibbons from "@/components/ui/CornerRibbons";
 import Reveal from "@/components/ui/Reveal";
 import LazyMount from "@/components/ui/LazyMount";
@@ -192,8 +193,12 @@ export default function Home() {
         </div>
         {/* same width as the header, so the seal sits straight under the Donate button */}
         <div className="pointer-events-none absolute inset-x-0 top-2 z-10">
-          <div className="mx-auto flex w-full max-w-[1480px] justify-end px-4 md:px-6">
+          <div className="mx-auto flex w-full max-w-[1480px] flex-col items-end px-4 md:px-6">
             <VerifiedShield />
+            {/* the Mitr badge under the seal (larger screens; phones have it in the Impact section below) */}
+            <div className="pointer-events-auto mt-3 hidden md:block">
+              <MitrBadge />
+            </div>
           </div>
         </div>
         <a
@@ -236,6 +241,9 @@ export default function Home() {
           aria-hidden="true"
           className="pointer-events-none absolute -right-24 bottom-0 -z-10 h-72 w-72 rounded-full bg-teal-200/40 blur-3xl"
         />
+        <div className="container-site mb-8 flex justify-center md:hidden">
+          <MitrBadge />
+        </div>
         <ImpactDashboard />
       </section>
 
